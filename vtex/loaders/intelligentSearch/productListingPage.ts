@@ -171,7 +171,9 @@ export interface Props {
   simulationBehavior?: "default" | "skip" | "only1P";
 }
 const searchArgsOf = (props: Props, url: URL, ctx: AppContext) => {
-  const hideUnavailableItems = props.hideUnavailableItems;
+  const hideUnavailableItems = url.searchParams.has("hideUnavailableItems")
+    ? url.searchParams.get("hideUnavailableItems") === "true"
+    : props.hideUnavailableItems;
   const simulationBehavior = getSkipSimulationBehaviorFromBag(ctx)
     ? "skip" as const
     : (url.searchParams.get("simulationBehavior") as
@@ -461,6 +463,12 @@ const loader = async (
     const paramsToPersist = new URLSearchParams();
     searchArgs.query && paramsToPersist.set("q", searchArgs.query);
     searchArgs.sort && paramsToPersist.set("sort", searchArgs.sort);
+    searchArgs.zipCode && paramsToPersist.set("zip-code", searchArgs.zipCode);
+    searchArgs.hideUnavailableItems &&
+      paramsToPersist.set(
+        "hideUnavailableItems",
+        searchArgs.hideUnavailableItems.toString(),
+      );
     const filters = facets
       .filter((f) => !f.hidden)
       .map(toFilter(selectedFacets, paramsToPersist));
@@ -527,7 +535,11 @@ export const cacheKey = (props: Props, req: Request, ctx: AppContext) => {
     ["page", (props.page ?? url.searchParams.get("page") ?? 1).toString()],
     ["sort", props.sort ?? url.searchParams.get("sort") ?? ""],
     ["fuzzy", props.fuzzy ?? url.searchParams.get("fuzzy") ?? ""],
-    ["hideUnavailableItems", props.hideUnavailableItems?.toString() ?? ""],
+    [
+      "hideUnavailableItems",
+      url.searchParams.get("hideUnavailableItems") ??
+        props.hideUnavailableItems?.toString() ?? "",
+    ],
     ["pageOffset", (props.pageOffset ?? 1).toString()],
     [
       "selectedFacets",
