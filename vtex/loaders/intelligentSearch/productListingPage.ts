@@ -205,7 +205,8 @@ const searchArgsOf = (props: Props, url: URL, ctx: AppContext) => {
   );
   const fuzzy = mapLabelledFuzzyToFuzzy(props.fuzzy) ??
     (url.searchParams.get("fuzzy") as Fuzzy);
-  const zipCode = url.searchParams.get("zip-code") ?? undefined;
+  const zipCode = url.searchParams.get("zipcode") ?? undefined;
+  const pickupPoint = url.searchParams.get("pickupPoint") ?? undefined;
   return {
     query,
     fuzzy,
@@ -216,6 +217,7 @@ const searchArgsOf = (props: Props, url: URL, ctx: AppContext) => {
     selectedFacets,
     simulationBehavior,
     zipCode,
+    pickupPoint,
   };
 };
 const PAGE_TYPE_TO_MAP_PARAM = {
@@ -463,7 +465,9 @@ const loader = async (
     const paramsToPersist = new URLSearchParams();
     searchArgs.query && paramsToPersist.set("q", searchArgs.query);
     searchArgs.sort && paramsToPersist.set("sort", searchArgs.sort);
-    searchArgs.zipCode && paramsToPersist.set("zip-code", searchArgs.zipCode);
+    searchArgs.zipCode && paramsToPersist.set("zipcode", searchArgs.zipCode);
+    searchArgs.pickupPoint &&
+      paramsToPersist.set("pickupPoint", searchArgs.pickupPoint);
     searchArgs.hideUnavailableItems &&
       paramsToPersist.set(
         "hideUnavailableItems",
@@ -554,6 +558,14 @@ export const cacheKey = (props: Props, req: Request, ctx: AppContext) => {
       getSkipSimulationBehaviorFromBag(ctx)
         ? "skip"
         : props.simulationBehavior || "default",
+    ],
+    [
+      "zipcode",
+      url.searchParams.get("zipcode") ?? "",
+    ],
+    [
+      "pickupPoint",
+      url.searchParams.get("pickupPoint") ?? "",
     ],
   ]);
   url.searchParams.forEach((value, key) => {
