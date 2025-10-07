@@ -327,13 +327,20 @@ const loader = async (
       (pageTypesEnd - pageTypesStart).toString(),
     );
 
-    const selectedFacets = baseSelectedFacets.length === 0
+    const deliveryOptionsFacets = baseSelectedFacets.filter(({ key }) =>
+      key === "delivery-options" || key === "shipping"
+    );
+    const selectedFacets = baseSelectedFacets.filter(({ key }) =>
+        key !== "shipping" && key !== "delivery-options"
+      ).length === 0
       ? filtersFromPathname(pageTypes)
       : baseSelectedFacets;
     const selected = withDefaultFacets(selectedFacets, ctx);
     const fselected = props.priceFacets
       ? selected
-      : selected.filter((f) => f.key !== "price");
+      : selected.filter((f) =>
+        f.key !== "price"
+      );
     const isInSeachFormat = Boolean(selected.length) || Boolean(args.query);
     const pathQuery = queryFromPathname(
       isInSeachFormat,
@@ -358,7 +365,7 @@ const loader = async (
       secure
         ["GET /api/io/_v/api/intelligent-search/product_search/*facets"]({
           ...params,
-          facets: toPath(selected),
+          facets: toPath(mergeFacets(selected, deliveryOptionsFacets)),
         }, {
           ...STALE,
           headers: segment ? withSegmentCookie(segment) : undefined,
@@ -372,7 +379,7 @@ const loader = async (
         }),
       secure["GET /api/io/_v/api/intelligent-search/facets/*facets"]({
         ...params,
-        facets: toPath(fselected),
+        facets: toPath(mergeFacets(fselected, deliveryOptionsFacets)),
       }, {
         ...STALE,
         headers: segment ? withSegmentCookie(segment) : undefined,
