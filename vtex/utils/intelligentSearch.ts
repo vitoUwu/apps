@@ -48,6 +48,7 @@ interface Params {
   hideUnavailableItems: boolean;
   simulationBehavior: "default" | "skip" | "only1P";
   zipCode?: string;
+  pickupPoint?: string;
 }
 
 export const withDefaultParams = ({
@@ -60,6 +61,7 @@ export const withDefaultParams = ({
   hideUnavailableItems,
   simulationBehavior = "default",
   zipCode,
+  pickupPoint,
 }: Partial<Params>) => ({
   page: page + 1,
   count,
@@ -71,6 +73,7 @@ export const withDefaultParams = ({
   hideUnavailableItems: hideUnavailableItems ?? false,
   simulationBehavior,
   "zip-code": zipCode,
+  pickupPoint,
 });
 
 const IS_ANONYMOUS = Symbol("segment");
