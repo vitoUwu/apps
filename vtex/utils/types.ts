@@ -2075,4 +2075,4 @@ export interface OrderFormOrder {
 }
 
 export type UserOrderDetails =
-  OpenAPI["GET /api/oms/user/orders/:orderId"]["response"];
+  OpenAPI["GET /api/oms/pvt/orders/:orderId"]["response"];
