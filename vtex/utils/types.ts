@@ -1,5 +1,8 @@
-import { PaymentData as PaymentDataOpenAPI } from "./openapi/vcs.openapi.gen.ts";
-import { ChangesAttachment } from "./openapi/vcs.openapi.gen.ts";
+import { OpenAPI } from "./openapi/orders.openapi.gen.ts";
+import {
+  ChangesAttachment,
+  PaymentData as PaymentDataOpenAPI,
+} from "./openapi/vcs.openapi.gen.ts";
 
 /**
  * @format dynamic-options
@@ -2070,3 +2073,6 @@ export interface OrderFormOrder {
   orderFormCreationDate?: string;
   marketplaceRequestedCancellationWindow?: unknown;
 }
+
+export type UserOrderDetails =
+  OpenAPI["GET /api/oms/user/orders/:orderId"]["response"];
