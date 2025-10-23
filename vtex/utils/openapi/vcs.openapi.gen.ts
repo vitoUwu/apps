@@ -712,60 +712,8 @@ percentualDiscountValueList?: number[]
  * /dataentities/CL/search?_where=number>5
  * /dataentities/CL/search?_where=date<2001-01-01
  * ```
- * /dataentities/CL/search?email=my@email.com
- * ```
  * 
- * ### Complex filter
- * 
- * ```
- * /dataentities/CL/search?_where=(firstName=Jon OR lastName=Smith) OR (createdIn between 2001-01-01 AND 2016-01-01)
- * ```
- * 
- * ### Filter by range
- * 
- * #### Date Range
- * 
- * ```
- * /dataentities/CL/search?_where=createdIn between 2001-01-01 AND 2016-01-01
- * ```
- * 
- * #### Range numeric fields
- * 
- * ```
- * /dataentities/CL/search?_where=age between 18 AND 25
- * ```
- * 
- * ### Partial filter
- * 
- * ```
- * /dataentities/CL/search?firstName=*Maria*
- * ```
- * 
- * ### Filter for null values
- * 
- * ```
- * /dataentities/CL/search?_where=firstName is null
- * ```
- * 
- * ### Filter for non-null values
- * 
- * ```
- * /dataentities/CL/search?_where=firstName is not null
- * ```
- * 
- * ### Filter for difference
- * ```
- * /dataentities/CL/search?_where=firstName<>maria
- * ```
- * 
- * ### Filter greater than or less than
- * ```
- * /dataentities/CL/search?_where=number>5
- * /dataentities/CL/search?_where=date<2001-01-01
- * ```
- * 
- * 
-> Avoid sending too many requests with wildcards (`*`) in the search parameters or that use the `keyword` parameter. This may lead to this endpoint being temporarily blocked for your account. If this happens you will receive an error with status code `503`. 
+ * > Avoid sending too many requests with wildcards (`*`) in the search parameters or that use the `keyword` parameter. This may lead to this endpoint being temporarily blocked for your account. If this happens you will receive an error with status code `503`. 
  * 
  * ## Permissions
  * 
@@ -822,135 +770,6 @@ accountName?: string
  */
 dataEntityId?: string
 }[]
-}
-/**
- * Retrieves a document.
- * 
- * ## Permissions
- * 
- * Any user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:
- * 
- * | **Product** | **Category** | **Resource** |
- * | --------------- | ----------------- | ----------------- |
- * | Dynamic Storage | Dynamic storage generic resources | **Read only documents** |
- * | Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |
- * | Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |
- * | Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |
- * 
- * There are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).
- * 
- * >❗ To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.
- */
-"GET /api/dataentities/:acronym/documents/:id": {
-searchParams: {
-/**
- * Names of the fields that will be returned per document, separated by a comma `,`. It is possible to fetch all fields using `_all` as the value of this query parameter. However, in order to avoid permission errors, we strongly recommend informing only the names of the exact fields that will be used.
- */
-_fields?: string
-}
-response: Document
-}
-/**
- * Creates a new document with a custom ID, or updates an entire document if there is already a document with the informed ID.
- * 
- * >ℹ️ You can use this request to create or update documents in any given data entity. Because of this, you are not restricted to using the fields exemplified below in your requests. But you should be aware of the fields allowed or required for each document you wish to update.
- * 
- * ## Custom field types
- * 
- * The table below presents the types of custom fields you can use when creating or updating documents in Master Data v1 and example values.
- * 
- * | Field Type| Example value |
- * | - | - |
- * | Boolean | `true` |
- * | Currency | `2.5` |
- * | Date | `1992-11-17` |
- * | Date_Time | `2016-09-14T19:21:01.3163733Z` |
- * | Decimal | `2.5` |
- * | Email | `meu@email.com` |
- * | Integer | `1000000` |
- * | Long | `1000000000` |
- * | Percent | `85.42` |
- * | Time | `23:50` |
- * | URL | `https://www.vtex.com` |
- * | Varchar10 | `Lorem ipsu` |
- * | Varchar50 | `Lorem ipsum dolor sit amet, consectetur adipiscing` |
- * | Varchar750  | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |
- * | Varchar100  | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |
- * | Relationship | `5eb31afb-7ab0-11e6-94b4-0a44686e393f` |
- * | Text | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |
- *  
- * 
- * ## Permissions
- * 
- * Any user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:
- * 
- * | **Product** | **Category** | **Resource** |
- * | --------------- | ----------------- | ----------------- |
- * | Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |
- * | Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |
- * | Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |
- * 
- * There are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).
- * 
- * >❗ To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.
- */
-"PUT /api/dataentities/:acronym/documents/:id": {
-/**
- * Object with document fields and their respective values.
- */
-body: {
-/**
- * Field name and value.
- */
-"{fieldName}"?: string
-[k: string]: any
-}
-}
-/**
- * Deletes a document. 
- * 
- * ## Permissions
- * 
- * Any user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:
- * 
- * | **Product** | **Category** | **Resource** |
- * | --------------- | ----------------- | ----------------- |
- * | Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |
- * | Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |
- * 
- * There are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).
- * 
- * >❗ To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.
- */
-"DELETE /api/dataentities/:acronym/documents/:id": {
-
-}
-/**
- * Updates a subset of fields of a document, without impacting the other fields.
- * 
- * >ℹ️ You can use this request to update documents in any given data entity. Because of this, you are not restricted to using the fields exemplified below in your requests. But you should be aware of the fields allowed or required for each document you wish to update. 
- * 
- * ## Permissions
- * 
- * Any user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:
- * 
- * | **Product** | **Category** | **Resource** |
- * | --------------- | ----------------- | ----------------- |
- * | Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |
- * | Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |
- * | Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |
- * 
- * There are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).
- * 
- * >❗ To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.
- */
-"PATCH /api/dataentities/:acronym/documents/:id": {
-/**
- * Object with the fields to be updated and their respective values.
- */
-body: {
-
-}
 }
 "GET /api/logistics/pvt/inventory/skus/:skuId": {
 response: {
@@ -1083,6 +902,135 @@ id?: string
 [k: string]: any
 }
 response: IdHrefDocumentID
+}
+/**
+ * Retrieves a document.
+ * 
+ * ## Permissions
+ * 
+ * Any user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:
+ * 
+ * | **Product** | **Category** | **Resource** |
+ * | --------------- | ----------------- | ----------------- |
+ * | Dynamic Storage | Dynamic storage generic resources | **Read only documents** |
+ * | Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |
+ * | Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |
+ * | Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |
+ * 
+ * There are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).
+ * 
+ * >❗ To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.
+ */
+"GET /api/dataentities/:acronym/documents/:id": {
+searchParams: {
+/**
+ * Names of the fields that will be returned per document, separated by a comma `,`. It is possible to fetch all fields using `_all` as the value of this query parameter. However, in order to avoid permission errors, we strongly recommend informing only the names of the exact fields that will be used.
+ */
+_fields?: string
+}
+response: Document
+}
+/**
+ * Creates a new document with a custom ID, or updates an entire document if there is already a document with the informed ID.
+ * 
+ * >ℹ️ You can use this request to create or update documents in any given data entity. Because of this, you are not restricted to using the fields exemplified below in your requests. But you should be aware of the fields allowed or required for each document you wish to update.
+ * 
+ * ## Custom field types
+ * 
+ * The table below presents the types of custom fields you can use when creating or updating documents in Master Data v1 and example values.
+ * 
+ * | Field Type| Example value |
+ * | - | - |
+ * | Boolean | `true` |
+ * | Currency | `2.5` |
+ * | Date | `1992-11-17` |
+ * | Date_Time | `2016-09-14T19:21:01.3163733Z` |
+ * | Decimal | `2.5` |
+ * | Email | `meu@email.com` |
+ * | Integer | `1000000` |
+ * | Long | `1000000000` |
+ * | Percent | `85.42` |
+ * | Time | `23:50` |
+ * | URL | `https://www.vtex.com` |
+ * | Varchar10 | `Lorem ipsu` |
+ * | Varchar50 | `Lorem ipsum dolor sit amet, consectetur adipiscing` |
+ * | Varchar750  | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |
+ * | Varchar100  | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |
+ * | Relationship | `5eb31afb-7ab0-11e6-94b4-0a44686e393f` |
+ * | Text | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |
+ *  
+ * 
+ * ## Permissions
+ * 
+ * Any user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:
+ * 
+ * | **Product** | **Category** | **Resource** |
+ * | --------------- | ----------------- | ----------------- |
+ * | Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |
+ * | Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |
+ * | Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |
+ * 
+ * There are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).
+ * 
+ * >❗ To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.
+ */
+"PUT /api/dataentities/:acronym/documents/:id": {
+/**
+ * Object with document fields and their respective values.
+ */
+body: {
+/**
+ * Field name and value.
+ */
+"{fieldName}"?: string
+[k: string]: any
+}
+}
+/**
+ * Deletes a document. 
+ * 
+ * ## Permissions
+ * 
+ * Any user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:
+ * 
+ * | **Product** | **Category** | **Resource** |
+ * | --------------- | ----------------- | ----------------- |
+ * | Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |
+ * | Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |
+ * 
+ * There are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).
+ * 
+ * >❗ To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.
+ */
+"DELETE /api/dataentities/:acronym/documents/:id": {
+
+}
+/**
+ * Updates a subset of fields of a document, without impacting the other fields.
+ * 
+ * >ℹ️ You can use this request to update documents in any given data entity. Because of this, you are not restricted to using the fields exemplified below in your requests. But you should be aware of the fields allowed or required for each document you wish to update. 
+ * 
+ * ## Permissions
+ * 
+ * Any user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:
+ * 
+ * | **Product** | **Category** | **Resource** |
+ * | --------------- | ----------------- | ----------------- |
+ * | Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |
+ * | Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |
+ * | Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |
+ * 
+ * There are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).
+ * 
+ * >❗ To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.
+ */
+"PATCH /api/dataentities/:acronym/documents/:id": {
+/**
+ * Object with the fields to be updated and their respective values.
+ */
+body: {
+
+}
 }
 /**
  * Retrieves a specific Product by its ID. This information is exactly what is needed to create a new Product. 
@@ -4206,8 +4154,7 @@ SkuId?: number
 }
 /**
  * Associates attachments to an SKU based on a given SKU ID and attachment names.
- * 
-This request removes existing SKU attachment associations and recreates the associations with the attachments being sent. 
+ * This request removes existing SKU attachment associations and recreates the associations with the attachments being sent. 
  * ## Request body example
  * 
  * ```json
@@ -9641,8 +9588,7 @@ searchParams: {
 /**
  * This parameter defines which promotions apply to the simulation. Use `0` for simulations at cart stage, which means all promotions apply. In case of window simulation use `1`, which indicates promotions that apply nominal discounts over the total purchase value shouldn't be considered on the simulation.
  * 
- * 
-Note that if this not sent, the parameter is `1`.
+ * Note that if this not sent, the parameter is `1`.
  */
 RnbBehavior?: number
 /**
@@ -10392,8 +10338,7 @@ assemblyOptions?: any[]
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` obtained in response is the identification code of the newly created cart.
  * 
- * 
-> This request has a time out of 45 seconds.
+ * > This request has a time out of 45 seconds.
  */
 "GET /api/checkout/pub/orderForm": {
 searchParams: {
@@ -10408,8 +10353,7 @@ forceNewCart?: boolean
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 45 seconds.
+ * > This request has a time out of 45 seconds.
  */
 "GET /api/checkout/pub/orderForm/:orderFormId": {
 searchParams: {
@@ -10452,25 +10396,21 @@ response: {
 /**
  * You can use this request to:
  * 
- * 
-1. Change the quantity of one or more items in a specific cart.
- * 
-2. Remove an item from the cart (by sending the `quantity` value = `0` in the request body).
+ * 1. Change the quantity of one or more items in a specific cart.
+ * 2. Remove an item from the cart (by sending the `quantity` value = `0` in the request body).
  * 
  * **Important**: To remove all items from the cart at the same time, use the [Remove all items](https://developers.vtex.com/vtex-rest-api/reference/removeallitems) endpoint.
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure that represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 45 seconds.
+ * > This request has a time out of 45 seconds.
  */
 "POST /api/checkout/pub/orderForm/:orderFormId/items/update": {
 searchParams: {
 /**
  * In order to optimize performance, this parameter allows some information to not be updated when there are changes in the minicart. For instance, if a shopper adds another unit of a given SKU to the cart, it may not be necessary to recalculate payment information, which could impact performance.
  * 
- * 
-This array accepts strings and currently the only possible value is `”paymentData”`.
+ * This array accepts strings and currently the only possible value is `”paymentData”`.
  */
 allowedOutdatedData?: any[]
 }
@@ -11581,16 +11521,14 @@ ascending?: boolean
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 45 seconds.
+ * > This request has a time out of 45 seconds.
  */
 "POST /api/checkout/pub/orderForm/:orderFormId/items": {
 searchParams: {
 /**
  * In order to optimize performance, this parameter allows some information to not be updated when there are changes in the minicart. For instance, if a shopper adds another unit of a given SKU to the cart, it may not be necessary to recalculate payment information, which could impact performance.
  * 
- * 
-This array accepts strings and currently the only possible value is `”paymentData”`.
+ * This array accepts strings and currently the only possible value is `”paymentData”`.
  */
 allowedOutdatedData?: any[]
 }
@@ -12707,17 +12645,14 @@ ascending?: boolean
 /**
  * You can use this request to:
  * 
- * 
-1. Change the quantity or price of one or more items to the shopping cart.
- * 
-2. Add a new item to the shopping cart.
+ * 1. Change the quantity or price of one or more items to the shopping cart.
+ * 2. Add a new item to the shopping cart.
  * 
  * **Important**: To add a new item to the shopping cart, do not send the string `index` in the request body.
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure that represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 45 seconds.
+ * > This request has a time out of 45 seconds.
  */
 "PATCH /api/checkout/pub/orderForm/:orderFormId/items": {
 body: {
@@ -13858,17 +13793,13 @@ ascending?: boolean
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
+ * You need to inform which cart you are referring to, by sending its `orderFormId` and what is the item whose price you want to change, by sending its `itemIndex`.
  * 
-You need to inform which cart you are referring to, by sending its `orderFormId` and what is the item whose price you want to change, by sending its `itemIndex`.
+ * You also need to pass the new price value in the body.
  * 
+ * Remember that, to use this endpoint, the feature of *manual price* must be active. To check if it's active, use the [Get orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#get-/api/checkout/pvt/configuration/orderForm) endpoint. To make it active, use the [Update orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pvt/configuration/orderForm) endpoint, making the `allowManualPrice` field `true`.
  * 
-You also need to pass the new price value in the body.
- * 
- * 
-Remember that, to use this endpoint, the feature of *manual price* must be active. To check if it's active, use the [Get orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#get-/api/checkout/pvt/configuration/orderForm) endpoint. To make it active, use the [Update orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pvt/configuration/orderForm) endpoint, making the `allowManualPrice` field `true`.
- * 
- * 
-> Whenever you use this request to change the price of an item, all items in that cart with the same SKU are affected by this change. This applies even to items that share the SKU but have been separated into different objects in the `items` array due to customizations or attachments, for example.
+ * > Whenever you use this request to change the price of an item, all items in that cart with the same SKU are affected by this change. This applies even to items that share the SKU but have been separated into different objects in the `items` array due to customizations or attachments, for example.
  */
 "PUT /api/checkout/pub/orderForm/:orderFormId/items/:itemIndex/price": {
 body: PriceChangeRequest
@@ -13891,13 +13822,10 @@ ignoreProfileData?: boolean
 /**
  * Retrieve a client's profile information by providing an email address.
  * 
+ * If the response body fields are empty, the following situations may have occurred:
  * 
-If the response body fields are empty, the following situations may have occurred:
- * 
- * 
-1. There is no client registered with the email address provided in your store, or;
- * 
-2. Client profile is invalid or incomplete. However, you can use the query parameter `ensureComplete=false` to get incomplete profiles. For more information, see [SmartCheckout - Customer information automatic fill-in](https://help.vtex.com/en/tutorial/smartcheckout-customer-information-automatic-fill-in--2Nuu3xAFzdhIzJIldAdtan).
+ * 1. There is no client registered with the email address provided in your store, or;
+ * 2. Client profile is invalid or incomplete. However, you can use the query parameter `ensureComplete=false` to get incomplete profiles. For more information, see [SmartCheckout - Customer information automatic fill-in](https://help.vtex.com/en/tutorial/smartcheckout-customer-information-automatic-fill-in--2Nuu3xAFzdhIzJIldAdtan).
  * 
  * >⚠️ The authentication of this endpoint can change depending on the customer context. If you are consulting information from a customer with a complete profile on the store, the response will return the customer's data masked. You can only access the customer data with an authenticated request.
  */
@@ -14058,8 +13986,7 @@ isComplete?: boolean
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 12 seconds.
+ * > This request has a time out of 12 seconds.
  * 
  * >⚠️ The authentication of this endpoint can change depending on the customer context. If you are modifying information from a customer with a complete profile on the store, the response will return the customer's data masked. You can only access the customer data with an authenticated request.
  */
@@ -14125,8 +14052,7 @@ isCorporate?: boolean
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 12 seconds.
+ * > This request has a time out of 12 seconds.
  * 
  * >⚠️ The authentication of this endpoint can change depending on the customer context. If you are modifying information from a customer with a complete profile on the store, the response will return the customer's data masked. You can only access the customer data with an authenticated request.
  */
@@ -15273,8 +15199,7 @@ itemsOrdination?: (null | {
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 12 seconds.
+ * > This request has a time out of 12 seconds.
  */
 "POST /api/checkout/pub/orderForm/:orderFormId/attachments/clientPreferencesData": {
 body: {
@@ -15294,16 +15219,14 @@ response: any
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 12 seconds.
+ * > This request has a time out of 12 seconds.
  */
 "POST /api/checkout/pub/orderForm/:orderFormId/attachments/marketingData": {
 body: {
 /**
  * Sending an existing coupon code in this field will return the corresponding discount in the purchase. Use the [cart simulation](https://developers.vtex.com/vtex-rest-api/reference/orderform#orderformsimulation) request to check which coupons might apply before placing the order.
  * 
- * 
-To send more than one coupon code to the same cart, use commas. E.g.`"sales25, blackfriday30"`.
+ * To send more than one coupon code to the same cart, use commas. E.g.`"sales25, blackfriday30"`.
  */
 coupon?: string
 /**
@@ -15341,8 +15264,7 @@ utmiCampaign?: string
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 12 seconds.
+ * > This request has a time out of 12 seconds.
  */
 "POST /api/checkout/pub/orderForm/:orderFormId/attachments/paymentData": {
 body: {
@@ -15394,8 +15316,7 @@ hasDefaultBillingAddress?: boolean
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
- * 
-> This request has a time out of 12 seconds.
+ * > This request has a time out of 12 seconds.
  */
 "POST /api/checkout/pub/orderForm/:orderFormId/attachments/merchantContextData": {
 body: {
@@ -15419,11 +15340,9 @@ salesAssociateId?: string
 /**
  * Your account may create `apps`, which contain custom fields, through the [Update orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pvt/configuration/orderForm) request. The values of these custom fields can then be updated by this request.
  * 
+ * To do that, you need to inform the ID of the app you created with the configuration API (`appId`).
  * 
-To do that, you need to inform the ID of the app you created with the configuration API (`appId`).
- * 
- * 
-In the body of the request, for each field created in this app (`appFieldName`) you will inform a value (`appFieldValue`).
+ * In the body of the request, for each field created in this app (`appFieldName`) you will inform a value (`appFieldValue`).
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  */
@@ -15439,11 +15358,9 @@ response: any
 /**
  * Your account may create `apps`, which contain custom fields, through the [Update orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pvt/configuration/orderForm) request. The value of a specific custom field can then be updated by this request.
  * 
+ * To do that, you need to inform in the URL the ID of the app you created with the configuration API (`appId`).
  * 
-To do that, you need to inform in the URL the ID of the app you created with the configuration API (`appId`).
- * 
- * 
-In the body of the request, you will inform the new value (`appFieldValue`, passed through the body) of the specific field created in this app (identified by the `appFieldName` parameter, passed through the URL).
+ * In the body of the request, you will inform the new value (`appFieldValue`, passed through the body) of the specific field created in this app (identified by the `appFieldName` parameter, passed through the URL).
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  */
@@ -15453,11 +15370,9 @@ body: SetsinglecustomfieldvalueRequest
 /**
  * Your account may create `apps`, which contain custom fields, through the [Update orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pvt/configuration/orderForm) request. The value of a specific custom field can be removed by this request.
  * 
+ * To do that, you need to inform in the URL the ID of the app you created with the configuration API (`appId`).
  * 
-To do that, you need to inform in the URL the ID of the app you created with the configuration API (`appId`).
- * 
- * 
-You also need to iform the specific field created in this app (identified by the `appFieldName` parameter, also passed through the URL) whose value you want to remove.
+ * You also need to iform the specific field created in this app (identified by the `appFieldName` parameter, also passed through the URL) whose value you want to remove.
  */
 "DELETE /api/checkout/pub/orderForm/:orderFormId/customData/:appId/:appFieldName": {
 
@@ -15465,11 +15380,9 @@ You also need to iform the specific field created in this app (identified by the
 /**
  * Retrieves the settings that are currently applied to every orderForm in the account.
  * 
+ * These settings are defined by the request [Update orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pvt/configuration/orderForm).
  * 
-These settings are defined by the request [Update orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pvt/configuration/orderForm).
- * 
- * 
-Always use this request to retrieve the current configuration before performing an update. By doing so you ensure that you are modifying only the properties you want.
+ * Always use this request to retrieve the current configuration before performing an update. By doing so you ensure that you are modifying only the properties you want.
  */
 "GET /api/checkout/pvt/configuration/orderForm": {
 response: {
@@ -15555,14 +15468,10 @@ maskFirstPurchaseData?: (null | boolean)
 /**
  * Configures reCAPTCHA validation for the account, defining in which situations the shopper will be prompted to validate a purchase with reCAPTCHA. Learn more about [reCAPTCHA validation for VTEX stores](https://help.vtex.com/en/tutorial/using-recaptcha-at-checkout--18Te3oDd7f4qcjKu9jhNzP)
  * 
- * 
-Possible values are:
- * 
-- `"never"`: no purchases are validated with reCAPTCHA.
- * 
-- `"always"`: every purchase is validated with reCAPTCHA.
- * 
-- `"vtexCriteria"`: only some purchases are validated with reCAPTCHA in order to minimize friction and improve shopping experience. VTEX's algorithm determines which sessions are trustworthy and which should be validated with reCAPTCHA. This is the recommended option.
+ * Possible values are:
+ * - `"never"`: no purchases are validated with reCAPTCHA.
+ * - `"always"`: every purchase is validated with reCAPTCHA.
+ * - `"vtexCriteria"`: only some purchases are validated with reCAPTCHA in order to minimize friction and improve shopping experience. VTEX's algorithm determines which sessions are trustworthy and which should be validated with reCAPTCHA. This is the recommended option.
  */
 recaptchaValidation?: string
 /**
@@ -15582,11 +15491,9 @@ cartAgeToUseNewCardSeconds?: number
 /**
  * Determines settings that will apply to every orderForm in the account.
  * 
+ * For example, if you create an app using this request, every orderForm of this account will have the custom fields created though it.
  * 
-For example, if you create an app using this request, every orderForm of this account will have the custom fields created though it.
- * 
- * 
->ℹ️ Always retrieve the current configuration before performing an update to ensure that you are modifying only the properties you want. Otherwise, old values can be overwritten. To retrieve the current configuration, use the request [Get orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#get-/api/checkout/pvt/configuration/orderForm).
+ * >ℹ️ Always retrieve the current configuration before performing an update to ensure that you are modifying only the properties you want. Otherwise, old values can be overwritten. To retrieve the current configuration, use the request [Get orderForm configuration](https://developers.vtex.com/docs/api-reference/checkout-api#get-/api/checkout/pvt/configuration/orderForm).
  */
 "POST /api/checkout/pvt/configuration/orderForm": {
 body: UpdateorderFormconfigurationRequest
@@ -15594,8 +15501,7 @@ body: UpdateorderFormconfigurationRequest
 /**
  * Retrieves a marketplace’s window to change seller, that is, the period when it is possible to choose another seller to fulfill a given order after the original seller has canceled it.
  * 
- * 
-The default period for this window is of 2 days, but it can be configured by the request Update window to change seller.
+ * The default period for this window is of 2 days, but it can be configured by the request Update window to change seller.
  */
 "GET /api/checkout/pvt/configuration/window-to-change-seller": {
 
@@ -15603,8 +15509,7 @@ The default period for this window is of 2 days, but it can be configured by the
 /**
  * Updates a marketplace’s window to change seller, that is, the period when it is possible to choose another seller to fulfill a given order after the original seller has canceled it.
  * 
- * 
-It is possible to check the current window using the request Get window to change seller.
+ * It is possible to check the current window using the request Get window to change seller.
  */
 "POST /api/checkout/pvt/configuration/window-to-change-seller": {
 body: WaitingTime
@@ -16709,11 +16614,9 @@ ascending?: boolean
  * 
  * The [orderForm](https://developers.vtex.com/docs/guides/orderform-fields) is the data structure which represents a shopping cart and contains all information pertaining to it. Hence, the `orderFormId` is the identification code of a given cart.
  * 
+ * This endpoint can be used to get the installment options for only one payment method at a time.
  * 
-This endpoint can be used to get the installment options for only one payment method at a time.
- * 
- * 
-This endpoint should be called only after the selected `orderForm` already has a `paymentData`.
+ * This endpoint should be called only after the selected `orderForm` already has a `paymentData`.
  */
 "GET /api/checkout/pub/orderForm/:orderFormId/installments": {
 searchParams: {
@@ -16726,13 +16629,10 @@ paymentSystem: number
 /**
  * Use this request to add coupons to a given shopping cart.
  * 
+ * To add multiple coupons to the same cart, you need to:
  * 
-To add multiple coupons to the same cart, you need to:
- * 
- * 
-1. Request the activation of this feature through the [Support VTEX](https://help.vtex.com/support) if this is the first time you perform this action on your store.
- * 
-2. Submit all coupon codes in the same requisition separated by commas. E.g.: {"text": "freeshipping, discount10, holiday30"}.
+ * 1. Request the activation of this feature through the [Support VTEX](https://help.vtex.com/support) if this is the first time you perform this action on your store.
+ * 2. Submit all coupon codes in the same requisition separated by commas. E.g.: {"text": "freeshipping, discount10, holiday30"}.
  * 
  * For more information on multiple coupons, access the [coupons tutorial](https://help.vtex.com/en/tutorial/creating-a-coupon-beta--7lMk3MmhNp2IEccyGApxU).
  */
@@ -17889,8 +17789,7 @@ receipt?: string
 /**
  * Retrieves information on pickup points close to a given location determined by geocoordinates or postal code.
  * 
- * 
-The pickup points returned are not necessarily all active ones. Make sure to validate the information consumed by integrations.
+ * The pickup points returned are not necessarily all active ones. Make sure to validate the information consumed by integrations.
  */
 "GET /api/checkout/pub/pickup-points": {
 searchParams: {
@@ -18041,13 +17940,56 @@ ClosingTime?: string
  * This request can be used to implement auto complete functionality when a customer needs to fill in an address.
  */
 "GET /api/checkout/pub/postal-code/:countryCode/:postalCode": {
-
+/**
+ * Address.
+ */
+response: {
+/**
+ * Postal code.
+ */
+postalCode?: string
+/**
+ * City.
+ */
+city?: string
+/**
+ * State.
+ */
+state?: string
+/**
+ * Country.
+ */
+country?: string
+/**
+ * Street.
+ */
+street?: string
+/**
+ * Number.
+ */
+number?: string
+/**
+ * Neighborhood.
+ */
+neighborhood?: string
+/**
+ * Complement to the shipping address, in case it applies.
+ */
+complement?: (null | string)
+/**
+ * Reference.
+ */
+reference?: string
+/**
+ * Geo coordinates.
+ */
+geoCoordinates?: number[]
+}
 }
 /**
  * This endpoint places an order from an existing `orderForm` object, meaning an existing cart.
  * 
- * 
-After the creation of an order with this request, you have five minutes to send payment information and then request payment processing.
+ * After the creation of an order with this request, you have five minutes to send payment information and then request payment processing.
  */
 "POST /api/checkout/pub/orderForm/:orderFormId/transaction": {
 body: {
@@ -18191,11 +18133,9 @@ isGift?: boolean
 /**
  * Customer's profile information. The `email` functions as a customer's ID.
  * 
+ * For customers already in your database, sending only the email address is enough to register the order to the shopper’s existing account.
  * 
-For customers already in your database, sending only the email address is enough to register the order to the shopper’s existing account.
- * 
- * 
-> If the shopper exists in you database but is not logged in, sending other profile information along with the email will cause the platform to fail placing the order. This happens because this action is interpreted as an attempt to edit profile data, which is not possible unless the customer is logged in to the store.
+ * > If the shopper exists in you database but is not logged in, sending other profile information along with the email will cause the platform to fail placing the order. This happens because this action is interpreted as an attempt to edit profile data, which is not possible unless the customer is logged in to the store.
  */
 clientProfileData: {
 /**
@@ -18254,8 +18194,7 @@ shippingData: {
 /**
  * Shipping address.
  * 
- * 
-For customers already in your data base, it is enough to send this object only with an `addressId`, which you may obtain from a [Cart simulation request](https://developers.vtex.com/vtex-rest-api/reference/shopping-cart#cartsimulation), for example.
+ * For customers already in your data base, it is enough to send this object only with an `addressId`, which you may obtain from a [Cart simulation request](https://developers.vtex.com/vtex-rest-api/reference/shopping-cart#cartsimulation), for example.
  */
 address?: {
 /**
@@ -19610,8 +19549,7 @@ salesAssociateId?: string
 /**
  * Order processing callback request, which is made after an order's payment is approved.
  * 
- * 
-> This request has to be made within five minutes after the [Place order](https://developers.vtex.com/docs/api-reference/checkout-api#put-/api/checkout/pub/orders) or [Place order from existing cart](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pub/orderForm/-orderFormId-/transaction) request has been made, or else, the order will not be processed.
+ * > This request has to be made within five minutes after the [Place order](https://developers.vtex.com/docs/api-reference/checkout-api#put-/api/checkout/pub/orders) or [Place order from existing cart](https://developers.vtex.com/docs/api-reference/checkout-api#post-/api/checkout/pub/orderForm/-orderFormId-/transaction) request has been made, or else, the order will not be processed.
  */
 "POST /api/checkout/pub/gatewayCallback/:orderGroup": {
 
@@ -19619,16 +19557,12 @@ salesAssociateId?: string
 /**
  * Retrieves a list of sellers that cater to a specific region or address, according to your setup of our [regionalization feature](https://help.vtex.com/en/tutorial/setting-up-price-and-availability-of-skus-by-region--12ne58BmvYsYuGsimmugoc#). Learn more about [Region v2](https://developers.vtex.com/docs/guides/region-v2-release).
  * 
+ * To access the list of sellers, you must choose one of the following methods:
  * 
-To access the list of sellers, you must choose one of the following methods:
+ * 1. Send the identification of the list of sellers (`regionId`) as a path parameter through the URL. Or;
+ * 2. Send the `country` (3-digit ISO code) and at least one of the two values (`postal Code` or `geo Coordinates`) as query parameters through the URL. For this method, it is also allowed to send both values (`postalCode` or `geoCoordinates`) in the same request.
  * 
- * 
-1. Send the identification of the list of sellers (`regionId`) as a path parameter through the URL. Or;
- * 
-2. Send the `country` (3-digit ISO code) and at least one of the two values (`postal Code` or `geo Coordinates`) as query parameters through the URL. For this method, it is also allowed to send both values (`postalCode` or `geoCoordinates`) in the same request.
- * 
- * 
-> The `regionId` and `country` parameters are indicated as required in this documentation. However, only one of them should be sent in the request according to one of the methods mentioned above.
+ * > The `regionId` and `country` parameters are indicated as required in this documentation. However, only one of them should be sent in the request according to one of the methods mentioned above.
  */
 "GET /api/checkout/pub/regions/:regionId": {
 searchParams: {
@@ -19713,6 +19647,60 @@ per_page: string
 response: Userorderslist
 }
 /**
+ * Retrieves information from a previously created sesssion.
+ * 
+ * >⚠️ The Session Manager API uses the `vtex_session` and `vtex_segment` cookies to store the data required to identify the user and the session. These cookies are stored in the user's browser when the session is created and sent automatically in every request to that domain. You will have to reproduce that by sending these cookies as headers to Session Manager API in order for it to work outside of a browser environment.
+ * 
+ * ## Permissions
+ * 
+ * This endpoint does not require [authentication](https://developers.vtex.com/docs/guides/authentication) or [permissions](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3).
+ */
+"GET /api/sessions": {
+searchParams: {
+/**
+ * Items are the keys of the values you wish to get. They follow the format `namespace1.key1,namespace2.key2`.
+ * 
+ * If you wish to recover the data sent on [Create new session](https://developers.vtex.com/docs/api-reference/session-manager-api#post-/api/sessions), it should be `public.{key}`, replacing `{key}` with the name of the custom property you created. Following the example request presented in [Create new session](https://developers.vtex.com/docs/api-reference/session-manager-api#post-/api/sessions), it would be `public.variable1,public.variable2`.
+ * 
+ * If you want to retrieve all keys from Session Manager, you can use the wildcard operator (`*`) as a value for this query parameter.
+ */
+items: string
+}
+response: GetSessionResponse
+}
+/**
+ * Creates a new session and returns a session token and a segment token. Also stores `vtex_session` and `vtex_segment` cookies, with the same values returned in the response.
+ * 
+ * All parameters in the body that are not within the public namespace will be ignored. Query string items will automatically be added to the public namespace.
+ * 
+ * >⚠️ The Session Manager API uses the `vtex_session` and `vtex_segment` cookies to store the data required to identify the user and the session. These cookies are stored in the user's browser when the session is created and sent automatically in every request to that domain. You will have to reproduce that by sending these cookies as headers in other requests to Session Manager API in order for it to work outside of a browser environment.
+ * 
+ * ## Permissions
+ * 
+ * This endpoint does not require [authentication](https://developers.vtex.com/docs/guides/authentication) or [permissions](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3).
+ */
+"POST /api/sessions": {
+body: CreateEditSessionRequest
+response: CreateEditSessionResponse
+}
+/**
+ * Edits information from a previously created sesssion.
+ * 
+ * This endpoint works the same way as the [Create new session](https://developers.vtex.com/docs/api-reference/session-manager-api#post-/api/sessions) endpoint, but when the request is sent with a `vtex_session` and the `vtex_segment` cookies in the header, it retrieves the session first and then applies the changes instead of generating a new one.
+ * 
+ * Only keys inside the `public` namespace in the request body are considered, and query parameters are automatically added to the public namespace.
+ * 
+ * >⚠️ The Session Manager API uses the `vtex_session` and `vtex_segment` cookies to store the data required to identify the user and the session. These cookies are stored in the user's browser when the session is created and sent automatically in every request to that domain. You will have to reproduce that by sending these cookies as headers to Session Manager API in order for it to work outside of a browser environment.
+ * 
+ * ## Permissions
+ * 
+ * This endpoint does not require [authentication](https://developers.vtex.com/docs/guides/authentication) or [permissions](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3).
+ */
+"PATCH /api/sessions": {
+body: CreateEditSessionRequest
+response: CreateEditSessionResponse
+}
+/**
  * Lists all details from an order, through the perspective of the customer who placed the order. 
  * 
  * > You can only access information from orders created in the last two years, and that same period is valid for customers through [My Account](https://help.vtex.com/en/tutorial/how-my-account-works--2BQ3GiqhqGJTXsWVuio3Xh). 
@@ -19747,31 +19735,6 @@ clientEmail: string
 }
 response: Userorderdetails
 }
-}
-/**
- * Object representing each document.
- */
-export interface Document {
-/**
- * Custom property.
- */
-"{customProperty}"?: string
-/**
- * Unique identifier of the document.
- */
-id: string
-/**
- * Unique identifier of the account.
- */
-accountId: string
-/**
- * Account name.
- */
-accountName: string
-/**
- * Two-letter string that identifies the data entity.
- */
-dataEntityId: string
 }
 /**
  * Pickup point information.
@@ -21953,14 +21916,10 @@ maskFirstPurchaseData?: boolean
 /**
  * Configures reCAPTCHA validation for the account, defining in which situations the shopper will be prompted to validate a purchase with reCAPTCHA. Learn more about [reCAPTCHA validation for VTEX stores](https://help.vtex.com/tutorial/recaptcha-no-checkout--18Te3oDd7f4qcjKu9jhNzP)
  * 
- * 
-Possible values are:
- * 
-- `"never"`: no purchases are validated with reCAPTCHA.
- * 
-- `"always"`: every purchase is validated with reCAPTCHA.
- * 
-- `"vtexCriteria"`: only some purchases are validated with reCAPTCHA in order to minimize friction and improve shopping experience. VTEX’s algorithm determines which sessions are trustworthy and which should be validated with reCAPTCHA. This is the recommended option.
+ * Possible values are:
+ * - `"never"`: no purchases are validated with reCAPTCHA.
+ * - `"always"`: every purchase is validated with reCAPTCHA.
+ * - `"vtexCriteria"`: only some purchases are validated with reCAPTCHA in order to minimize friction and improve shopping experience. VTEX’s algorithm determines which sessions are trustworthy and which should be validated with reCAPTCHA. This is the recommended option.
  */
 recaptchaValidation?: string
 /**
@@ -22215,6 +22174,168 @@ Facets: {
 
 }
 }
+/**
+ * Session information.
+ */
+export interface GetSessionResponse {
+/**
+ * Session ID.
+ */
+id?: string
+/**
+ * Object with namespaces, each containing a set of information about the session.
+ */
+namespaces?: {
+/**
+ * Account information related to the session.
+ */
+account?: {
+/**
+ * VTEX account ID.
+ */
+id?: {
+/**
+ * Value of the VTEX account ID.
+ */
+value?: string
+/**
+ * Determines whether or not the connection should be kept alive.
+ */
+keepAlive?: boolean
+}
+/**
+ * VTEX account name.
+ */
+accountName?: {
+/**
+ * Value of the VTEX account name.
+ */
+value?: string
+}
+}
+/**
+ * Store information related to the session.
+ */
+store?: {
+/**
+ * [Trade policy](https://help.vtex.com/en/tutorial/how-trade-policies-work--6Xef8PZiFm40kg2STrMkMV) ID.
+ */
+channel?: {
+/**
+ * Value of the [Trade policy](https://help.vtex.com/en/tutorial/how-trade-policies-work--6Xef8PZiFm40kg2STrMkMV) ID.
+ */
+value?: string
+}
+/**
+ * Country code.
+ */
+countryCode?: {
+/**
+ * Value of the country code.
+ */
+value?: string
+}
+/**
+ * Locale that provides culture-specific information, such as the language, sublanguage, country/region, calendar, and conventions associated with a particular culture. Read [this documentation](https://learn.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?view=net-7.0#culture-names-and-identifiers) for more details.
+ */
+cultureInfo?: {
+/**
+ * Value of the `cultureInfo` property.
+ */
+value?: string
+}
+/**
+ * Currency code.
+ */
+currencyCode?: {
+/**
+ * Value of the currency code.
+ */
+value?: string
+}
+/**
+ * Currency symbol.
+ */
+currencySymbol?: {
+/**
+ * Value of the currency symbol.
+ */
+value?: string
+}
+/**
+ * Defines whether or not the channel is private.
+ */
+channelPrivacy?: {
+/**
+ * Value containing the channel's privacy option.
+ */
+value?: string
+}
+}
+/**
+ * Public and editable information related to the session.
+ */
+public?: {
+/**
+ * Custom property.
+ */
+[k: string]: {
+/**
+ * Value of the custom property.
+ */
+value?: string
+}
+}
+/**
+ * Checkout information related to the session.
+ */
+checkout?: {
+/**
+ * ID of the session's region.
+ */
+regionId?: {
+/**
+ * Value of the Region ID.
+ */
+value?: string
+}
+}
+}
+}
+/**
+ * Session information.
+ */
+export interface CreateEditSessionRequest {
+public: Public
+}
+/**
+ * Public information.
+ */
+export interface Public {
+/**
+ * Custom property.
+ */
+additionalProperties?: {
+/**
+ * Value of the custom property.
+ */
+value?: string
+}
+[k: string]: any
+}
+/**
+ * Object containing session token and segment token.
+ */
+export interface CreateEditSessionResponse {
+/**
+ * Token that identifies the user's individual session.
+ */
+sessionToken?: string
+/**
+ * Token that identifies the user's segment, shared with other users with similar navigation parameters.
+ */
+segmentToken?: string
+}
 export interface Userorderdetails {
 /**
  * Order ID is a unique code that identifies an order.
@@ -22257,10 +22378,6 @@ merchantName: string
  */
 status: string
 /**
- * Indicates if the order workflow is in an error state.
- */
-workflowIsInError: boolean
-/**
  * @deprecated
  * `Deprecated`. Status description which is displayed on the Admin panel. This field is obsolete and may not return any value.
  */
@@ -22288,7 +22405,7 @@ totals: Total[]
 /**
  * Information about order's items.
  */
-items: OrderItem[]
+items: Item[]
 /**
  * Marketplace details object.
  */
@@ -22303,45 +22420,45 @@ giftRegistryData: string
  */
 marketingData: {
 /**
- * Object ID. The expected value is `marketingData`.
+ * Object ID which expected value is `marketingData`.
  */
-id?: string
+id: string
 /**
  * Value of the `utm_source` parameter of the URL that led to the request.
  */
-utmSource?: string
+utmSource: string
 /**
  * UTM Source Parameters.
  */
-utmPartner?: string
+utmPartner: string
 /**
  * Value of the `utm_medium` parameter of the URL that led to the request.
  */
-utmMedium?: string
+utmMedium: string
 /**
  * Value of the `utm_campaign` parameter of the URL that led to the request.
  */
-utmCampaign?: string
+utmCampaign: string
 /**
- * Coupon code.
+ * Coupon's code information.
  */
-coupon?: string
+coupon: string
 /**
  * Internal UTM value `utmi_cp`.
  */
-utmiCampaign?: string
+utmiCampaign: string
 /**
  * Internal UTM value `utmi_p`.
  */
-utmipage?: string
+utmipage: string
 /**
  * Internal UTM value `utmi_pc`.
  */
-utmiPart?: string
+utmiPart: string
 /**
  * Marketing tags information. This field can be used to register campaign data or informative tags regarding promotions.
  */
-marketingTags?: string[]
+marketingTags: string[]
 }
 ratesAndBenefitsData: RatesAndBenefitsData
 shippingData: ShippingData
@@ -22376,16 +22493,12 @@ invoiceData: {
 changesAttachment: ChangesAttachment
 /**
  * Optional field with order's additional information. This field must be filled in using the following format: 
- * 
-```
- * 
-{
+ * ```
+ * {
  *     "fieldExample": "ValueExample"
  *   }
- * 
-```
- * 
-.
+ * ```
+ * .
  */
 openTextField: string
 /**
@@ -22434,48 +22547,228 @@ invoicedDate: string
  * Reason for order cancellation.
  */
 cancelReason: string
-itemMetadata: ItemMetadata
-subscriptionData: SubscriptionData
-taxData: TaxData
+/**
+ * Metadata information about the order's items.
+ */
+itemMetadata: {
+/**
+ * Metadata items.
+ */
+Items: {
+/**
+ * Item's SKU ID, which is a unique numerical identifier.
+ */
+Id: string
+/**
+ * Seller ID that identifies the seller the item belongs to.
+ */
+Seller: string
+/**
+ * Name of the item as displayed to customers in the storefront.
+ */
+Name: string
+/**
+ * Name of the SKU corresponding to the item.
+ */
+SkuName: string
+/**
+ * ID of the Product associated with the item.
+ */
+ProductId: string
+/**
+ * Item's reference ID.
+ */
+RefId: string
+/**
+ * EAN of the item.
+ */
+Ean: string
+/**
+ * Item's SKU image URL.
+ */
+ImageUrl: string
+/**
+ * URL slug of the item.
+ */
+DetailUrl: string
+/**
+ * Displays information about [assembly options](https://help.vtex.com/en/tutorial/assembly-options--5x5FhNr4f5RUGDEGWzV1nH) related to the item, if there are any.
+ */
+AssemblyOptions: {
+/**
+ * ID of the attachment related to the order.
+ */
+Id: string
+/**
+ * Name of the attachment related to the order.
+ */
+Name: string
+/**
+ * If this field is set as `true`, when the customer purchases the item sending the attachment is required, and when set as `false`, sending the attachment is optional.
+ */
+Required: boolean
+/**
+ * Displays the attachment's content.
+ */
+InputValues: {
+
+}
+/**
+ * Displays the attachment's composition.
+ */
+Composition: {
+
+}
+}[]
+}[]
+}
+/**
+ * Information about [subscriptions](https://help.vtex.com/tutorial/how-subscriptions-work--frequentlyAskedQuestions_4453).
+ */
+subscriptionData: {
+/**
+ * ID of the subscription's group. If this field returns `null` and the `executionCount` is `0`, the order is the first one with subscriptions.
+ */
+SubscriptionGroupId: string
+/**
+ * List with subscriptions and their details.
+ */
+Subscriptions: {
+/**
+ * Position of the order in the subscription cycle. The first order will have the value `0`, the second will have the value `1`, and so on.
+ */
+ExecutionCount: number
+/**
+ * @deprecated
+ * Price of the order when the customer signed up for subscriptions. Subscriptions created from Admin UI or APIs do not have an original order, so the field returns `0.0`. This field was valid only for Subscriptions v2 and is deprecated in Subscriptions v3.
+ */
+PriceAtSubscriptionDate: number
+/**
+ * Each item in the subscriptions' order is identified by an index. The position starts in`0`, followed by `1`, `2`, and so on.
+ */
+ItemIndex: number
+/**
+ * Information about the subscription's validility and frequency.
+ */
+Plan: {
+/**
+ * Type of plan.
+ */
+type: string
+/**
+ * Information about subscriptions' recurrence.
+ */
+frequency: {
+/**
+ * Defines the subscriptions recurrence period. The possible values are `DAILY`,`WEEKLY`, `MONTHLY` and `YEARLY`.
+ */
+periodicity: string
+/**
+ * Number of the time interval configured between subscription orders, which depends on the periodicity. For a `DAILY` periodicity, the field's value will correspond to days, for `MONTHLY` to months, and so on.
+ */
+interval: number
+}
+/**
+ * Information about the period during which the subscription will be valid.
+ */
+validity: {
+/**
+ * Subscriptions' beginning date with the format `yyyy-mm-ddThh:mm:ss`.
+ */
+begin: string
+/**
+ * Subscriptions' ending date with the format `yyyy-mm-ddThh:mm:ss`.
+ */
+end: string
+}
+}
+}[]
+}
+/**
+ * Order's tax information.
+ */
+taxData: {
+/**
+ * If the taxes were designated by the marketplace (`true`) or not (`false`).
+ */
+areTaxesDesignatedByMarketplace: boolean
+/**
+ * Array with taxes' details.
+ */
+taxInfoCollection: {
+/**
+ * Item's indexing number.
+ */
+itemIndex: number
+/**
+ * Alphanumeric sequence that identifies an SKU.
+ */
+sku: string
+/**
+ * Price tag information.
+ */
+priceTags: {
+/**
+ * If the tax is a percentage (`true`) or note (`false`).
+ */
+isPercentual: boolean
+/**
+ * Name that identifies the tax.
+ */
+name: string
+/**
+ * The amount that corresponds to the tax.
+ */
+rawValue: string
+}[]
+}[]
+}
 /**
  * If the field `isCheckedIn` is set as `true`, the `checkedInPickupPointId` will retrieve the ID of the physical store where the order was made.
  */
 checkedInPickupPointId: string
-cancellationData: CancellationData
-clientPreferencesData: ClientPreferencesData
 /**
- * Details of cancellation requests made for the order.
+ * Information about order cancellation, when it applies.
  */
-cancellationRequests: {
+cancellationData: {
 /**
- * ID of the cancellation request.
+ * If the order cancellation was requested by the costumer (`true`) or not (`false`).
  */
-id?: string
+RequestedByUser: boolean
 /**
- * Reason for the cancellation request.
+ * If the order cancellation was made by the system (`true`) or not (`false`). This type of order cancellation happens in [incomplete orders](https://help.vtex.com/en/tutorial/how-incomplete-orders-work--tutorials_294), for example.
  */
-reason?: string
+RequestedBySystem: boolean
 /**
- * Date when the cancellation was requested.
+ * If the order cancellation was requested by the seller (`true`) or not (`false`).
  */
-cancellationRequestDate?: string
+RequestedBySellerNotification: boolean
 /**
- * Indicates if the request was made by the user.
+ * If the order cancellation was requested by the payment gateway (`true`) or not (`false`).
  */
-requestedByUser?: boolean
+RequestedByPaymentNotification: boolean
 /**
- * Indicates if the cancellation request was denied by the seller.
+ * The reason why the order was cancelled.
  */
-deniedBySeller?: boolean
+Reason: string
 /**
- * Reason for denial by the seller.
+ * The date when the order was cancelled.
  */
-deniedBySellerReason?: string
+CancellationDate: string
+}
 /**
- * Date when the cancellation request was denied.
+ * Information about customer's preferences.
  */
-cancellationRequestDenyDate?: string
-}[]
+clientPreferencesData: {
+/**
+ * Customer's prefered language while accessing the store.
+ */
+locale: string
+/**
+ * When set as `true`, this field indicates customers opted to receive the newsletters, and when set as `false`, it means they did not.
+ */
+optinNewsLetter: boolean
+}
 minItems?: 0
 }
 /**
@@ -22495,279 +22788,19 @@ name: string
  */
 value: number
 }
+export interface Item {
 /**
- * Information about an individual item in the order.
- */
-export interface OrderItem {
-/**
- * Unique identifier for the item in the order.
- */
-uniqueId: string
-/**
- * SKU identifier of the item.
+ * The SKU ID.
  */
 id: string
 /**
- * Product ID associated with the item.
- */
-productId: string
-/**
- * European Article Number (EAN) for the item, if applicable.
- */
-ean: string
-/**
- * Identifier to lock the item in the order.
- */
-lockId: string
-/**
- * Attachment details associated with the item.
- */
-itemAttachment: {
-/**
- * Content of the attachment.
- */
-content?: {
-
-}
-/**
- * Name of the attachment, if applicable.
- */
-name?: string
-}
-/**
- * Additional attachments for the item.
- */
-attachments: {
-
-}[]
-/**
- * Quantity of the item in the order.
+ * The quantity of items of this specific SKU in the cart to be simulated.
  */
 quantity: number
 /**
- * Identifier of the seller providing the item.
+ * The ID of the seller responsible for this SKU. This ID can be found in your VTEX Admin.
  */
 seller: string
-/**
- * Name of the item as displayed to the customer.
- */
-name: string
-/**
- * Reference ID for the item.
- */
-refId: string
-/**
- * Price of the item.
- */
-price: number
-/**
- * List price of the item.
- */
-listPrice: number
-/**
- * Manually defined price for the item, if applicable.
- */
-manualPrice: number
-/**
- * Tags associated with the pricing of the item.
- */
-priceTags: {
-
-}[]
-/**
- * URL of the item's image.
- */
-imageUrl: string
-/**
- * URL for more details about the item.
- */
-detailUrl: string
-/**
- * List of components included with the item.
- */
-components: {
-
-}[]
-/**
- * Items bundled with this item.
- */
-bundleItems: {
-
-}[]
-/**
- * Parameters associated with the item.
- */
-params: {
-
-}[]
-/**
- * List of offerings related to the item.
- */
-offerings: {
-
-}[]
-/**
- * Offerings attached to the item.
- */
-attachmentOfferings: {
-name?: string
-required?: boolean
-schema?: {
-
-}
-}[]
-/**
- * SKU identifier as defined by the seller.
- */
-sellerSku: string
-/**
- * Date until the price is valid.
- */
-priceValidUntil: string
-/**
- * Commission on the item, if applicable.
- */
-commission: number
-/**
- * Tax applied to the item.
- */
-tax: number
-/**
- * Date when the item will be available for sale.
- */
-preSaleDate: string
-/**
- * Additional information about the item.
- */
-additionalInfo: {
-/**
- * Name of the brand associated with the item.
- */
-brandName?: string
-/**
- * ID of the brand associated with the item.
- */
-brandId?: string
-/**
- * String of category IDs associated with the item.
- */
-categoriesIds?: string
-/**
- * Product cluster ID for the item.
- */
-productClusterId?: string
-/**
- * ID of the commercial condition associated with the item.
- */
-commercialConditionId?: string
-/**
- * Dimensions of the item.
- */
-dimension?: {
-/**
- * Cubic weight of the item.
- */
-cubicweight?: number
-/**
- * Height of the item.
- */
-height?: number
-/**
- * Length of the item.
- */
-length?: number
-/**
- * Weight of the item.
- */
-weight?: number
-/**
- * Width of the item.
- */
-width?: number
-}
-/**
- * List of categories associated with the item.
- */
-categories?: {
-/**
- * ID of the category.
- */
-id: number
-/**
- * Name of the category.
- */
-name: string
-}[]
-}
-/**
- * Unit of measurement for the item.
- */
-measurementUnit: string
-/**
- * Multiplier for the measurement unit.
- */
-unitMultiplier: number
-/**
- * Final selling price of the item.
- */
-sellingPrice: number
-/**
- * Indicates if the item is a gift.
- */
-isGift: boolean
-/**
- * Shipping cost for the item, if applicable.
- */
-shippingPrice: number
-/**
- * Reward value associated with the item.
- */
-rewardValue: number
-/**
- * Freight commission on the item.
- */
-freightCommission: number
-/**
- * Detailed information about the item's price structure.
- */
-priceDefinitions: {
-sellingPrices?: {
-value?: number
-quantity?: number
-}[]
-calculatedSellingPrice?: number
-total?: number
-}
-/**
- * Tax code associated with the item.
- */
-taxCode: string
-/**
- * Index of the parent item, if this item is part of a bundle.
- */
-parentItemIndex: number
-/**
- * Assembly binding of the parent item, if applicable.
- */
-parentAssemblyBinding: string
-/**
- * ID of the call center operator handling the item.
- */
-callCenterOperator: string
-/**
- * Serial numbers associated with the item.
- */
-serialNumbers: string
-/**
- * List of assemblies related to the item.
- */
-assemblies: {
-
-}[]
-/**
- * Cost price of the item.
- */
-costPrice: number
 }
 /**
  * Object with information on the client's profile.
@@ -23614,221 +23647,4 @@ isCertified: string
  * Name of the marketplace.
  */
 name: string
-}
-/**
- * Metadata information about the order's items.
- */
-export interface ItemMetadata {
-/**
- * Metadata items.
- */
-Items: {
-/**
- * Item's SKU ID, which is a unique numerical identifier.
- */
-Id: string
-/**
- * Seller ID that identifies the seller the item belongs to.
- */
-Seller: string
-/**
- * Name of the item as displayed to customers in the storefront.
- */
-Name: string
-/**
- * Name of the SKU corresponding to the item.
- */
-SkuName: string
-/**
- * ID of the Product associated with the item.
- */
-ProductId: string
-/**
- * Item's reference ID.
- */
-RefId: string
-/**
- * EAN of the item.
- */
-Ean: string
-/**
- * Item's SKU image URL.
- */
-ImageUrl: string
-/**
- * URL slug of the item.
- */
-DetailUrl: string
-/**
- * Displays information about assembly options related to the item, if there are any.
- */
-AssemblyOptions: {
-/**
- * ID of the attachment related to the order.
- */
-Id: string
-/**
- * Name of the attachment related to the order.
- */
-Name: string
-/**
- * Indicates if sending the attachment is required.
- */
-Required: boolean
-/**
- * Displays the attachment's content.
- */
-InputValues: {
-
-}
-/**
- * Displays the attachment's composition.
- */
-Composition: {
-
-}
-}[]
-}[]
-}
-/**
- * Information about subscriptions.
- */
-export interface SubscriptionData {
-/**
- * ID of the subscription's group. If this field returns `null` and the `executionCount` is `0`, the order is the first one with subscriptions.
- */
-SubscriptionGroupId: string
-/**
- * List with subscriptions and their details.
- */
-Subscriptions: {
-/**
- * Position of the order in the subscription cycle.
- */
-ExecutionCount: number
-/**
- * Price of the order at the subscription start date.
- */
-PriceAtSubscriptionDate: number
-/**
- * Each item in the subscriptions' order is identified by an index.
- */
-ItemIndex: number
-/**
- * Information about the subscription's validity and frequency.
- */
-Plan: {
-/**
- * Type of plan.
- */
-type: string
-/**
- * Information about subscriptions' recurrence.
- */
-frequency: {
-/**
- * Defines the subscriptions recurrence period.
- */
-periodicity: string
-/**
- * Interval between subscription orders, depending on the periodicity.
- */
-interval: number
-}
-/**
- * Information about the period during which the subscription will be valid.
- */
-validity: {
-/**
- * Subscription's start date in ISO 8601 format.
- */
-begin: string
-/**
- * Subscription's end date in ISO 8601 format.
- */
-end: string
-}
-}
-}[]
-}
-/**
- * Order's tax information.
- */
-export interface TaxData {
-/**
- * Indicates if the taxes were designated by the marketplace (`true`) or not (`false`).
- */
-areTaxesDesignatedByMarketplace: boolean
-/**
- * Array with detailed tax information for each item.
- */
-taxInfoCollection: {
-/**
- * Index number of the item in the order.
- */
-itemIndex: number
-/**
- * Alphanumeric sequence that identifies the item's SKU.
- */
-sku: string
-/**
- * List of price tags associated with taxes for the item.
- */
-priceTags: {
-/**
- * Indicates if the tax is a percentage (`true`) or a fixed amount (`false`).
- */
-isPercentual: boolean
-/**
- * Name of the tax.
- */
-name: string
-/**
- * Amount associated with the tax, in raw format.
- */
-rawValue: string
-}[]
-}[]
-}
-/**
- * Information about order cancellation, when it applies.
- */
-export interface CancellationData {
-/**
- * Indicates if the order cancellation was requested by the customer (`true`) or not (`false`).
- */
-RequestedByUser: boolean
-/**
- * Indicates if the order cancellation was made by the system (`true`) or not (`false`).
- */
-RequestedBySystem: boolean
-/**
- * Indicates if the order cancellation was requested by the seller (`true`) or not (`false`).
- */
-RequestedBySellerNotification: boolean
-/**
- * Indicates if the order cancellation was requested by the payment gateway (`true`) or not (`false`).
- */
-RequestedByPaymentNotification: boolean
-/**
- * The reason provided for the cancellation of the order.
- */
-Reason: string
-/**
- * The date and time when the order was canceled, in ISO 8601 format.
- */
-CancellationDate: string
-}
-/**
- * Information about the customer's preferences.
- */
-export interface ClientPreferencesData {
-/**
- * Customer's preferred language in the store, typically represented by a locale code (e.g., 'en-US').
- */
-locale: string
-/**
- * Indicates if the customer opted to receive newsletters (`true` for yes, `false` for no).
- */
-optinNewsLetter: boolean
 }

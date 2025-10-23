@@ -20,6 +20,8 @@ import { SP, VTEXCommerceStable } from "./utils/client.ts";
 import { fetchSafe } from "./utils/fetchVTEX.ts";
 import { OpenAPI as API } from "./utils/openapi/api.openapi.gen.ts";
 import { OpenAPI as MY } from "./utils/openapi/my.openapi.gen.ts";
+import { OpenAPI as VPAY } from "./utils/openapi/payments.openapi.gen.ts";
+import { OpenAPI as SUB } from "./utils/openapi/subscriptions.openapi.gen.ts";
 import { OpenAPI as VCS } from "./utils/openapi/vcs.openapi.gen.ts";
 import { Segment } from "./utils/types.ts";
 export type App = ReturnType<typeof VTEX>;
@@ -64,13 +66,18 @@ export interface Props {
   /**
    * @title Default Sales Channel
    * @description (Use defaultSegment instead)
-   * @default 1
    * @deprecated
    */
   salesChannel?: string;
   /**
    * @title Default Segment
    */
+  /**
+   * @title Set Refresh Token
+   * @description Set the refresh token in the cookies in headless login actions (actions/authentication/*)
+   * @default false
+   */
+  setRefreshToken?: boolean;
   defaultSegment?: SegmentCulture;
   usePortalSitemap?: boolean;
   /**
@@ -83,18 +90,25 @@ export interface Props {
    * @title Skip Simulation Behavior
    */
   skipSimulationBehavior?: Matcher;
+  advancedConfigs?: {
+    doNotFetchVariantsForRelatedProducts?: boolean;
+  };
 }
 export const color = 0xf71963;
 /**
- * @name VTEX
+ * @appName vtex
  * @title VTEX
- * @description Interact with VTEX Commerce Platform account
+ * @description Power your store with product, inventory, and checkout tools from VTEX.
  * @category Ecommmerce
- * @logo https://raw.githubusercontent.com/deco-cx/apps/main/vtex/logo.png
+ * @logo https://assets.decocache.com/mcp/0d6e795b-cefd-4853-9a51-93b346c52c3f/VTEX.svg
  */
 export default function VTEX(
-  { appKey, appToken, account, publicUrl, salesChannel, ...props }: Props,
+  { appKey, appToken, account, publicUrl: _publicUrl, salesChannel, ...props }:
+    Props,
 ) {
+  const publicUrl = _publicUrl?.startsWith("https://")
+    ? _publicUrl
+    : `https://${_publicUrl}`;
   const headers = new Headers();
   appKey &&
     headers.set(
@@ -117,18 +131,20 @@ export default function VTEX(
     fetcher: fetchSafe,
   });
   const vcsDeprecated = createHttpClient<VTEXCommerceStable>({
-    base: `https://${account}.vtexcommercestable.com.br`,
+    base: publicUrl,
     processHeaders: removeDirtyCookies,
     fetcher: fetchSafe,
   });
+  const ioUrl = publicUrl.endsWith("/")
+    ? `${publicUrl}api/io/_v/private/graphql/v1`
+    : `${publicUrl}/api/io/_v/private/graphql/v1`;
   const io = createGraphqlClient({
-    endpoint:
-      `https://${account}.vtexcommercestable.com.br/api/io/_v/private/graphql/v1`,
+    endpoint: ioUrl,
     processHeaders: removeDirtyCookies,
     fetcher: fetchSafe,
   });
   const vcs = createHttpClient<VCS>({
-    base: `https://${account}.vtexcommercestable.com.br`,
+    base: publicUrl,
     fetcher: fetchSafe,
     processHeaders: removeDirtyCookies,
     headers: headers,
@@ -145,6 +161,19 @@ export default function VTEX(
     processHeaders: removeDirtyCookies,
     headers: headers,
   });
+  const vpay = createHttpClient<VPAY>({
+    base: `https://${account}.vtexpayments.com.br`,
+    fetcher: fetchSafe,
+    processHeaders: removeDirtyCookies,
+    headers: headers,
+  });
+  const sub = createHttpClient<SUB>({
+    base: `https://${account}.vtexcommercestable.com.br`,
+    processHeaders: removeDirtyCookies,
+    fetcher: fetchSafe,
+    headers: headers,
+  });
+
   const state = {
     ...props,
     salesChannel: salesChannel ?? "1",
@@ -157,6 +186,8 @@ export default function VTEX(
     my,
     api,
     secure,
+    vpay,
+    sub,
   };
   const app: A<Manifest, typeof state, [
     ReturnType<typeof workflow>,

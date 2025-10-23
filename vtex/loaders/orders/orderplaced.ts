@@ -12,7 +12,7 @@ interface Props {
 }
 
 /**
- * @title VTEX - Get Order Placed Order Details
+ * @title Get Order Placed Order Details
  * @description Should be used on order placed page, the user must be authenticated or have access to the order through permissions or cookies
  */
 export default async function loader(
@@ -33,6 +33,7 @@ export default async function loader(
   const cookie = stringify(cookies);
 
   const isOrderGroup = !orderId.includes("-");
+
   if (isOrderGroup) {
     const orderGroup = await vcsDeprecated
       ["GET /api/checkout/pub/orders/order-group/:orderGroupId"]({
@@ -45,7 +46,7 @@ export default async function loader(
   }
 
   const order = await vcsDeprecated["GET /api/checkout/pub/orders/:orderId"]({
-    orderId: orderId.includes("-") ? orderId : orderId + "-01",
+    orderId,
   }, {
     headers: { cookie },
   }).then((res) => res.json());

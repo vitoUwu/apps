@@ -1052,204 +1052,6 @@
         }
       }
     },
-    "/api/dataentities/{acronym}/documents/{id}": {
-      "get": {
-        "tags": [
-          "Documents"
-        ],
-        "summary": "Get document",
-        "description": "Retrieves a document.\r\n\r\n## Permissions\r\n\r\nAny user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:\r\n\r\n| **Product** | **Category** | **Resource** |\r\n| --------------- | ----------------- | ----------------- |\r\n| Dynamic Storage | Dynamic storage generic resources | **Read only documents** |\r\n| Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |\r\n| Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |\r\n| Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |\r\n\r\nThere are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).\r\n\r\n>\u2757 To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.",
-        "operationId": "Getdocument",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Content-Type"
-          },
-          {
-            "$ref": "#/components/parameters/Accept"
-          },
-          {
-            "$ref": "#/components/parameters/acronym"
-          },
-          {
-            "$ref": "#/components/parameters/id"
-          },
-          {
-            "$ref": "#/components/parameters/fields"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Document"
-                },
-                "example": {
-                  "id": "2f5dde81-1613-11ea-82ee-12f868feb457",
-                  "accountId": "a8b27fb4-6516-4cc0-82b6-a5f2b011e6e2",
-                  "accountName": "apiexamples",
-                  "dataEntityId": "AS"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "Error response body.",
-                  "type": "object",
-                  "properties": {
-                    "Message": {
-                      "description": "Error message.",
-                      "type": "string"
-                    }
-                  }
-                },
-                "example": {
-                  "Message": "Cannot read private fields"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Documents"
-        ],
-        "summary": "Create document with custom ID or update entire document",
-        "description": "Creates a new document with a custom ID, or updates an entire document if there is already a document with the informed ID.\r\n\r\n>ℹ️ You can use this request to create or update documents in any given data entity. Because of this, you are not restricted to using the fields exemplified below in your requests. But you should be aware of the fields allowed or required for each document you wish to update.\r\n\r\n## Custom field types\r\n\r\nThe table below presents the types of custom fields you can use when creating or updating documents in Master Data v1 and example values.\r\n\r\n| Field Type| Example value |\r\n| - | - |\r\n| Boolean | `true` |\r\n| Currency | `2.5` |\r\n| Date | `1992-11-17` |\r\n| Date_Time | `2016-09-14T19:21:01.3163733Z` |\r\n| Decimal | `2.5` |\r\n| Email | `meu@email.com` |\r\n| Integer | `1000000` |\r\n| Long | `1000000000` |\r\n| Percent | `85.42` |\r\n| Time | `23:50` |\r\n| URL | `https://www.vtex.com` |\r\n| Varchar10 | `Lorem ipsu` |\r\n| Varchar50 | `Lorem ipsum dolor sit amet, consectetur adipiscing` |\r\n| Varchar750  | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |\r\n| Varchar100  | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |\r\n| Relationship | `5eb31afb-7ab0-11e6-94b4-0a44686e393f` |\r\n| Text | `Lorem ipsum dolor sit amet, consectetur adipiscing elit...` |\r\n \r\n\r\n## Permissions\r\n\r\nAny user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:\r\n\r\n| **Product** | **Category** | **Resource** |\r\n| --------------- | ----------------- | ----------------- |\r\n| Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |\r\n| Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |\r\n| Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |\r\n\r\nThere are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).\r\n\r\n>\u2757 To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.",
-        "operationId": "Updateentiredocument",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Content-Type"
-          },
-          {
-            "$ref": "#/components/parameters/Accept"
-          },
-          {
-            "$ref": "#/components/parameters/acronym"
-          },
-          {
-            "$ref": "#/components/parameters/id"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "description": "Object with document fields and their respective values.",
-                "additionalProperties": true,
-                "properties": {
-                  "{fieldName}": {
-                    "type": "string",
-                    "description": "Field name and value.",
-                    "example": "{fieldValue}"
-                  }
-                }
-              },
-              "example": {
-                "Boolean": true,
-                "Currency": 2.5,
-                "Date": "1992-11-17",
-                "Date_Time": "2016-09-14T19:21:01.3163733Z",
-                "Decimal": 2.5,
-                "Email": "meu@email.com",
-                "Integer": 1000000,
-                "Long": 1000000000,
-                "Percent": 85.42,
-                "Time": "23:50",
-                "URL": "http://www.vtex.com",
-                "Varchar10": "Lorem ipsu",
-                "Varchar50": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-                "Varchar750": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-                "Varchar100": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-                "Relationship": "5eb31afb-7ab0-11e6-94b4-0a44686e393f",
-                "Text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "204": {
-            "description": "No Content"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Documents"
-        ],
-        "summary": "Update partial document",
-        "description": "Updates a subset of fields of a document, without impacting the other fields.\r\n\r\n>ℹ️ You can use this request to update documents in any given data entity. Because of this, you are not restricted to using the fields exemplified below in your requests. But you should be aware of the fields allowed or required for each document you wish to update. \r\n\r\n## Permissions\r\n\r\nAny user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:\r\n\r\n| **Product** | **Category** | **Resource** |\r\n| --------------- | ----------------- | ----------------- |\r\n| Dynamic Storage | Dynamic storage generic resources | **Insert or update document (not remove)** |\r\n| Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |\r\n| Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |\r\n\r\nThere are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).\r\n\r\n>\u2757 To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.",
-        "operationId": "Updatepartialdocument",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Content-Type"
-          },
-          {
-            "$ref": "#/components/parameters/Accept"
-          },
-          {
-            "$ref": "#/components/parameters/acronym"
-          },
-          {
-            "$ref": "#/components/parameters/id"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "description": "Object with the fields to be updated and their respective values."
-              },
-              "example": {
-                "addressName": "4726026151253"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "204": {
-            "description": "No Content"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Documents"
-        ],
-        "summary": "Delete document",
-        "description": "Deletes a document. \r\n\r\n## Permissions\r\n\r\nAny user or [application key](https://developers.vtex.com/docs/guides/api-authentication-using-application-keys) must have at least one of the appropriate [License Manager resources](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3) to be able to successfully run this request. Otherwise they will receive a status code `403` error. These are the applicable resources for this endpoint:\r\n\r\n| **Product** | **Category** | **Resource** |\r\n| --------------- | ----------------- | ----------------- |\r\n| Dynamic Storage | Dynamic storage generic resources | **Full access to all documents** |\r\n| Dynamic Storage | Dynamic storage generic resources | **Master Data administrator** |\r\n\r\nThere are no applicable [predefined roles](https://help.vtex.com/en/tutorial/predefined-roles--jGDurZKJHvHJS13LnO7Dy) for this resource list. You must [create a custom role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc#creating-a-role) and add at least one of the resources above in order to use this endpoint.To learn more about machine authentication at VTEX, see [Authentication overview](https://developers.vtex.com/docs/guides/authentication).\r\n\r\n>\u2757 To prevent integrations from having excessive permissions, consider the [best practices for managing app keys](https://help.vtex.com/en/tutorial/best-practices-application-keys--7b6nD1VMHa49aI5brlOvJm) when assigning License Manager roles to integrations.",
-        "operationId": "Deletedocument",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Content-Type"
-          },
-          {
-            "$ref": "#/components/parameters/Accept"
-          },
-          {
-            "$ref": "#/components/parameters/acronym"
-          },
-          {
-            "$ref": "#/components/parameters/id"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          }
-        }
-      }
-    },
     "/api/logistics/pvt/inventory/skus/{skuId}": {
       "get": {
         "parameters": [
@@ -35710,6 +35512,57 @@
                   "complement": "",
                   "reference": "",
                   "geoCoordinates": []
+                },
+                "schema": {
+                  "description": "Address.",
+                  "type": "object",
+                  "properties": {
+                    "postalCode": {
+                      "description": "Postal code.",
+                      "type": "string"
+                    },
+                    "city": {
+                      "description": "City.",
+                      "type": "string"
+                    },
+                    "state": {
+                      "description": "State.",
+                      "type": "string"
+                    },
+                    "country": {
+                      "description": "Country.",
+                      "type": "string"
+                    },
+                    "street": {
+                      "description": "Street.",
+                      "type": "string"
+                    },
+                    "number": {
+                      "description": "Number.",
+                      "type": "string"
+                    },
+                    "neighborhood": {
+                      "description": "Neighborhood.",
+                      "type": "string"
+                    },
+                    "complement": {
+                      "description": "Complement to the shipping address, in case it applies.",
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "reference": {
+                      "description": "Reference.",
+                      "type": "string"
+                    },
+                    "geoCoordinates": {
+                      "description": "Geo coordinates.",
+                      "type": "array",
+                      "items": {
+                        "description": "Geo coordinate.",
+                        "type": "integer"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -39353,6 +39206,194 @@
         }
       }
     },
+    "/api/sessions": {
+      "post": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Create new session",
+        "description": "Creates a new session and returns a session token and a segment token. Also stores `vtex_session` and `vtex_segment` cookies, with the same values returned in the response.\n\r\n\rAll parameters in the body that are not within the public namespace will be ignored. Query string items will automatically be added to the public namespace.\n\r\n\r>⚠️ The Session Manager API uses the `vtex_session` and `vtex_segment` cookies to store the data required to identify the user and the session. These cookies are stored in the user's browser when the session is created and sent automatically in every request to that domain. You will have to reproduce that by sending these cookies as headers in other requests to Session Manager API in order for it to work outside of a browser environment.\r\n\r\n## Permissions\r\n\r\nThis endpoint does not require [authentication](https://developers.vtex.com/docs/guides/authentication) or [permissions](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3).",
+        "operationId": "Createnewsession",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEditSessionRequest"
+              },
+              "example": {
+                "public": {
+                  "variable1": {
+                    "value": "value1"
+                  },
+                  "variable2": {
+                    "value": "value2"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEditSessionResponse"
+                },
+                "example": {
+                  "sessionToken": "eyJhbGciOiJFUzI1NiIsImtpZCI6IjM5MEI4MTM1RDUzQ0MwMUY0RjA4N0YwMzA2RjhDODMzNzBDMjY4M0UiLCJ0eXAiOiJqd3QifQ.eyJhY2NvdW50LmlkIjoiYThiMjdmYjQtNjUxNi00Y2MwLTgyYjYtYTVmMmIwMTFlNmUyIiwiaWQiOiIyNmQyY2I2Yy0yMTNlLTQ5MzYtOWUyYS0xZDFlMjk5ZWMzM2IiLCJ2ZXJzaW9uIjoyLCJzdWIiOiJzZXNzaW9uIiwiYWNjb3VudCI6InNlc3Npb24iLCJleHAiOjE2OTM1Nzg5NzYsImlhdCI6MTY5Mjg4Nzc3NiwiaXNzIjoidG9rZW4tZW1pdHRlciIsImp0aSI6IjhiYWU2NzdmLWE0NTAtNGI0OC05YTBkLTViMzAwYjNiY2NkOCJ9.Ak1bn2xEA1A5dVN4qR6RI8vnZpSpLXyVxFCthMoVjmWn0HlP5BqMHEMYApDj8TPPhyxT0hGT0vkmvMQa2Mprrw",
+                  "segmentToken": "eyJjYW1wYWlnbnMiOm51bGwsImNoYW5uZWwiOiIxIiwicHJpY2VUYWJsZXMiOm51bGwsInJlZ2lvbklkIjpudWxsLCJ1dG1fY2FtcGFpZ24iOm51bGwsInV0bV9zb3VyY2UiOm51bGwsInV0bWlfY2FtcGFpZ24iOm51bGwsImN1cnJlbmN5Q29kZSI6IkJSTCIsImN1cnJlbmN5U3ltYm9sIjoiUiQiLCJjb3VudHJ5Q29kZSI6IkJSQSIsImN1bHR1cmVJbmZvIjoiZW4tVVMiLCJjaGFubmVsUHJpdmFjeSI6InB1YmxpYyJ9"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Get session",
+        "description": "Retrieves information from a previously created sesssion.\n\r\n\r>⚠️ The Session Manager API uses the `vtex_session` and `vtex_segment` cookies to store the data required to identify the user and the session. These cookies are stored in the user's browser when the session is created and sent automatically in every request to that domain. You will have to reproduce that by sending these cookies as headers to Session Manager API in order for it to work outside of a browser environment.\r\n\r\n## Permissions\r\n\r\nThis endpoint does not require [authentication](https://developers.vtex.com/docs/guides/authentication) or [permissions](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3).",
+        "operationId": "GetSession",
+        "parameters": [
+          {
+            "name": "items",
+            "in": "query",
+            "description": "Items are the keys of the values you wish to get. They follow the format `namespace1.key1,namespace2.key2`.\n\r\n\rIf you wish to recover the data sent on [Create new session](https://developers.vtex.com/docs/api-reference/session-manager-api#post-/api/sessions), it should be `public.{key}`, replacing `{key}` with the name of the custom property you created. Following the example request presented in [Create new session](https://developers.vtex.com/docs/api-reference/session-manager-api#post-/api/sessions), it would be `public.variable1,public.variable2`.\n\r\n\rIf you want to retrieve all keys from Session Manager, you can use the wildcard operator (`*`) as a value for this query parameter.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "*"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSessionResponse"
+                },
+                "example": {
+                  "id": "26d2cb6c-213e-4936-9e2a-1d1e299ec33b",
+                  "namespaces": {
+                    "account": {
+                      "id": {
+                        "value": "a8b27fb4-6516-4cc0-82b6-a5f2b011e6e2",
+                        "keepAlive": true
+                      },
+                      "accountName": {
+                        "value": "apiexamples"
+                      }
+                    },
+                    "store": {
+                      "channel": {
+                        "value": "1"
+                      },
+                      "countryCode": {
+                        "value": "BRA"
+                      },
+                      "cultureInfo": {
+                        "value": "en-US"
+                      },
+                      "currencyCode": {
+                        "value": "BRL"
+                      },
+                      "currencySymbol": {
+                        "value": "R$"
+                      },
+                      "channelPrivacy": {
+                        "value": "public"
+                      }
+                    },
+                    "public": {
+                      "variable1": {
+                        "value": "value1"
+                      },
+                      "variable2": {
+                        "value": "value2"
+                      }
+                    },
+                    "checkout": {
+                      "regionId": {
+                        "value": "v2.1BB18CE648B5111D0933734ED83EC783"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "vtex_session": [],
+            "vtex_segment": []
+          }
+        ],
+        "deprecated": false
+      },
+      "patch": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Edit session",
+        "description": "Edits information from a previously created sesssion.\n\r\n\rThis endpoint works the same way as the [Create new session](https://developers.vtex.com/docs/api-reference/session-manager-api#post-/api/sessions) endpoint, but when the request is sent with a `vtex_session` and the `vtex_segment` cookies in the header, it retrieves the session first and then applies the changes instead of generating a new one.\n\r\n\rOnly keys inside the `public` namespace in the request body are considered, and query parameters are automatically added to the public namespace.\n\r\n\r>⚠️ The Session Manager API uses the `vtex_session` and `vtex_segment` cookies to store the data required to identify the user and the session. These cookies are stored in the user's browser when the session is created and sent automatically in every request to that domain. You will have to reproduce that by sending these cookies as headers to Session Manager API in order for it to work outside of a browser environment.\r\n\r\n## Permissions\r\n\r\nThis endpoint does not require [authentication](https://developers.vtex.com/docs/guides/authentication) or [permissions](https://help.vtex.com/en/tutorial/license-manager-resources--3q6ztrC8YynQf6rdc6euk3).",
+        "operationId": "Editsession",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEditSessionRequest"
+              },
+              "example": {
+                "public": {
+                  "variable2": {
+                    "value": "value2_patched"
+                  },
+                  "variable3": {
+                    "value": "value3"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEditSessionResponse"
+                },
+                "example": {
+                  "sessionToken": "eyJhbGciOiJFUzI1NiIsImtpZCI6IjM5MEI4MTM1RDUzQ0MwMUY0RjA4N0YwMzA2RjhDODMzNzBDMjY4M0UiLCJ0eXAiOiJqd3QifQ.eyJhY2NvdW50LmlkIjoiYThiMjdmYjQtNjUxNi00Y2MwLTgyYjYtYTVmMmIwMTFlNmUyIiwiaWQiOiIyNmQyY2I2Yy0yMTNlLTQ5MzYtOWUyYS0xZDFlMjk5ZWMzM2IiLCJ2ZXJzaW9uIjoyLCJzdWIiOiJzZXNzaW9uIiwiYWNjb3VudCI6InNlc3Npb24iLCJleHAiOjE2OTM1Nzg5NzYsImlhdCI6MTY5Mjg4Nzc3NiwiaXNzIjoidG9rZW4tZW1pdHRlciIsImp0aSI6IjhiYWU2NzdmLWE0NTAtNGI0OC05YTBkLTViMzAwYjNiY2NkOCJ9.Ak1bn2xEA1A5dVN4qR6RI8vnZpSpLXyVxFCthMoVjmWn0HlP5BqMHEMYApDj8TPPhyxT0hGT0vkmvMQa2Mprrw",
+                  "segmentToken": "eyJjYW1wYWlnbnMiOm51bGwsImNoYW5uZWwiOiIxIiwicHJpY2VUYWJsZXMiOm51bGwsInJlZ2lvbklkIjpudWxsLCJ1dG1fY2FtcGFpZ24iOm51bGwsInV0bV9zb3VyY2UiOm51bGwsInV0bWlfY2FtcGFpZ24iOm51bGwsImN1cnJlbmN5Q29kZSI6IkJSTCIsImN1cnJlbmN5U3ltYm9sIjoiUiQiLCJjb3VudHJ5Q29kZSI6IkJSQSIsImN1bHR1cmVJbmZvIjoiZW4tVVMiLCJjaGFubmVsUHJpdmFjeSI6InB1YmxpYyJ9"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "vtex_session": [],
+            "vtex_segment": []
+          }
+        ],
+        "deprecated": false
+      }
+    },
     "/api/oms/user/orders/{orderId}": {
       "get": {
         "tags": [
@@ -39985,116 +40026,207 @@
     }
   },
   "components": {
-    "parameters": {
-      "Content-Type": {
-        "name": "Content-Type",
-        "in": "header",
-        "description": "Type of the content being sent.",
-        "required": true,
-        "style": "simple",
-        "schema": {
-          "type": "string",
-          "default": "application/json"
-        }
-      },
-      "Content-Type-img": {
-        "name": "Content-Type",
-        "in": "header",
-        "description": "Type of the content being sent. If you are uploading an image, use `image/jpg` or `image/png`. When using JavaScript, use `multipart/form-data`.",
-        "required": true,
-        "style": "simple",
-        "schema": {
-          "type": "string",
-          "example": "image/jpg"
-        }
-      },
-      "Accept": {
-        "name": "Accept",
-        "in": "header",
-        "description": "HTTP Client Negotiation _Accept_ Header. Indicates the types of responses the client can understand.",
-        "required": true,
-        "style": "simple",
-        "schema": {
-          "type": "string",
-          "default": "application/vnd.vtex.ds.v10+json"
-        }
-      },
-      "acronym": {
-        "name": "acronym",
-        "in": "path",
-        "description": "Two-letter string that identifies the data entity.",
-        "required": true,
-        "style": "simple",
-        "schema": {
-          "type": "string",
-          "example": "SP"
-        }
-      },
-      "id": {
-        "name": "id",
-        "in": "path",
-        "description": "Unique identifier of the document.",
-        "required": true,
-        "style": "simple",
-        "schema": {
-          "type": "string",
-          "example": "SP-b818cbda-e489-11e6-94f4-0ac138d2d42e"
-        }
-      },
-      "fields": {
-        "name": "_fields",
-        "in": "query",
-        "description": "Names of the fields that will be returned per document, separated by a comma `,`. It is possible to fetch all fields using `_all` as the value of this query parameter. However, in order to avoid permission errors, we strongly recommend informing only the names of the exact fields that will be used.",
-        "required": false,
-        "style": "form",
-        "schema": {
-          "type": "string",
-          "example": "email,firstName,document"
-        }
-      },
-      "_schema": {
-        "name": "_schema",
-        "in": "query",
-        "description": "Name of the [schema](https://developers.vtex.com/docs/guides/master-data-schema-lifecycle) that the document complies with.  This field is required when using `_where` or `_fields` query parameters.",
-        "required": false,
-        "style": "form",
-        "schema": {
-          "type": "string",
-          "example": "schema"
-        }
-      }
-    },
     "schemas": {
-      "Document": {
-        "title": "Document",
+      "CreateEditSessionRequest": {
+        "title": "CreateEditSessionRequest",
         "required": [
-          "id",
-          "dataEntityId",
-          "accountId",
-          "accountName"
+          "public"
         ],
         "type": "object",
-        "description": "Object representing each document.",
+        "description": "Session information.",
         "properties": {
-          "{customProperty}": {
+          "public": {
+            "title": "Public",
+            "type": "object",
+            "description": "Public information.",
+            "additionalProperties": true,
+            "properties": {
+              "additionalProperties": {
+                "type": "object",
+                "description": "Custom property.",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Value of the custom property.",
+                    "example": "value3"
+                  }
+                }
+              }
+            },
+            "example": {
+              "variable2": {
+                "value": "value2"
+              },
+              "variable3": {
+                "value": "value3"
+              }
+            }
+          }
+        },
+        "example": {
+          "public": {
+            "variable2": {
+              "value": "value2"
+            },
+            "variable3": {
+              "value": "value3"
+            }
+          }
+        }
+      },
+      "CreateEditSessionResponse": {
+        "type": "object",
+        "description": "Object containing session token and segment token.",
+        "properties": {
+          "sessionToken": {
             "type": "string",
-            "description": "Custom property."
+            "description": "Token that identifies the user's individual session."
           },
+          "segmentToken": {
+            "type": "string",
+            "description": "Token that identifies the user's segment, shared with other users with similar navigation parameters."
+          }
+        }
+      },
+      "GetSessionResponse": {
+        "type": "object",
+        "description": "Session information.",
+        "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier of the document."
+            "description": "Session ID."
           },
-          "accountId": {
-            "type": "string",
-            "description": "Unique identifier of the account."
-          },
-          "accountName": {
-            "type": "string",
-            "description": "Account name."
-          },
-          "dataEntityId": {
-            "type": "string",
-            "description": "Two-letter string that identifies the data entity."
+          "namespaces": {
+            "type": "object",
+            "description": "Object with namespaces, each containing a set of information about the session.",
+            "properties": {
+              "account": {
+                "type": "object",
+                "description": "Account information related to the session.",
+                "properties": {
+                  "id": {
+                    "type": "object",
+                    "description": "VTEX account ID.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the VTEX account ID."
+                      },
+                      "keepAlive": {
+                        "type": "boolean",
+                        "description": "Determines whether or not the connection should be kept alive."
+                      }
+                    }
+                  },
+                  "accountName": {
+                    "type": "object",
+                    "description": "VTEX account name.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the VTEX account name."
+                      }
+                    }
+                  }
+                }
+              },
+              "store": {
+                "type": "object",
+                "description": "Store information related to the session.",
+                "properties": {
+                  "channel": {
+                    "type": "object",
+                    "description": "[Trade policy](https://help.vtex.com/en/tutorial/how-trade-policies-work--6Xef8PZiFm40kg2STrMkMV) ID.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the [Trade policy](https://help.vtex.com/en/tutorial/how-trade-policies-work--6Xef8PZiFm40kg2STrMkMV) ID."
+                      }
+                    }
+                  },
+                  "countryCode": {
+                    "type": "object",
+                    "description": "Country code.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the country code."
+                      }
+                    }
+                  },
+                  "cultureInfo": {
+                    "type": "object",
+                    "description": "Locale that provides culture-specific information, such as the language, sublanguage, country/region, calendar, and conventions associated with a particular culture. Read [this documentation](https://learn.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?view=net-7.0#culture-names-and-identifiers) for more details.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the `cultureInfo` property."
+                      }
+                    }
+                  },
+                  "currencyCode": {
+                    "type": "object",
+                    "description": "Currency code.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the currency code."
+                      }
+                    }
+                  },
+                  "currencySymbol": {
+                    "type": "object",
+                    "description": "Currency symbol.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the currency symbol."
+                      }
+                    }
+                  },
+                  "channelPrivacy": {
+                    "type": "object",
+                    "description": "Defines whether or not the channel is private.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value containing the channel's privacy option."
+                      }
+                    }
+                  }
+                }
+              },
+              "public": {
+                "type": "object",
+                "description": "Public and editable information related to the session.",
+                "additionalProperties": {
+                  "type": "object",
+                  "description": "Custom property.",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "description": "Value of the custom property."
+                    }
+                  }
+                }
+              },
+              "checkout": {
+                "type": "object",
+                "description": "Checkout information related to the session.",
+                "properties": {
+                  "regionId": {
+                    "type": "object",
+                    "description": "ID of the session's region.",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the Region ID."
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -44387,34 +44519,6 @@
           "price": 7390
         }
       },
-      "Paging": {
-        "type": "object",
-        "description": "Pagination information.",
-        "required": [
-          "total",
-          "pages",
-          "currentPage",
-          "perPage"
-        ],
-        "properties": {
-          "total": {
-            "type": "integer",
-            "description": "Total number of orders."
-          },
-          "pages": {
-            "type": "integer",
-            "description": "Total number of pages."
-          },
-          "currentPage": {
-            "type": "integer",
-            "description": "Number of the current page."
-          },
-          "perPage": {
-            "type": "integer",
-            "description": "Number of orders per page."
-          }
-        }
-      },
       "Stats2": {
         "title": "Stats2",
         "required": [
@@ -44601,6 +44705,1188 @@
           "Sum": 0,
           "SumOfSquares": 0,
           "Facets": {}
+        }
+      },
+      "Userorderdetails": {
+        "title": "Userorderdetails",
+        "required": [
+          "orderId",
+          "sequence",
+          "marketplaceOrderId",
+          "marketplaceServicesEndpoint",
+          "sellerOrderId",
+          "origin",
+          "affiliateId",
+          "salesChannel",
+          "merchantName",
+          "status",
+          "statusDescription",
+          "value",
+          "creationDate",
+          "lastChange",
+          "orderGroup",
+          "totals",
+          "items",
+          "marketplaceItems",
+          "clientProfileData",
+          "giftRegistryData",
+          "marketingData",
+          "ratesAndBenefitsData",
+          "shippingData",
+          "paymentData",
+          "packageAttachment",
+          "sellers",
+          "callCenterOperatorData",
+          "followUpEmail",
+          "lastMessage",
+          "hostname",
+          "invoiceData",
+          "changesAttachment",
+          "openTextField",
+          "roundingError",
+          "orderFormId",
+          "commercialConditionData",
+          "isCompleted",
+          "customData",
+          "storePreferencesData",
+          "allowCancellation",
+          "allowEdition",
+          "isCheckedIn",
+          "marketplace",
+          "authorizedDate",
+          "invoicedDate",
+          "cancelReason",
+          "itemMetadata",
+          "subscriptionData",
+          "taxData",
+          "checkedInPickupPointId",
+          "cancellationData",
+          "clientPreferencesData"
+        ],
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "description": "Order ID is a unique code that identifies an order."
+          },
+          "sequence": {
+            "type": "string",
+            "description": "Sequence is a six-digit string that follows the order ID. For example, in order `1268540501456-01 (501456)`, the sequence is `501456`."
+          },
+          "marketplaceOrderId": {
+            "type": "string",
+            "description": "Marketplace order ID."
+          },
+          "marketplaceServicesEndpoint": {
+            "type": "string",
+            "description": "Marketplace services endpoint."
+          },
+          "sellerOrderId": {
+            "type": "string",
+            "description": "ID of the seller related to the order. It can be a VTEX seller or an external seller."
+          },
+          "origin": {
+            "type": "string",
+            "description": "Order's [origin in the order flow](https://developers.vtex.com/docs/guides/orders-overview#understanding-order-flow-types), which can be `Marketplace`, `Fulfillment` or `Chain`."
+          },
+          "affiliateId": {
+            "type": "string",
+            "description": "Corresponds to the three-digit [affiliate](https://help.vtex.com/en/tutorial/configuring-affiliates--tutorials_187) identification code of the seller responsible for the order."
+          },
+          "salesChannel": {
+            "type": "string",
+            "description": "Sales channel (or [trade policy](https://help.vtex.com/tutorial/how-trade-policies-work--6Xef8PZiFm40kg2STrMkMV)) ID related to the order."
+          },
+          "merchantName": {
+            "type": "string",
+            "description": "Name of the merchant."
+          },
+          "status": {
+            "type": "string",
+            "description": "Order [status](https://help.vtex.com/en/tutorial/order-flow-and-status--tutorials_196)."
+          },
+          "statusDescription": {
+            "type": "string",
+            "description": "`Deprecated`. Status description which is displayed on the Admin panel. This field is obsolete and may not return any value.",
+            "deprecated": true
+          },
+          "value": {
+            "type": "integer",
+            "description": "Order's total amount."
+          },
+          "creationDate": {
+            "type": "string",
+            "description": "Order's creation date."
+          },
+          "lastChange": {
+            "type": "string",
+            "description": "Order's last change date."
+          },
+          "orderGroup": {
+            "type": "string",
+            "description": "Order's group ID."
+          },
+          "totals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Total"
+            },
+            "description": "List with details about orders' totals."
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
+            },
+            "description": "Information about order's items."
+          },
+          "marketplaceItems": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Marketplace details object."
+          },
+          "clientProfileData": {
+            "$ref": "#/components/schemas/ClientProfileData"
+          },
+          "giftRegistryData": {
+            "type": "string",
+            "nullable": true,
+            "description": "Information about gift list, when it applies."
+          },
+          "marketingData": {
+            "type": "object",
+            "description": "Information about promotions and marketing. For example, coupon tracking information and internal or external UTMs.",
+            "required": [
+              "id",
+              "utmSource",
+              "utmPartner",
+              "utmMedium",
+              "utmCampaign",
+              "coupon",
+              "utmiCampaign",
+              "utmipage",
+              "utmiPart",
+              "marketingTags"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Object ID which expected value is `marketingData`."
+              },
+              "utmSource": {
+                "type": "string",
+                "description": "Value of the `utm_source` parameter of the URL that led to the request."
+              },
+              "utmPartner": {
+                "type": "string",
+                "description": "UTM Source Parameters."
+              },
+              "utmMedium": {
+                "type": "string",
+                "description": "Value of the `utm_medium` parameter of the URL that led to the request."
+              },
+              "utmCampaign": {
+                "type": "string",
+                "description": "Value of the `utm_campaign` parameter of the URL that led to the request."
+              },
+              "coupon": {
+                "type": "string",
+                "description": "Coupon's code information."
+              },
+              "utmiCampaign": {
+                "type": "string",
+                "description": "Internal UTM value `utmi_cp`."
+              },
+              "utmipage": {
+                "type": "string",
+                "description": "Internal UTM value `utmi_p`."
+              },
+              "utmiPart": {
+                "type": "string",
+                "description": "Internal UTM value `utmi_pc`."
+              },
+              "marketingTags": {
+                "type": "array",
+                "description": "Marketing tags information. This field can be used to register campaign data or informative tags regarding promotions.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "ratesAndBenefitsData": {
+            "$ref": "#/components/schemas/RatesAndBenefitsData"
+          },
+          "shippingData": {
+            "$ref": "#/components/schemas/ShippingData"
+          },
+          "paymentData": {
+            "$ref": "#/components/schemas/PaymentData"
+          },
+          "packageAttachment": {
+            "$ref": "#/components/schemas/PackageAttachment"
+          },
+          "sellers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Seller"
+            },
+            "description": "List of all sellers associated with the order."
+          },
+          "callCenterOperatorData": {
+            "type": "string",
+            "nullable": true,
+            "description": "Call center operator responsible for the order."
+          },
+          "followUpEmail": {
+            "type": "string",
+            "description": "Email of the store's employee responsible for managing the order."
+          },
+          "lastMessage": {
+            "type": "string",
+            "nullable": true,
+            "description": "Last sent transactional message."
+          },
+          "hostname": {
+            "type": "string",
+            "description": "Account Hostname registered in License Manager."
+          },
+          "invoiceData": {
+            "type": "object",
+            "description": "Information pertinent to the order's invoice.",
+            "nullable": true
+          },
+          "changesAttachment": {
+            "$ref": "#/components/schemas/ChangesAttachment"
+          },
+          "openTextField": {
+            "type": "string",
+            "description": "Optional field with order's additional information. This field must be filled in using the following format: \n\r```\n\r{\r\n    \"fieldExample\": \"ValueExample\"\r\n  }\n\r```\n\r.",
+            "nullable": true
+          },
+          "roundingError": {
+            "type": "integer",
+            "description": "Rounding error total amount, if it applies. For example, in orders with a discount over non-integer multiplier items, the rounding price is performed per item, not after the sum of all items. That can cause a difference in the total discount amount, which is informed in this field."
+          },
+          "orderFormId": {
+            "type": "string",
+            "description": "[Order form](https://developers.vtex.com/docs/guides/orderform-fields) ID."
+          },
+          "commercialConditionData": {
+            "type": "string",
+            "nullable": true,
+            "description": "Information about commercial conditions."
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "When set as `true`, the order's payment has been settled, and when set as `false`, it has not been settled yet."
+          },
+          "customData": {
+            "type": "string",
+            "nullable": true,
+            "description": "Custom information in the order. This field is useful for storing data not included in other fields, for example, a message for a gift or a name to be printed in a shirt."
+          },
+          "storePreferencesData": {
+            "$ref": "#/components/schemas/StorePreferencesData"
+          },
+          "allowCancellation": {
+            "type": "boolean",
+            "description": "When set as `true`, the order can be canceled, and when set as `false`, it is no longer possible to cancel the order."
+          },
+          "allowEdition": {
+            "type": "boolean",
+            "description": "When set as `true`, the order can be edited, and when set as `false`, it is no longer possible to edit the order."
+          },
+          "isCheckedIn": {
+            "type": "boolean",
+            "description": "This field is set `true` when the order was made via inStore and `false` when it was not."
+          },
+          "marketplace": {
+            "$ref": "#/components/schemas/Marketplace"
+          },
+          "authorizedDate": {
+            "type": "string",
+            "description": "Authorized order date."
+          },
+          "invoicedDate": {
+            "type": "string",
+            "nullable": true,
+            "description": "Order's invoice date."
+          },
+          "cancelReason": {
+            "type": "string",
+            "description": "Reason for order cancellation.",
+            "nullable": true
+          },
+          "itemMetadata": {
+            "type": "object",
+            "description": "Metadata information about the order's items.",
+            "required": [
+              "Items"
+            ],
+            "properties": {
+              "Items": {
+                "type": "array",
+                "description": "Metadata items.",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "Id",
+                    "Seller",
+                    "Name",
+                    "SkuName",
+                    "ProductId",
+                    "RefId",
+                    "Ean",
+                    "ImageUrl",
+                    "DetailUrl",
+                    "AssemblyOptions"
+                  ],
+                  "properties": {
+                    "Id": {
+                      "type": "string",
+                      "description": "Item's SKU ID, which is a unique numerical identifier."
+                    },
+                    "Seller": {
+                      "type": "string",
+                      "description": "Seller ID that identifies the seller the item belongs to."
+                    },
+                    "Name": {
+                      "type": "string",
+                      "description": "Name of the item as displayed to customers in the storefront."
+                    },
+                    "SkuName": {
+                      "type": "string",
+                      "description": "Name of the SKU corresponding to the item."
+                    },
+                    "ProductId": {
+                      "type": "string",
+                      "description": "ID of the Product associated with the item."
+                    },
+                    "RefId": {
+                      "type": "string",
+                      "description": "Item's reference ID."
+                    },
+                    "Ean": {
+                      "type": "string",
+                      "description": "EAN of the item."
+                    },
+                    "ImageUrl": {
+                      "type": "string",
+                      "description": "Item's SKU image URL."
+                    },
+                    "DetailUrl": {
+                      "type": "string",
+                      "description": "URL slug of the item."
+                    },
+                    "AssemblyOptions": {
+                      "type": "array",
+                      "description": "Displays information about [assembly options](https://help.vtex.com/en/tutorial/assembly-options--5x5FhNr4f5RUGDEGWzV1nH) related to the item, if there are any.",
+                      "items": {
+                        "required": [
+                          "Id",
+                          "Name",
+                          "Required",
+                          "InputValues",
+                          "Composition"
+                        ],
+                        "type": "object",
+                        "properties": {
+                          "Id": {
+                            "type": "string",
+                            "description": "ID of the attachment related to the order."
+                          },
+                          "Name": {
+                            "type": "string",
+                            "description": "Name of the attachment related to the order."
+                          },
+                          "Required": {
+                            "type": "boolean",
+                            "description": "If this field is set as `true`, when the customer purchases the item sending the attachment is required, and when set as `false`, sending the attachment is optional."
+                          },
+                          "InputValues": {
+                            "type": "object",
+                            "description": "Displays the attachment's content.",
+                            "nullable": true
+                          },
+                          "Composition": {
+                            "type": "object",
+                            "description": "Displays the attachment's composition.",
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "subscriptionData": {
+            "type": "object",
+            "description": "Information about [subscriptions](https://help.vtex.com/tutorial/how-subscriptions-work--frequentlyAskedQuestions_4453).",
+            "nullable": true,
+            "required": [
+              "SubscriptionGroupId",
+              "Subscriptions"
+            ],
+            "properties": {
+              "SubscriptionGroupId": {
+                "type": "string",
+                "description": "ID of the subscription's group. If this field returns `null` and the `executionCount` is `0`, the order is the first one with subscriptions."
+              },
+              "Subscriptions": {
+                "type": "array",
+                "description": "List with subscriptions and their details.",
+                "nullable": true,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "ExecutionCount",
+                    "PriceAtSubscriptionDate",
+                    "ItemIndex",
+                    "Plan"
+                  ],
+                  "properties": {
+                    "ExecutionCount": {
+                      "type": "integer",
+                      "description": "Position of the order in the subscription cycle. The first order will have the value `0`, the second will have the value `1`, and so on."
+                    },
+                    "PriceAtSubscriptionDate": {
+                      "type": "number",
+                      "description": "Price of the order when the customer signed up for subscriptions. Subscriptions created from Admin UI or APIs do not have an original order, so the field returns `0.0`. This field was valid only for Subscriptions v2 and is deprecated in Subscriptions v3.",
+                      "deprecated": true
+                    },
+                    "ItemIndex": {
+                      "type": "integer",
+                      "description": "Each item in the subscriptions' order is identified by an index. The position starts in`0`, followed by `1`, `2`, and so on."
+                    },
+                    "Plan": {
+                      "type": "object",
+                      "description": "Information about the subscription's validility and frequency.",
+                      "required": [
+                        "type",
+                        "frequency",
+                        "validity"
+                      ],
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "Type of plan."
+                        },
+                        "frequency": {
+                          "type": "object",
+                          "description": "Information about subscriptions' recurrence.",
+                          "required": [
+                            "periodicity",
+                            "interval"
+                          ],
+                          "properties": {
+                            "periodicity": {
+                              "type": "string",
+                              "description": "Defines the subscriptions recurrence period. The possible values are `DAILY`,`WEEKLY`, `MONTHLY` and `YEARLY`."
+                            },
+                            "interval": {
+                              "type": "integer",
+                              "description": "Number of the time interval configured between subscription orders, which depends on the periodicity. For a `DAILY` periodicity, the field's value will correspond to days, for `MONTHLY` to months, and so on."
+                            }
+                          }
+                        },
+                        "validity": {
+                          "type": "object",
+                          "description": "Information about the period during which the subscription will be valid.",
+                          "required": [
+                            "begin",
+                            "end"
+                          ],
+                          "properties": {
+                            "begin": {
+                              "type": "string",
+                              "description": "Subscriptions' beginning date with the format `yyyy-mm-ddThh:mm:ss`."
+                            },
+                            "end": {
+                              "type": "string",
+                              "description": "Subscriptions' ending date with the format `yyyy-mm-ddThh:mm:ss`."
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "taxData": {
+            "type": "object",
+            "description": "Order's tax information.",
+            "required": [
+              "areTaxesDesignatedByMarketplace",
+              "taxInfoCollection"
+            ],
+            "properties": {
+              "areTaxesDesignatedByMarketplace": {
+                "type": "boolean",
+                "description": "If the taxes were designated by the marketplace (`true`) or not (`false`)."
+              },
+              "taxInfoCollection": {
+                "type": "array",
+                "description": "Array with taxes' details.",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "itemIndex",
+                    "sku",
+                    "priceTags"
+                  ],
+                  "properties": {
+                    "itemIndex": {
+                      "type": "integer",
+                      "description": "Item's indexing number."
+                    },
+                    "sku": {
+                      "type": "string",
+                      "description": "Alphanumeric sequence that identifies an SKU."
+                    },
+                    "priceTags": {
+                      "type": "array",
+                      "description": "Price tag information.",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "isPercentual",
+                          "name",
+                          "rawValue"
+                        ],
+                        "properties": {
+                          "isPercentual": {
+                            "type": "boolean",
+                            "description": "If the tax is a percentage (`true`) or note (`false`)."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name that identifies the tax."
+                          },
+                          "rawValue": {
+                            "type": "string",
+                            "description": "The amount that corresponds to the tax."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "checkedInPickupPointId": {
+            "type": "string",
+            "description": "If the field `isCheckedIn` is set as `true`, the `checkedInPickupPointId` will retrieve the ID of the physical store where the order was made."
+          },
+          "cancellationData": {
+            "type": "object",
+            "description": "Information about order cancellation, when it applies.",
+            "required": [
+              "RequestedByUser",
+              "RequestedBySystem",
+              "RequestedBySellerNotification",
+              "RequestedByPaymentNotification",
+              "Reason",
+              "CancellationDate"
+            ],
+            "properties": {
+              "RequestedByUser": {
+                "type": "boolean",
+                "description": "If the order cancellation was requested by the costumer (`true`) or not (`false`)."
+              },
+              "RequestedBySystem": {
+                "type": "boolean",
+                "description": "If the order cancellation was made by the system (`true`) or not (`false`). This type of order cancellation happens in [incomplete orders](https://help.vtex.com/en/tutorial/how-incomplete-orders-work--tutorials_294), for example."
+              },
+              "RequestedBySellerNotification": {
+                "type": "boolean",
+                "description": "If the order cancellation was requested by the seller (`true`) or not (`false`)."
+              },
+              "RequestedByPaymentNotification": {
+                "type": "boolean",
+                "description": "If the order cancellation was requested by the payment gateway (`true`) or not (`false`)."
+              },
+              "Reason": {
+                "type": "string",
+                "description": "The reason why the order was cancelled."
+              },
+              "CancellationDate": {
+                "type": "string",
+                "description": "The date when the order was cancelled."
+              }
+            }
+          },
+          "clientPreferencesData": {
+            "type": "object",
+            "description": "Information about customer's preferences.",
+            "required": [
+              "locale",
+              "optinNewsLetter"
+            ],
+            "properties": {
+              "locale": {
+                "type": "string",
+                "description": "Customer's prefered language while accessing the store."
+              },
+              "optinNewsLetter": {
+                "type": "boolean",
+                "description": "When set as `true`, this field indicates customers opted to receive the newsletters, and when set as `false`, it means they did not."
+              }
+            }
+          }
+        },
+        "example": {
+          "orderId": "v502556llux-01",
+          "sequence": "502556",
+          "marketplaceOrderId": "",
+          "marketplaceServicesEndpoint": "http://oms.vtexinternal.com.br/api/oms?an=luxstore",
+          "sellerOrderId": "00-v502556llux-01",
+          "origin": "Marketplace",
+          "affiliateId": "",
+          "salesChannel": "1",
+          "merchantName": "luxstore",
+          "status": "handling",
+          "statusDescription": "Preparando Entrega",
+          "value": 1160,
+          "creationDate": "2019-01-28T20:09:43.899958+00:00",
+          "lastChange": "2019-02-06T20:46:11.7010747+00:00",
+          "orderGroup": "v502556lspt",
+          "totals": [
+            {
+              "id": "Items",
+              "name": "Total dos Itens",
+              "value": 3290
+            },
+            {
+              "id": "Discounts",
+              "name": "Total dos Descontos",
+              "value": 0
+            },
+            {
+              "id": "Shipping",
+              "name": "Total do Frete",
+              "value": 1160
+            },
+            {
+              "id": "Tax",
+              "name": "Total da Taxa",
+              "value": 0
+            },
+            {
+              "id": "Change",
+              "name": "Total das mudanças",
+              "value": -3290
+            }
+          ],
+          "items": [
+            {
+              "uniqueId": "87F0945396994B349158C7D9C9941442",
+              "id": "1234568358",
+              "productId": "9429485",
+              "ean": null,
+              "lockId": "00-v502556llux-01",
+              "itemAttachment": {
+                "content": {},
+                "name": null
+              },
+              "attachments": [],
+              "quantity": 1,
+              "seller": "1",
+              "name": "Bay Max L",
+              "refId": "BIGHEROBML",
+              "price": 3290,
+              "listPrice": 3290,
+              "manualPrice": null,
+              "priceTags": [],
+              "imageUrl": "http://luxstore.vteximg.com.br/arquivos/ids/159263-55-55/image-cc1aed75cbfa424a85a94900be3eacec.jpg?v=636795432619830000",
+              "detailUrl": "/bay-max-9429485/p",
+              "components": [],
+              "bundleItems": [],
+              "params": [],
+              "offerings": [],
+              "attachmentOfferings": [
+                {
+                  "name": "vtex.subscription.weekly",
+                  "required": false,
+                  "schema": {
+                    "vtex.subscription.key.frequency": {
+                      "MaximumNumberOfCharacters": 7,
+                      "Domain": [
+                        " 1 week",
+                        " 2 week",
+                        " 3 week",
+                        " 4 week"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "sellerSku": "1234568358",
+              "priceValidUntil": null,
+              "commission": 0,
+              "tax": 0,
+              "preSaleDate": null,
+              "additionalInfo": {
+                "brandName": "VTEX",
+                "brandId": "2000023",
+                "categoriesIds": "/1/",
+                "productClusterId": "135,142",
+                "commercialConditionId": "5",
+                "dimension": {
+                  "cubicweight": 0.7031,
+                  "height": 15,
+                  "length": 15,
+                  "weight": 15,
+                  "width": 15
+                },
+                "offeringInfo": null,
+                "offeringType": null,
+                "offeringTypeId": null
+              },
+              "measurementUnit": "un",
+              "unitMultiplier": 1,
+              "sellingPrice": 3290,
+              "isGift": false,
+              "shippingPrice": null,
+              "rewardValue": 0,
+              "freightCommission": 0,
+              "priceDefinitions": {
+                "sellingPrices": [
+                  {
+                    "value": 99,
+                    "quantity": 1
+                  }
+                ],
+                "calculatedSellingPrice": 99,
+                "total": 99
+              },
+              "taxCode": null,
+              "parentItemIndex": null,
+              "parentAssemblyBinding": null,
+              "callCenterOperator": "callCenterOp5473869",
+              "serialNumbers": "3",
+              "assemblies": [],
+              "costPrice": 52
+            }
+          ],
+          "marketplaceItems": [],
+          "clientProfileData": {
+            "id": "clientProfileData",
+            "email": "rodrigo.cunha@vtex.com.br",
+            "firstName": "Rodrigo",
+            "lastName": "Cunha",
+            "documentType": "cpf",
+            "document": "11047867702",
+            "phone": "+5521972321094",
+            "corporateName": null,
+            "tradeName": null,
+            "corporateDocument": null,
+            "stateInscription": null,
+            "corporatePhone": null,
+            "isCorporate": false,
+            "userProfileId": "5a3692de-358a-4bea-8885-044bce33bb93",
+            "customerClass": null
+          },
+          "giftRegistryData": null,
+          "marketingData": {
+            "id": "marketingData",
+            "utmSource": "fb",
+            "utmPartner": "utm partner",
+            "utmMedium": "utm medium",
+            "utmCampaign": "christmas",
+            "coupon": "sale",
+            "utmiCampaign": " ",
+            "utmipage": " ",
+            "utmiPart": " ",
+            "marketingTags": [
+              "vtex-subscription"
+            ]
+          },
+          "ratesAndBenefitsData": {
+            "id": "ratesAndBenefitsData",
+            "rateAndBenefitsIdentifiers": []
+          },
+          "shippingData": {
+            "id": "shippingData",
+            "address": {
+              "addressType": "residential",
+              "receiverName": "Rodrigo Cunha",
+              "addressId": "-1425945657910",
+              "versionId": "e9c3bec2-125d-4b96-a021-316c3aa9f14f",
+              "entityId": "eabfb564-99d6-40d8-bd6c-bddbd4990aad",
+              "postalCode": "22250-040",
+              "city": "Rio de Janeiro",
+              "state": "RJ",
+              "country": "BRA",
+              "street": "Praia de Botafogo",
+              "number": "518",
+              "neighborhood": "Botafogo",
+              "complement": "10",
+              "reference": null,
+              "geoCoordinates": []
+            },
+            "logisticsInfo": [
+              {
+                "itemIndex": 0,
+                "selectedSla": "Normal",
+                "lockTTL": "10d",
+                "price": 1160,
+                "listPrice": 1160,
+                "sellingPrice": 1160,
+                "deliveryWindow": null,
+                "deliveryCompany": "Todos os CEPS",
+                "shippingEstimate": "5bd",
+                "shippingEstimateDate": "2019-02-04T20:33:46.4595004+00:00",
+                "slas": [
+                  {
+                    "id": "Normal",
+                    "name": "Normal",
+                    "shippingEstimate": "5bd",
+                    "deliveryWindow": null,
+                    "price": 1160,
+                    "deliveryChannel": "delivery",
+                    "pickupStoreInfo": {
+                      "additionalInfo": null,
+                      "address": null,
+                      "dockId": null,
+                      "friendlyName": null,
+                      "isPickupStore": false
+                    },
+                    "polygonName": "region13",
+                    "lockTTL": "12d",
+                    "pickupPointId": "1_VTEX-RJ",
+                    "transitTime": "0d",
+                    "pickupDistance": 29.861602783203125
+                  },
+                  {
+                    "id": "Expressa",
+                    "name": "Expressa",
+                    "shippingEstimate": "5bd",
+                    "deliveryWindow": null,
+                    "price": 1160,
+                    "deliveryChannel": "delivery",
+                    "pickupStoreInfo": {
+                      "additionalInfo": null,
+                      "address": null,
+                      "dockId": null,
+                      "friendlyName": null,
+                      "isPickupStore": false
+                    },
+                    "polygonName": "region13",
+                    "lockTTL": "12d",
+                    "pickupPointId": "1_VTEX-RJ",
+                    "transitTime": "0d",
+                    "pickupDistance": 29.861602783203125
+                  },
+                  {
+                    "id": "Quebra Kit",
+                    "name": "Quebra Kit",
+                    "shippingEstimate": "2bd",
+                    "deliveryWindow": null,
+                    "price": 1392,
+                    "deliveryChannel": "delivery",
+                    "pickupStoreInfo": {
+                      "additionalInfo": null,
+                      "address": null,
+                      "dockId": null,
+                      "friendlyName": null,
+                      "isPickupStore": false
+                    },
+                    "polygonName": "region13",
+                    "lockTTL": "12d",
+                    "pickupPointId": "1_VTEX-RJ",
+                    "transitTime": "0d",
+                    "pickupDistance": 29.861602783203125
+                  },
+                  {
+                    "id": "Sob Encomenda",
+                    "name": "Sob Encomenda",
+                    "shippingEstimate": "32bd",
+                    "deliveryWindow": null,
+                    "price": 1392,
+                    "deliveryChannel": "delivery",
+                    "pickupStoreInfo": {
+                      "additionalInfo": null,
+                      "address": null,
+                      "dockId": null,
+                      "friendlyName": null,
+                      "isPickupStore": false
+                    },
+                    "polygonName": "region13",
+                    "lockTTL": "12d",
+                    "pickupPointId": "1_VTEX-RJ",
+                    "transitTime": "0d",
+                    "pickupDistance": 29.861602783203125
+                  }
+                ],
+                "shipsTo": [
+                  "BRA"
+                ],
+                "deliveryIds": [
+                  {
+                    "courierId": "197a56f",
+                    "courierName": "Todos os CEPS",
+                    "dockId": "1",
+                    "quantity": 1,
+                    "warehouseId": "1_1",
+                    "accountCarrierName": "recorrenciaqa",
+                    "kitItemDetails": []
+                  }
+                ],
+                "deliveryChannels": [
+                  {
+                    "id": "delivery",
+                    "stockBalance": 0
+                  }
+                ],
+                "deliveryChannel": "delivery",
+                "pickupStoreInfo": {
+                  "additionalInfo": null,
+                  "address": null,
+                  "dockId": null,
+                  "friendlyName": null,
+                  "isPickupStore": false
+                },
+                "addressId": "-1425945657910",
+                "versionId": "e9c3bec2-125d-4b96-a021-316c3aa9f14f",
+                "entityId": "eabfb564-99d6-40d8-bd6c-bddbd4990aad",
+                "polygonName": "region56",
+                "pickupPointId": "1_VTEX-RJ",
+                "transitTime": "3d"
+              }
+            ],
+            "trackingHints": null,
+            "selectedAddresses": [
+              {
+                "addressId": "-1425945657910",
+                "versionId": "e9c3bec2-125d-4b96-a021-316c3aa9f14f",
+                "entityId": "eabfb564-99d6-40d8-bd6c-bddbd4990aad",
+                "addressType": "residential",
+                "receiverName": "Rodrigo Cunha",
+                "street": "Praia de Botafogo",
+                "number": "518",
+                "complement": "10",
+                "neighborhood": "Botafogo",
+                "postalCode": "22250-040",
+                "city": "Rio de Janeiro",
+                "state": "RJ",
+                "country": "BRA",
+                "reference": null,
+                "geoCoordinates": []
+              }
+            ]
+          },
+          "paymentData": {
+            "transactions": [
+              {
+                "isActive": true,
+                "transactionId": "418213DE29634837A63DD693A937A696",
+                "merchantName": "luxstore",
+                "payments": [
+                  {
+                    "id": "D3DEECAB3C6C4B9EAF8EF4C1FE062FF3",
+                    "paymentSystem": "6",
+                    "paymentSystemName": "Boleto Bancário",
+                    "value": 4450,
+                    "installments": 1,
+                    "referenceValue": 4450,
+                    "cardHolder": null,
+                    "cardNumber": null,
+                    "firstDigits": null,
+                    "lastDigits": null,
+                    "cvv2": null,
+                    "expireMonth": null,
+                    "expireYear": null,
+                    "url": "https://luxstore.vtexpayments.com.br:443/BankIssuedInvoice/Transaction/418213DE29634837A63DD693A937A696/Payment/D3DEECAB3C6C4B9EAF8EF4C1FE062FF3/Installment/{Installment}",
+                    "giftCardId": null,
+                    "giftCardName": null,
+                    "giftCardCaption": null,
+                    "redemptionCode": null,
+                    "group": "bankInvoice",
+                    "tid": null,
+                    "dueDate": "2019-02-02",
+                    "connectorResponses": {
+                      "Tid": "94857956",
+                      "ReturnCode": "200",
+                      "Message": "logMessage",
+                      "authId": "857956"
+                    },
+                    "giftCardProvider": "presentCard",
+                    "giftCardAsDiscount": false,
+                    "koinUrl": "koinURL",
+                    "accountId": "5BC5C6B417FE432AB971B1D399F190C9",
+                    "parentAccountId": "5BC5C6B417FE432AB971B1D399F190C9",
+                    "bankIssuedInvoiceIdentificationNumber": "23797770100000019003099260100022107500729050",
+                    "bankIssuedInvoiceIdentificationNumberFormatted": "32534.95739 75945.24534 54395.734214 5",
+                    "bankIssuedInvoiceBarCodeNumber": "325349573975945245345439573421443986734065",
+                    "bankIssuedInvoiceBarCodeType": "i25",
+                    "billingAddress": {}
+                  }
+                ]
+              }
+            ]
+          },
+          "packageAttachment": {
+            "packages": []
+          },
+          "sellers": [
+            {
+              "id": "1",
+              "name": "Lux Store",
+              "logo": "https://sellersLogo/images.png",
+              "fulfillmentEndpoint": "http://fulfillment.vtexcommerce.com.br/api/fulfillment?an=accountName"
+            }
+          ],
+          "callCenterOperatorData": null,
+          "followUpEmail": "7bf3a59bbc56402c810bda9521ba449e@ct.vtex.com.br",
+          "lastMessage": null,
+          "hostname": "luxstore",
+          "invoiceData": null,
+          "changesAttachment": {
+            "id": "changeAttachment",
+            "changesData": [
+              {
+                "reason": "Blah",
+                "discountValue": 3290,
+                "incrementValue": 0,
+                "itemsAdded": [],
+                "itemsRemoved": [
+                  {
+                    "id": "1234568358",
+                    "name": "Bay Max L",
+                    "quantity": 1,
+                    "price": 3290,
+                    "unitMultiplier": null
+                  }
+                ],
+                "receipt": {
+                  "date": "2019-02-06T20:46:04.4003606+00:00",
+                  "orderId": "v502556llux-01",
+                  "receipt": "029f9ab8-751a-4b1e-bf81-7dd25d14b49b"
+                }
+              }
+            ]
+          },
+          "openTextField": null,
+          "roundingError": 0,
+          "orderFormId": "caae7471333e403f959fa5fd66951340",
+          "commercialConditionData": null,
+          "isCompleted": true,
+          "customData": null,
+          "storePreferencesData": {
+            "countryCode": "BRA",
+            "currencyCode": "BRL",
+            "currencyFormatInfo": {
+              "CurrencyDecimalDigits": 2,
+              "CurrencyDecimalSeparator": ",",
+              "CurrencyGroupSeparator": ".",
+              "CurrencyGroupSize": 3,
+              "StartsWithCurrencySymbol": true
+            },
+            "currencyLocale": 1046,
+            "currencySymbol": "R$",
+            "timeZone": "E. South America Standard Time"
+          },
+          "allowCancellation": true,
+          "allowEdition": false,
+          "isCheckedIn": false,
+          "marketplace": {
+            "baseURL": "http://oms.vtexinternal.com.br/api/oms?an=luxstore",
+            "isCertified": null,
+            "name": "luxstore"
+          },
+          "authorizedDate": "2019-01-28T20:33:04+00:00",
+          "invoicedDate": null,
+          "cancelReason": "The size was too big.",
+          "itemMetadata": {
+            "Items": [
+              {
+                "Id": "18",
+                "Seller": "1",
+                "Name": "Cat food",
+                "SkuName": "Cat food",
+                "ProductId": "6",
+                "RefId": "105",
+                "Ean": "43673557",
+                "ImageUrl": "http://store.vteximg.com.br/ids/155392-55-55/AlconKOI.jpg?v=635918402228600000",
+                "DetailUrl": "/catfood/p",
+                "AssemblyOptions": [
+                  {
+                    "Id": "vtex.subscription.plan-ana",
+                    "Name": "vtex.subscription.plan-ana",
+                    "Required": false,
+                    "InputValues": {
+                      "vtex.subscription.key.frequency": {
+                        "MaximumNumberOfCharacters": 8,
+                        "Domain": [
+                          "4 month",
+                          "1 month"
+                        ]
+                      }
+                    },
+                    "Composition": {}
+                  }
+                ]
+              }
+            ]
+          },
+          "subscriptionData": {
+            "SubscriptionGroupId": "A64AC73C0FB8693A7ADB4AC69CA4FD5F",
+            "Subscriptions": [
+              {
+                "ExecutionCount": 724,
+                "PriceAtSubscriptionDate": 100.0,
+                "ItemIndex": 0,
+                "Plan": {
+                  "type": "RECURRING_PAYMENT",
+                  "frequency": {
+                    "periodicity": "DAILY",
+                    "interval": 1
+                  },
+                  "validity": {
+                    "begin": "2022-01-10T00:00:00.0000000+00:00",
+                    "end": "2024-02-03T00:00:00.0000000+00:00"
+                  }
+                }
+              }
+            ]
+          },
+          "taxData": {
+            "areTaxesDesignatedByMarketplace": true,
+            "taxInfoCollection": [
+              {
+                "itemIndex": 0,
+                "sku": "COLOCAR_O_SKUID",
+                "priceTags": [
+                  {
+                    "isPercentual": false,
+                    "name": "Taxes (Magazine Luisa)",
+                    "rawValue": "COLOCAR_O_VALOR_SEM_DECIMAL"
+                  }
+                ]
+              }
+            ]
+          },
+          "checkedInPickupPointId": "storeNameExample_901",
+          "cancellationData": {
+            "RequestedByUser": true,
+            "RequestedBySystem": false,
+            "RequestedBySellerNotification": false,
+            "RequestedByPaymentNotification": false,
+            "Reason": "Item was too big in the client.",
+            "CancellationDate": "2022-10--05T15:40:33"
+          },
+          "clientPreferencesData": {
+            "locale": "en-US",
+            "optinNewsLetter": false
+          }
         }
       },
       "Total": {
@@ -51350,375 +52636,6 @@
           }
         }
       },
-      "Userorderdetails": {
-        "title": "Userorderdetails",
-        "required": [
-          "orderId",
-          "sequence",
-          "marketplaceOrderId",
-          "marketplaceServicesEndpoint",
-          "sellerOrderId",
-          "origin",
-          "affiliateId",
-          "salesChannel",
-          "merchantName",
-          "status",
-          "workflowIsInError",
-          "statusDescription",
-          "value",
-          "creationDate",
-          "lastChange",
-          "orderGroup",
-          "totals",
-          "items",
-          "marketplaceItems",
-          "clientProfileData",
-          "giftRegistryData",
-          "marketingData",
-          "ratesAndBenefitsData",
-          "shippingData",
-          "paymentData",
-          "packageAttachment",
-          "sellers",
-          "callCenterOperatorData",
-          "followUpEmail",
-          "lastMessage",
-          "hostname",
-          "invoiceData",
-          "changesAttachment",
-          "openTextField",
-          "roundingError",
-          "orderFormId",
-          "commercialConditionData",
-          "isCompleted",
-          "customData",
-          "storePreferencesData",
-          "allowCancellation",
-          "allowEdition",
-          "isCheckedIn",
-          "marketplace",
-          "authorizedDate",
-          "invoicedDate",
-          "cancelReason",
-          "itemMetadata",
-          "subscriptionData",
-          "taxData",
-          "checkedInPickupPointId",
-          "cancellationData",
-          "clientPreferencesData",
-          "cancellationRequests"
-        ],
-        "type": "object",
-        "properties": {
-          "orderId": {
-            "type": "string",
-            "description": "Order ID is a unique code that identifies an order."
-          },
-          "sequence": {
-            "type": "string",
-            "description": "Sequence is a six-digit string that follows the order ID. For example, in order `1268540501456-01 (501456)`, the sequence is `501456`."
-          },
-          "marketplaceOrderId": {
-            "type": "string",
-            "description": "Marketplace order ID."
-          },
-          "marketplaceServicesEndpoint": {
-            "type": "string",
-            "description": "Marketplace services endpoint."
-          },
-          "sellerOrderId": {
-            "type": "string",
-            "description": "ID of the seller related to the order. It can be a VTEX seller or an external seller."
-          },
-          "origin": {
-            "type": "string",
-            "description": "Order's [origin in the order flow](https://developers.vtex.com/docs/guides/orders-overview#understanding-order-flow-types), which can be `Marketplace`, `Fulfillment` or `Chain`."
-          },
-          "affiliateId": {
-            "type": "string",
-            "description": "Corresponds to the three-digit [affiliate](https://help.vtex.com/en/tutorial/configuring-affiliates--tutorials_187) identification code of the seller responsible for the order."
-          },
-          "salesChannel": {
-            "type": "string",
-            "description": "Sales channel (or [trade policy](https://help.vtex.com/tutorial/how-trade-policies-work--6Xef8PZiFm40kg2STrMkMV)) ID related to the order."
-          },
-          "merchantName": {
-            "type": "string",
-            "description": "Name of the merchant."
-          },
-          "status": {
-            "type": "string",
-            "description": "Order [status](https://help.vtex.com/en/tutorial/order-flow-and-status--tutorials_196)."
-          },
-          "workflowIsInError": {
-            "type": "boolean",
-            "description": "Indicates if the order workflow is in an error state."
-          },
-          "statusDescription": {
-            "type": "string",
-            "description": "`Deprecated`. Status description which is displayed on the Admin panel. This field is obsolete and may not return any value.",
-            "deprecated": true
-          },
-          "value": {
-            "type": "integer",
-            "description": "Order's total amount."
-          },
-          "creationDate": {
-            "type": "string",
-            "description": "Order's creation date."
-          },
-          "lastChange": {
-            "type": "string",
-            "description": "Order's last change date."
-          },
-          "orderGroup": {
-            "type": "string",
-            "description": "Order's group ID."
-          },
-          "totals": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Total"
-            },
-            "description": "List with details about orders' totals."
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrderItem"
-            },
-            "description": "Information about order's items."
-          },
-          "marketplaceItems": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Marketplace details object."
-          },
-          "clientProfileData": {
-            "$ref": "#/components/schemas/ClientProfileData"
-          },
-          "giftRegistryData": {
-            "type": "string",
-            "nullable": true,
-            "description": "Information about gift list, when it applies."
-          },
-          "marketingData": {
-            "type": "object",
-            "description": "Information about promotions and marketing. For example, coupon tracking information and internal or external UTMs.",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "Object ID. The expected value is `marketingData`."
-              },
-              "utmSource": {
-                "type": "string",
-                "description": "Value of the `utm_source` parameter of the URL that led to the request."
-              },
-              "utmPartner": {
-                "type": "string",
-                "description": "UTM Source Parameters."
-              },
-              "utmMedium": {
-                "type": "string",
-                "description": "Value of the `utm_medium` parameter of the URL that led to the request."
-              },
-              "utmCampaign": {
-                "type": "string",
-                "description": "Value of the `utm_campaign` parameter of the URL that led to the request."
-              },
-              "coupon": {
-                "type": "string",
-                "description": "Coupon code."
-              },
-              "utmiCampaign": {
-                "type": "string",
-                "description": "Internal UTM value `utmi_cp`."
-              },
-              "utmipage": {
-                "type": "string",
-                "description": "Internal UTM value `utmi_p`."
-              },
-              "utmiPart": {
-                "type": "string",
-                "description": "Internal UTM value `utmi_pc`."
-              },
-              "marketingTags": {
-                "type": "array",
-                "description": "Marketing tags information. This field can be used to register campaign data or informative tags regarding promotions.",
-                "items": {
-                  "type": "string",
-                  "description": "Marketing tag."
-                }
-              }
-            },
-            "nullable": true
-          },
-          "ratesAndBenefitsData": {
-            "$ref": "#/components/schemas/RatesAndBenefitsData"
-          },
-          "shippingData": {
-            "$ref": "#/components/schemas/ShippingData"
-          },
-          "paymentData": {
-            "$ref": "#/components/schemas/PaymentData"
-          },
-          "packageAttachment": {
-            "$ref": "#/components/schemas/PackageAttachment"
-          },
-          "sellers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Seller"
-            },
-            "description": "List of all sellers associated with the order."
-          },
-          "callCenterOperatorData": {
-            "type": "string",
-            "nullable": true,
-            "description": "Call center operator responsible for the order."
-          },
-          "followUpEmail": {
-            "type": "string",
-            "description": "Email of the store's employee responsible for managing the order."
-          },
-          "lastMessage": {
-            "type": "string",
-            "nullable": true,
-            "description": "Last sent transactional message."
-          },
-          "hostname": {
-            "type": "string",
-            "description": "Account Hostname registered in License Manager."
-          },
-          "invoiceData": {
-            "type": "object",
-            "nullable": true,
-            "description": "Information pertinent to the order's invoice."
-          },
-          "changesAttachment": {
-            "$ref": "#/components/schemas/ChangesAttachment"
-          },
-          "openTextField": {
-            "type": "string",
-            "nullable": true,
-            "description": "Optional field with order's additional information. This field must be filled in using the following format: \n\r```\n\r{\r\n    \"fieldExample\": \"ValueExample\"\r\n  }\n\r```\n\r."
-          },
-          "roundingError": {
-            "type": "integer",
-            "description": "Rounding error total amount, if it applies. For example, in orders with a discount over non-integer multiplier items, the rounding price is performed per item, not after the sum of all items. That can cause a difference in the total discount amount, which is informed in this field."
-          },
-          "orderFormId": {
-            "type": "string",
-            "description": "[Order form](https://developers.vtex.com/docs/guides/orderform-fields) ID."
-          },
-          "commercialConditionData": {
-            "type": "string",
-            "nullable": true,
-            "description": "Information about commercial conditions."
-          },
-          "isCompleted": {
-            "type": "boolean",
-            "description": "When set as `true`, the order's payment has been settled, and when set as `false`, it has not been settled yet."
-          },
-          "customData": {
-            "type": "string",
-            "nullable": true,
-            "description": "Custom information in the order. This field is useful for storing data not included in other fields, for example, a message for a gift or a name to be printed in a shirt."
-          },
-          "storePreferencesData": {
-            "$ref": "#/components/schemas/StorePreferencesData"
-          },
-          "allowCancellation": {
-            "type": "boolean",
-            "description": "When set as `true`, the order can be canceled, and when set as `false`, it is no longer possible to cancel the order."
-          },
-          "allowEdition": {
-            "type": "boolean",
-            "description": "When set as `true`, the order can be edited, and when set as `false`, it is no longer possible to edit the order."
-          },
-          "isCheckedIn": {
-            "type": "boolean",
-            "description": "This field is set `true` when the order was made via inStore and `false` when it was not."
-          },
-          "marketplace": {
-            "$ref": "#/components/schemas/Marketplace"
-          },
-          "authorizedDate": {
-            "type": "string",
-            "description": "Authorized order date."
-          },
-          "invoicedDate": {
-            "type": "string",
-            "nullable": true,
-            "description": "Order's invoice date."
-          },
-          "cancelReason": {
-            "type": "string",
-            "nullable": true,
-            "description": "Reason for order cancellation."
-          },
-          "itemMetadata": {
-            "$ref": "#/components/schemas/ItemMetadata"
-          },
-          "subscriptionData": {
-            "$ref": "#/components/schemas/SubscriptionData"
-          },
-          "taxData": {
-            "$ref": "#/components/schemas/TaxData"
-          },
-          "checkedInPickupPointId": {
-            "type": "string",
-            "description": "If the field `isCheckedIn` is set as `true`, the `checkedInPickupPointId` will retrieve the ID of the physical store where the order was made."
-          },
-          "cancellationData": {
-            "$ref": "#/components/schemas/CancellationData"
-          },
-          "clientPreferencesData": {
-            "$ref": "#/components/schemas/ClientPreferencesData"
-          },
-          "cancellationRequests": {
-            "type": "array",
-            "description": "Details of cancellation requests made for the order.",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "description": "ID of the cancellation request."
-                },
-                "reason": {
-                  "type": "string",
-                  "description": "Reason for the cancellation request."
-                },
-                "cancellationRequestDate": {
-                  "type": "string",
-                  "description": "Date when the cancellation was requested."
-                },
-                "requestedByUser": {
-                  "type": "boolean",
-                  "description": "Indicates if the request was made by the user."
-                },
-                "deniedBySeller": {
-                  "type": "boolean",
-                  "description": "Indicates if the cancellation request was denied by the seller."
-                },
-                "deniedBySellerReason": {
-                  "type": "string",
-                  "nullable": true,
-                  "description": "Reason for denial by the seller."
-                },
-                "cancellationRequestDenyDate": {
-                  "type": "string",
-                  "nullable": true,
-                  "description": "Date when the cancellation request was denied."
-                }
-              }
-            }
-          }
-        }
-      },
       "ItemMetadata": {
         "type": "object",
         "description": "Metadata information about the order's items.",
@@ -52482,7 +53399,7 @@
           "example": "schema"
         }
       }
-    }
-  },
-  "tags": []
+    },
+    "tags": []
+  }
 }

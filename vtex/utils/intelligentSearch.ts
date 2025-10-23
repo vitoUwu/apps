@@ -1,7 +1,11 @@
 import { setCookie } from "std/http/mod.ts";
 import { AppContext } from "../mod.ts";
 import { STALE } from "../../utils/fetch.ts";
-import type { SelectedFacet, Sort } from "../utils/types.ts";
+import type {
+  SelectedFacet,
+  SimulationBehavior,
+  Sort,
+} from "../utils/types.ts";
 
 export const SESSION_COOKIE = "vtex_is_session";
 export const ANONYMOUS_COOKIE = "vtex_is_anonymous";
@@ -46,7 +50,7 @@ interface Params {
   fuzzy: string;
   locale: string;
   hideUnavailableItems: boolean;
-  simulationBehavior: "default" | "skip" | "only1P";
+  simulationBehavior: SimulationBehavior;
   zipCode?: string;
   pickupPoint?: string;
 }
