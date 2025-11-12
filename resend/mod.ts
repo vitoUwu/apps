@@ -12,7 +12,7 @@ export interface EmailFrom {
 }
 export interface Props {
   /**@title API KEY Resend  */
-  apiKey?: Secret;
+  apiKey?: string | Secret;
   /**
    * @title Sender Options | Default
    */
@@ -31,10 +31,10 @@ export interface State extends Props {
   apiWrite: ReturnType<typeof createHttpClient<ResendApi>>;
 }
 /**
- * @name Resend
+ * @appName resend
  * @title Resend
- * @description Send emails using resend.com
- * @logo https://mintlify.s3-us-west-1.amazonaws.com/resend/_generated/favicon/apple-touch-icon.png?v=3
+ * @description Send transactional or marketing emails with a reliable delivery API.
+ * @logo https://assets.decocache.com/mcp/932e4c3a-6045-40af-9fd1-42894bdd138e/Resend.svg
  */
 export default function App({
   apiKey,
@@ -44,12 +44,12 @@ export default function App({
   },
   emailTo,
   subject = "Contato via app resend",
-}: State): App<Manifest, State> {
+}: Props) {
   const apiKeyToken = typeof apiKey === "string"
     ? apiKey
     : apiKey?.get?.() ?? "";
   const apiWrite = createHttpClient<ResendApi>({
-    base: "https://api.resend.com/emails",
+    base: "https://api.resend.com",
     fetcher: fetchSafe,
     headers: new Headers({
       Authorization: `Bearer ${apiKeyToken}`,
@@ -69,7 +69,7 @@ export default function App({
   };
   return app;
 }
-export type AppContext = AC<ReturnType<typeof App>>;
+export type AppContext = AC<App<Manifest, State>>;
 export const preview = async () => {
   const markdownContent = await Markdown(
     new URL("./README.md", import.meta.url).href,
