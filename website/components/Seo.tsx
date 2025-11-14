@@ -40,6 +40,21 @@ export interface Props {
    */
   noIndexing?: boolean;
 
+  /** @title Open Graph Config */
+  openGraphConfig?: {
+    title?: string;
+    description?: string;
+    image?: ImageWidget;
+    url?: string;
+  };
+
+  /** @title Twitter Config */
+  twitterConfig?: {
+    title?: string;
+    description?: string;
+    image?: ImageWidget;
+  };
+
   jsonLDs?: unknown[];
 }
 
@@ -54,11 +69,30 @@ function Component({
   themeColor,
   canonical,
   noIndexing,
+  openGraphConfig,
+  twitterConfig,
   jsonLDs = [],
 }: Props) {
   const twitterCard = type === "website" ? "summary" : "summary_large_image";
-  const description = stripHTML(desc || "");
+
   const title = stripHTML(t);
+  const description = stripHTML(desc || "");
+
+  const twitterImage = twitterConfig?.image ?? image;
+  const twitterTitle = twitterConfig?.title
+    ? stripHTML(twitterConfig.title)
+    : title;
+  const twitterDescription = twitterConfig?.description
+    ? stripHTML(twitterConfig.description)
+    : description;
+
+  const openGraphImage = openGraphConfig?.image ?? image;
+  const openGraphTitle = openGraphConfig?.title
+    ? stripHTML(openGraphConfig.title)
+    : title;
+  const openGraphDescription = openGraphConfig?.description
+    ? stripHTML(openGraphConfig.description)
+    : description;
 
   return (
     <Head>
@@ -73,19 +107,23 @@ function Component({
       {favicon && <link rel="icon" href={favicon} />}
 
       {/* Twitter tags */}
-      {title && <meta property="twitter:title" content={title} />}
-      {description && (
-        <meta property="twitter:description" content={description} />
+      {twitterTitle && <meta property="twitter:title" content={twitterTitle} />}
+      {twitterDescription && (
+        <meta property="twitter:description" content={twitterDescription} />
       )}
-      {image && <meta property="twitter:image" content={image} />}
+      {twitterImage && <meta property="twitter:image" content={twitterImage} />}
       {twitterCard && <meta property="twitter:card" content={twitterCard} />}
 
       {/* OpenGraph tags */}
-      {title && <meta property="og:title" content={title} />}
-      {description && <meta property="og:description" content={description} />}
+      {openGraphTitle && <meta property="og:title" content={openGraphTitle} />}
+      {openGraphDescription && (
+        <meta property="og:description" content={openGraphDescription} />
+      )}
       {type && <meta property="og:type" content={type} />}
-      {image && <meta property="og:image" content={image} />}
-      {canonical && <meta property="og:url" content={canonical} />}
+      {openGraphImage && <meta property="og:image" content={openGraphImage} />}
+      {Boolean(openGraphConfig?.url || canonical) && (
+        <meta property="og:url" content={openGraphConfig?.url ?? canonical} />
+      )}
 
       {/* Link tags */}
       {canonical && <link rel="canonical" href={canonical} />}

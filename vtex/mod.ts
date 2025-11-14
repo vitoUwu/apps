@@ -7,6 +7,7 @@ import {
   type ManifestOf,
 } from "@deco/deco";
 import { Matcher } from "@deco/deco/blocks";
+import { Suggestion } from "../commerce/types.ts";
 import { Markdown } from "../decohub/components/Markdown.tsx";
 import { createGraphqlClient } from "../utils/graphql.ts";
 import { createHttpClient } from "../utils/http.ts";
@@ -24,6 +25,7 @@ import { OpenAPI as VPAY } from "./utils/openapi/payments.openapi.gen.ts";
 import { OpenAPI as SUB } from "./utils/openapi/subscriptions.openapi.gen.ts";
 import { OpenAPI as VCS } from "./utils/openapi/vcs.openapi.gen.ts";
 import { Segment } from "./utils/types.ts";
+
 export type App = ReturnType<typeof VTEX>;
 export type AppContext = AC<App>;
 export type AppManifest = ManifestOf<App>;
@@ -98,7 +100,18 @@ export interface Props {
    * @title Cached Search Terms
    * @description List of search terms that should be cached. By default, search results are not cached.
    */
-  cachedSearchTerms?: string[];
+  cachedSearchTerms?: {
+    /**
+     * @title Terms
+     * @description List of search terms that should be cached. Use the top searches loader to get the terms.
+     */
+    terms?: Suggestion;
+    /**
+     * @title Extra Paths
+     * @description List of extra terms that should be cached.
+     */
+    extraTerms?: string[];
+  };
 }
 export const color = 0xf71963;
 /**
@@ -180,6 +193,13 @@ export default function VTEX(
     headers: headers,
   });
 
+  const cachedSearchTerms = [
+    ...(props.cachedSearchTerms?.terms?.searches ?? []).map((search) =>
+      search.term
+    ),
+    ...(props.cachedSearchTerms?.extraTerms ?? []),
+  ];
+
   const state = {
     ...props,
     salesChannel: salesChannel ?? "1",
@@ -194,7 +214,7 @@ export default function VTEX(
     secure,
     vpay,
     sub,
-    cachedSearchTerms: props.cachedSearchTerms ?? [],
+    cachedSearchTerms,
   };
   const app: A<Manifest, typeof state, [
     ReturnType<typeof workflow>,

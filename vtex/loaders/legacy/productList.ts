@@ -289,8 +289,8 @@ export const cacheKey = (
   const cachedSearchTerms = ctx.cachedSearchTerms ?? [];
   if (
     // Avoid cache on loader call over call and on search pages
-    (searchTerm &&
-      !cachedSearchTerms.includes(searchTerm)) || ctx.isInvoke
+    (!isTermProps(props) && searchTerm &&
+      !cachedSearchTerms.includes(searchTerm.toLowerCase())) || ctx.isInvoke
   ) {
     return null;
   }
