@@ -39,11 +39,19 @@ const isImageOptmizationEnabled = () =>
     ? (globalThis as any).DECO?.featureFlags?.enableImageOptimization
     : Deno.env.get("ENABLE_IMAGE_OPTIMIZATION") !== "false";
 
-const isAzionAssetsEnabled = () =>
-  IS_BROWSER
-    // deno-lint-ignore no-explicit-any
-    ? (globalThis as any).DECO?.featureFlags?.azionAssets
-    : Deno.env.get("ENABLE_AZION_ASSETS") !== "false";
+const isAzionAssetsEnabled = () => false;
+let warningShown = false;
+if (!warningShown) {
+  console.warn(
+    "\n\x1b[33mAzion assets are forced to be disabled until we find a better solution to handle SVGs.\x1b[0m\n",
+  );
+  warningShown = true;
+}
+// const isAzionAssetsEnabled = () =>
+//   IS_BROWSER
+//     // deno-lint-ignore no-explicit-any
+//     ? (globalThis as any).DECO?.featureFlags?.azionAssets
+//     : Deno.env.get("ENABLE_AZION_ASSETS") !== "false";
 
 const canShowWarning = () =>
   IS_BROWSER ? false : !Deno.env.get("DENO_DEPLOYMENT_ID");
