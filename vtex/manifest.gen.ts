@@ -76,41 +76,42 @@ import * as $$$19 from "./loaders/legacy/productListingPage.ts";
 import * as $$$20 from "./loaders/legacy/relatedProductsLoader.ts";
 import * as $$$21 from "./loaders/legacy/suggestions.ts";
 import * as $$$22 from "./loaders/logistics/getSalesChannelById.ts";
-import * as $$$23 from "./loaders/logistics/listPickupPoints.ts";
-import * as $$$24 from "./loaders/logistics/listPickupPointsByLocation.ts";
-import * as $$$25 from "./loaders/logistics/listSalesChannelById.ts";
-import * as $$$26 from "./loaders/logistics/listStockByStore.ts";
-import * as $$$27 from "./loaders/masterdata/searchDocuments.ts";
-import * as $$$28 from "./loaders/navbar.ts";
-import * as $$$29 from "./loaders/options/productIdByTerm.ts";
-import * as $$$30 from "./loaders/orders/getById.ts";
-import * as $$$31 from "./loaders/orders/list.ts";
-import * as $$$32 from "./loaders/orders/order.ts";
-import * as $$$33 from "./loaders/orders/orderplaced.ts";
-import * as $$$34 from "./loaders/paths/PDPDefaultPath.ts";
-import * as $$$35 from "./loaders/paths/PLPDefaultPath.ts";
-import * as $$$36 from "./loaders/payment/paymentSystems.ts";
-import * as $$$37 from "./loaders/payment/userPayments.ts";
-import * as $$$38 from "./loaders/payments/info.ts";
-import * as $$$39 from "./loaders/payments/userPayments.ts";
-import * as $$$40 from "./loaders/product/extend.ts";
-import * as $$$41 from "./loaders/product/extensions/detailsPage.ts";
-import * as $$$42 from "./loaders/product/extensions/list.ts";
-import * as $$$43 from "./loaders/product/extensions/listingPage.ts";
-import * as $$$44 from "./loaders/product/extensions/suggestions.ts";
-import * as $$$45 from "./loaders/product/wishlist.ts";
-import * as $$$46 from "./loaders/profile/getCurrentProfile.ts";
-import * as $$$47 from "./loaders/profile/getProfileByEmail.ts";
-import * as $$$48 from "./loaders/profile/passwordLastUpdate.ts";
-import * as $$$49 from "./loaders/promotion/getPromotionById.ts";
-import * as $$$50 from "./loaders/proxy.ts";
-import * as $$$51 from "./loaders/session/getSession.ts";
-import * as $$$52 from "./loaders/session/getUserSessions.ts";
-import * as $$$53 from "./loaders/sessions/info.ts";
-import * as $$$54 from "./loaders/user.ts";
-import * as $$$55 from "./loaders/wishlist.ts";
-import * as $$$56 from "./loaders/workflow/product.ts";
-import * as $$$57 from "./loaders/workflow/products.ts";
+import * as $$$23 from "./loaders/logistics/listHolidays.ts";
+import * as $$$24 from "./loaders/logistics/listPickupPoints.ts";
+import * as $$$25 from "./loaders/logistics/listPickupPointsByLocation.ts";
+import * as $$$26 from "./loaders/logistics/listSalesChannelById.ts";
+import * as $$$27 from "./loaders/logistics/listStockByStore.ts";
+import * as $$$28 from "./loaders/masterdata/searchDocuments.ts";
+import * as $$$29 from "./loaders/navbar.ts";
+import * as $$$30 from "./loaders/options/productIdByTerm.ts";
+import * as $$$31 from "./loaders/orders/getById.ts";
+import * as $$$32 from "./loaders/orders/list.ts";
+import * as $$$33 from "./loaders/orders/order.ts";
+import * as $$$34 from "./loaders/orders/orderplaced.ts";
+import * as $$$35 from "./loaders/paths/PDPDefaultPath.ts";
+import * as $$$36 from "./loaders/paths/PLPDefaultPath.ts";
+import * as $$$37 from "./loaders/payment/paymentSystems.ts";
+import * as $$$38 from "./loaders/payment/userPayments.ts";
+import * as $$$39 from "./loaders/payments/info.ts";
+import * as $$$40 from "./loaders/payments/userPayments.ts";
+import * as $$$41 from "./loaders/product/extend.ts";
+import * as $$$42 from "./loaders/product/extensions/detailsPage.ts";
+import * as $$$43 from "./loaders/product/extensions/list.ts";
+import * as $$$44 from "./loaders/product/extensions/listingPage.ts";
+import * as $$$45 from "./loaders/product/extensions/suggestions.ts";
+import * as $$$46 from "./loaders/product/wishlist.ts";
+import * as $$$47 from "./loaders/profile/getCurrentProfile.ts";
+import * as $$$48 from "./loaders/profile/getProfileByEmail.ts";
+import * as $$$49 from "./loaders/profile/passwordLastUpdate.ts";
+import * as $$$50 from "./loaders/promotion/getPromotionById.ts";
+import * as $$$51 from "./loaders/proxy.ts";
+import * as $$$52 from "./loaders/session/getSession.ts";
+import * as $$$53 from "./loaders/session/getUserSessions.ts";
+import * as $$$54 from "./loaders/sessions/info.ts";
+import * as $$$55 from "./loaders/user.ts";
+import * as $$$56 from "./loaders/wishlist.ts";
+import * as $$$57 from "./loaders/workflow/product.ts";
+import * as $$$58 from "./loaders/workflow/products.ts";
 import * as $$$$$$0 from "./sections/Analytics/Vtex.tsx";
 import * as $$$$$$$$$$0 from "./workflows/events.ts";
 import * as $$$$$$$$$$1 from "./workflows/product/index.ts";
@@ -140,41 +141,42 @@ const manifest = {
     "vtex/loaders/legacy/relatedProductsLoader.ts": $$$20,
     "vtex/loaders/legacy/suggestions.ts": $$$21,
     "vtex/loaders/logistics/getSalesChannelById.ts": $$$22,
-    "vtex/loaders/logistics/listPickupPoints.ts": $$$23,
-    "vtex/loaders/logistics/listPickupPointsByLocation.ts": $$$24,
-    "vtex/loaders/logistics/listSalesChannelById.ts": $$$25,
-    "vtex/loaders/logistics/listStockByStore.ts": $$$26,
-    "vtex/loaders/masterdata/searchDocuments.ts": $$$27,
-    "vtex/loaders/navbar.ts": $$$28,
-    "vtex/loaders/options/productIdByTerm.ts": $$$29,
-    "vtex/loaders/orders/getById.ts": $$$30,
-    "vtex/loaders/orders/list.ts": $$$31,
-    "vtex/loaders/orders/order.ts": $$$32,
-    "vtex/loaders/orders/orderplaced.ts": $$$33,
-    "vtex/loaders/paths/PDPDefaultPath.ts": $$$34,
-    "vtex/loaders/paths/PLPDefaultPath.ts": $$$35,
-    "vtex/loaders/payment/paymentSystems.ts": $$$36,
-    "vtex/loaders/payment/userPayments.ts": $$$37,
-    "vtex/loaders/payments/info.ts": $$$38,
-    "vtex/loaders/payments/userPayments.ts": $$$39,
-    "vtex/loaders/product/extend.ts": $$$40,
-    "vtex/loaders/product/extensions/detailsPage.ts": $$$41,
-    "vtex/loaders/product/extensions/list.ts": $$$42,
-    "vtex/loaders/product/extensions/listingPage.ts": $$$43,
-    "vtex/loaders/product/extensions/suggestions.ts": $$$44,
-    "vtex/loaders/product/wishlist.ts": $$$45,
-    "vtex/loaders/profile/getCurrentProfile.ts": $$$46,
-    "vtex/loaders/profile/getProfileByEmail.ts": $$$47,
-    "vtex/loaders/profile/passwordLastUpdate.ts": $$$48,
-    "vtex/loaders/promotion/getPromotionById.ts": $$$49,
-    "vtex/loaders/proxy.ts": $$$50,
-    "vtex/loaders/session/getSession.ts": $$$51,
-    "vtex/loaders/session/getUserSessions.ts": $$$52,
-    "vtex/loaders/sessions/info.ts": $$$53,
-    "vtex/loaders/user.ts": $$$54,
-    "vtex/loaders/wishlist.ts": $$$55,
-    "vtex/loaders/workflow/product.ts": $$$56,
-    "vtex/loaders/workflow/products.ts": $$$57,
+    "vtex/loaders/logistics/listHolidays.ts": $$$23,
+    "vtex/loaders/logistics/listPickupPoints.ts": $$$24,
+    "vtex/loaders/logistics/listPickupPointsByLocation.ts": $$$25,
+    "vtex/loaders/logistics/listSalesChannelById.ts": $$$26,
+    "vtex/loaders/logistics/listStockByStore.ts": $$$27,
+    "vtex/loaders/masterdata/searchDocuments.ts": $$$28,
+    "vtex/loaders/navbar.ts": $$$29,
+    "vtex/loaders/options/productIdByTerm.ts": $$$30,
+    "vtex/loaders/orders/getById.ts": $$$31,
+    "vtex/loaders/orders/list.ts": $$$32,
+    "vtex/loaders/orders/order.ts": $$$33,
+    "vtex/loaders/orders/orderplaced.ts": $$$34,
+    "vtex/loaders/paths/PDPDefaultPath.ts": $$$35,
+    "vtex/loaders/paths/PLPDefaultPath.ts": $$$36,
+    "vtex/loaders/payment/paymentSystems.ts": $$$37,
+    "vtex/loaders/payment/userPayments.ts": $$$38,
+    "vtex/loaders/payments/info.ts": $$$39,
+    "vtex/loaders/payments/userPayments.ts": $$$40,
+    "vtex/loaders/product/extend.ts": $$$41,
+    "vtex/loaders/product/extensions/detailsPage.ts": $$$42,
+    "vtex/loaders/product/extensions/list.ts": $$$43,
+    "vtex/loaders/product/extensions/listingPage.ts": $$$44,
+    "vtex/loaders/product/extensions/suggestions.ts": $$$45,
+    "vtex/loaders/product/wishlist.ts": $$$46,
+    "vtex/loaders/profile/getCurrentProfile.ts": $$$47,
+    "vtex/loaders/profile/getProfileByEmail.ts": $$$48,
+    "vtex/loaders/profile/passwordLastUpdate.ts": $$$49,
+    "vtex/loaders/promotion/getPromotionById.ts": $$$50,
+    "vtex/loaders/proxy.ts": $$$51,
+    "vtex/loaders/session/getSession.ts": $$$52,
+    "vtex/loaders/session/getUserSessions.ts": $$$53,
+    "vtex/loaders/sessions/info.ts": $$$54,
+    "vtex/loaders/user.ts": $$$55,
+    "vtex/loaders/wishlist.ts": $$$56,
+    "vtex/loaders/workflow/product.ts": $$$57,
+    "vtex/loaders/workflow/products.ts": $$$58,
   },
   "handlers": {
     "vtex/handlers/sitemap.ts": $$$$0,
