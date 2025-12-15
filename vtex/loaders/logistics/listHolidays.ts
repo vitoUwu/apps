@@ -30,3 +30,4 @@ export const cache = {
 export const cacheKey = (_props: unknown, _req: Request, _ctx: AppContext) => {
   return "logistics-holidays";
 };
+export const defaultVisibility = "private";
