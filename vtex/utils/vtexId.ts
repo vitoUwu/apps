@@ -31,6 +31,7 @@ export const parseCookie = (headers: Headers, account: string) => {
 
   return {
     cookie: stringify(cookies),
+    cookies,
     payload,
   };
 };
