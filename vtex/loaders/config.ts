@@ -12,6 +12,7 @@ export type Config = {
   sp: ReturnType<typeof createHttpClient<SP>>;
   io: ReturnType<typeof createGraphqlClient>;
   vcs: ReturnType<typeof createHttpClient<VCS>>;
+  vcsDeprecated: ReturnType<typeof createHttpClient<VCS>>;
   my: ReturnType<typeof createHttpClient<MY>>;
   api: ReturnType<typeof createHttpClient<API>>;
   vpay: ReturnType<typeof createHttpClient<VPAY>>;
@@ -30,6 +31,7 @@ const loader = (_props: unknown, _req: Request, ctx: AppContext): Config => ({
   api: ctx.api,
   vpay: ctx.vpay,
   sub: ctx.sub,
+  vcsDeprecated: ctx.vcsDeprecated as unknown as typeof ctx.vcs,
 });
 
 export default loader;
