@@ -182,7 +182,7 @@ export interface VTEXCommerceStable {
     };
   };
   "POST /api/checkout/pub/orderForm": {
-    searchParams: { sc?: string };
+    searchParams: { sc?: string; forceNewCart?: boolean };
     response: OrderForm;
   };
   "GET /api/checkout/pub/orderForm/:orderFormId/installments": {

@@ -9,6 +9,7 @@ import { forceHttpsOnAssets } from "../utils/transform.ts";
 interface Props {
   orderformId?: string;
   ignoreSetCookie?: boolean;
+  forceNewCart?: boolean;
 }
 
 /**
@@ -28,7 +29,7 @@ const loader = async (
   const segment = getSegmentFromBag(ctx);
 
   const response = await vcsDeprecated["POST /api/checkout/pub/orderForm"](
-    { sc: segment?.payload?.channel },
+    { sc: segment?.payload?.channel, forceNewCart: props.forceNewCart || false },
     { headers: { cookie } },
   );
 
