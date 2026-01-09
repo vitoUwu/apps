@@ -4,9 +4,20 @@ import { MarketingData } from "./types.ts";
 
 const VTEX_CHECKOUT_COOKIE = "checkout.vtex.com";
 
-export const parseCookie = (headers: Headers) => {
+interface ParseCookieOptions {
+  overwrite?: {
+    orderformId?: string;
+  };
+}
+
+export const parseCookie = (
+  headers: Headers,
+  options?: ParseCookieOptions,
+) => {
   const cookies = getCookies(headers);
-  const ofidCookie = cookies[VTEX_CHECKOUT_COOKIE];
+  const ofidCookie = options?.overwrite?.orderformId
+    ? `__ofid=${options.overwrite.orderformId}`
+    : cookies[VTEX_CHECKOUT_COOKIE];
 
   /**
    * There are two cookies present for VTEX Auth:

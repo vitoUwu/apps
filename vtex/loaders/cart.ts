@@ -6,18 +6,25 @@ import type { MarketingData, OrderForm } from "../utils/types.ts";
 import { DEFAULT_EXPECTED_SECTIONS } from "../actions/cart/removeItemAttachment.ts";
 import { forceHttpsOnAssets } from "../utils/transform.ts";
 
+interface Props {
+  orderformId?: string;
+  ignoreSetCookie?: boolean;
+}
+
 /**
  * @docs https://developers.vtex.com/docs/api-reference/checkout-api#get-/api/checkout/pub/orderForm
  * @title Get Cart
  * @description Get the cart from the user logged in
  */
 const loader = async (
-  _props: unknown,
+  props: Props,
   req: Request,
   ctx: AppContext,
 ): Promise<OrderForm> => {
   const { vcsDeprecated } = ctx;
-  const { cookie } = parseCookie(req.headers);
+  const { cookie } = parseCookie(req.headers, {
+    overwrite: { orderformId: props.orderformId },
+  });
   const segment = getSegmentFromBag(ctx);
 
   const response = await vcsDeprecated["POST /api/checkout/pub/orderForm"](
@@ -27,7 +34,11 @@ const loader = async (
 
   const result = response.json();
 
-  proxySetCookie(response.headers, ctx.response.headers, req.url);
+  if (!props.ignoreSetCookie) {
+    proxySetCookie(response.headers, ctx.response.headers, req.url);
+  } else {
+    response.headers.delete("set-cookie");
+  }
 
   if (!segment?.payload) {
     return forceHttpsOnAssets((await result) as OrderForm);
