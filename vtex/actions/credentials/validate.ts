@@ -13,7 +13,7 @@ export default async function action(
   props: Props,
   req: Request,
   ctx: AppContext,
-): Promise<{ valid: boolean }> {
+): Promise<{ valid: true; id: string } | { valid: false }> {
   const { cookies } = parseCookie(req.headers, ctx.account);
   const autCookie = cookies[`VtexIdclientAutCookie_${ctx.account}`];
   const token = props.token || autCookie;
@@ -26,6 +26,7 @@ export default async function action(
 
     return {
       valid: response.authStatus === "Success",
+      id: response.id!,
     };
   } catch (error) {
     if (error instanceof HttpError && error.status === 401) {
