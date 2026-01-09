@@ -1,8 +1,14 @@
+import { OpenAPI as CHECKOUT } from "./openapi/checkout.openapi.gen.ts";
+import { OpenAPI as LOGISTICS } from "./openapi/logistics.openapi.gen.ts";
 import { OpenAPI } from "./openapi/orders.openapi.gen.ts";
 import {
   ChangesAttachment,
+  OpenAPI as _VCS,
   PaymentData as PaymentDataOpenAPI,
 } from "./openapi/vcs.openapi.gen.ts";
+import { OpenAPI as VTEXID } from "./openapi/vtexid.openapi.gen.ts";
+
+export type VCS = _VCS & LOGISTICS & VTEXID & CHECKOUT;
 
 /**
  * @format dynamic-options

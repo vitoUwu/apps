@@ -23,12 +23,7 @@ import { OpenAPI as API } from "./utils/openapi/api.openapi.gen.ts";
 import { OpenAPI as MY } from "./utils/openapi/my.openapi.gen.ts";
 import { OpenAPI as VPAY } from "./utils/openapi/payments.openapi.gen.ts";
 import { OpenAPI as SUB } from "./utils/openapi/subscriptions.openapi.gen.ts";
-import { OpenAPI as _VCS } from "./utils/openapi/vcs.openapi.gen.ts";
-import { OpenAPI as VTEXID } from "./utils/openapi/vtexid.openapi.gen.ts";
-import { OpenAPI as CHECKOUT } from "./utils/openapi/checkout.openapi.gen.ts";
-import { OpenAPI as LOGISTICS } from "./utils/openapi/logistics.openapi.gen.ts";
-
-type VCS = _VCS & LOGISTICS & VTEXID & CHECKOUT;
+import { VCS } from "./utils/types.ts";
 
 import { Segment } from "./utils/types.ts";
 
