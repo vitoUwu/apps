@@ -145,12 +145,13 @@ export const setISCookiesBag = (
 export const isFilterParam = (keyFilter: string): boolean =>
   keyFilter.startsWith("filter.");
 
-const segmentsFromTerm = (term: string) => term.split("/").filter(Boolean);
+const segmentsFromPath = (url: string) =>
+  new URL(url, "http://localhost").pathname.split("/").filter(Boolean);
 
 const segmentsFromSearchParams = (url: string) => {
   const searchParams = new URLSearchParams(url).entries();
 
-  const categories = Array.from(searchParams).toSorted()
+  const filters = Array.from(searchParams).toSorted()
     .reduce((acc, [key, value]) => {
       if (key.includes("filter.category")) {
         acc.push(value);
@@ -159,14 +160,48 @@ const segmentsFromSearchParams = (url: string) => {
       return acc;
     }, [] as string[]);
 
-  return categories.length ? categories : segmentsFromTerm(url);
+  return filters;
+};
+
+const segmentsFromUrl = (url: string): string[] => {
+  const fromPath = segmentsFromPath(url).map((p) => p.toLowerCase());
+  const fromSearchParams = segmentsFromSearchParams(url).map((s) =>
+    s.toLowerCase()
+  );
+
+  if (!fromSearchParams.length) {
+    return fromPath;
+  }
+
+  if (!fromPath.length) {
+    return fromSearchParams;
+  }
+
+  fromSearchParams.push(
+    ...fromPath.filter((p) => !fromSearchParams.some((s) => s === p)),
+  );
+
+  return fromSearchParams.sort((a, b) => {
+    const indexOfA = fromPath.indexOf(a);
+    const indexOfB = fromPath.indexOf(b);
+
+    if (indexOfB === -1) {
+      return -1;
+    }
+
+    if (indexOfA === -1) {
+      return 1;
+    }
+
+    return 0;
+  });
 };
 
 export const pageTypesFromUrl = async (
   url: string,
   ctx: AppContext,
 ) => {
-  const segments = segmentsFromSearchParams(url);
+  const segments = segmentsFromUrl(url);
   const { vcsDeprecated } = ctx;
 
   return await Promise.all(
