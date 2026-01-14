@@ -177,24 +177,15 @@ const segmentsFromUrl = (url: string): string[] => {
     return fromSearchParams;
   }
 
-  fromSearchParams.push(
-    ...fromPath.filter((p) => !fromSearchParams.some((s) => s === p)),
-  );
+  const segments = [...fromPath];
 
-  return fromSearchParams.sort((a, b) => {
-    const indexOfA = fromPath.indexOf(a);
-    const indexOfB = fromPath.indexOf(b);
-
-    if (indexOfB === -1) {
-      return -1;
+  for (const segment of fromSearchParams) {
+    if (!segments.includes(segment)) {
+      segments.push(segment);
     }
+  }
 
-    if (indexOfA === -1) {
-      return 1;
-    }
-
-    return 0;
-  });
+  return segments;
 };
 
 export const pageTypesFromUrl = async (
