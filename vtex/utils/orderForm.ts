@@ -1,4 +1,4 @@
-import { Cookie, getCookies } from "std/http/mod.ts";
+import { Cookie, getCookies, getSetCookies } from "std/http/mod.ts";
 import { stringify } from "./cookies.ts";
 import { MarketingData } from "./types.ts";
 
@@ -10,10 +10,22 @@ interface ParseCookieOptions {
   };
 }
 
-export const parseCookie = (
-  headers: Headers,
-  options?: ParseCookieOptions,
+export const getCheckoutVtexCookie = (headers: Headers) => {
+  const cookies = getSetCookies(headers);
+  return cookies.find((cookie) => cookie.name === VTEX_CHECKOUT_COOKIE)?.value;
+};
+
+export const safelySetCheckoutVtexCookie = (
+  cookieString: string,
+  orderFormId: string,
 ) => {
+  if (cookieString.includes(VTEX_CHECKOUT_COOKIE)) {
+    return cookieString;
+  }
+  return `${cookieString}; ${VTEX_CHECKOUT_COOKIE}=${orderFormId}`;
+};
+
+export const parseCookie = (headers: Headers, options?: ParseCookieOptions) => {
   const cookies = getCookies(headers);
   const ofidCookie = options?.overwrite?.orderformId
     ? `__ofid=${options.overwrite.orderformId}`
