@@ -217,7 +217,8 @@ export const getOptimizedMediaUrl = (opts: OptimizationOptions) => {
       canShowWarning() &&
       !originalSrc.startsWith(
         "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage",
-      )
+      ) &&
+      !originalSrc.startsWith("https://assets.decocache.com")
     ) {
       console.warn(
         `The following image ${originalSrc} requires automatic image optimization, but it's currently disabled. This may incur in additional costs. Please contact deco.cx for more information.`,
