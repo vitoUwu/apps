@@ -8,6 +8,7 @@ import {
   FitOptions,
   getEarlyHintFromSrcProps,
   getSrcSet,
+  type QualityOptions,
   type SetEarlyHint,
 } from "./Image.tsx";
 
@@ -33,6 +34,8 @@ type SourceProps =
     fetchPriority?: "high" | "low" | "auto";
     /** @description Object-fit */
     fit?: FitOptions;
+    /** @description Quality */
+    quality?: QualityOptions;
     setEarlyHint?: SetEarlyHint;
   };
 
@@ -47,6 +50,7 @@ export const Source = forwardRef<HTMLSourceElement, SourceProps>(
       props.height,
       props.fit,
       shouldSetEarlyHint ? FACTORS.slice(-1) : FACTORS,
+      props.quality,
     );
     const linkProps = {
       imagesrcset: srcSet,
@@ -67,6 +71,7 @@ export const Source = forwardRef<HTMLSourceElement, SourceProps>(
           height: props.height,
           fetchpriority: props.fetchPriority,
           src: props.src,
+          quality: props.quality,
         }),
       );
     }
