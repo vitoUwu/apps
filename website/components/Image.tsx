@@ -178,6 +178,13 @@ const optimizeMagento = (opts: OptimizationOptions) => {
   return url.href;
 };
 
+const DECO_DOMAINS = [
+  "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage",
+  "https://assets.decocache.com",
+  "https://data.decoassets.com",
+  "https://deco-sites-assets.s3",
+];
+
 export const getOptimizedMediaUrl = (opts: OptimizationOptions) => {
   const { originalSrc, width, height, fit, quality } = opts;
 
@@ -215,10 +222,7 @@ export const getOptimizedMediaUrl = (opts: OptimizationOptions) => {
 
     if (
       canShowWarning() &&
-      !originalSrc.startsWith(
-        "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage",
-      ) &&
-      !originalSrc.startsWith("https://assets.decocache.com")
+      !DECO_DOMAINS.some((domain) => originalSrc.startsWith(domain))
     ) {
       console.warn(
         `The following image ${originalSrc} requires automatic image optimization, but it's currently disabled. This may incur in additional costs. Please contact deco.cx for more information.`,
