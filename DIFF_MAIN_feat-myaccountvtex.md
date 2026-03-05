@@ -4,53 +4,65 @@
 
 - Branch atual: `feat/myaccountvtex`
 - Base comparada: `main`
-- Merge-base: `c7753c351d58ee313444cf4e10435cb675116b2c`
-- Data da coleta: 2026-02-26
+- Merge-base: `dd694199d49625184876bf6b422a8e886c9d1387`
+- Data da coleta: 2026-03-05
 
 ## Resumo rapido
 
-- Commits a frente da `main`: **92**
-- Arquivos alterados: **69**
-- Status: **44 modificados** e **25 novos**
-- Delta total: **109094 insercoes** e **30657 remocoes**
+- Commits a frente da `main`: **96**
+- Arquivos alterados: **70**
+- Status: **45 modificados** e **25 novos**
+- Delta total: **109137 insercoes** e **30651 remocoes**
 
 ## Onde mudou mais
 
-- `vtex`: 51 arquivos
+- `vtex`: 49 arquivos
 - `power-reviews`: 5 arquivos
 - `website`: 5 arquivos
+- `blog`: 2 arquivos
 - `htmx`: 2 arquivos
 - Outros (`commerce`, `linx`, `shopify`, `vnda`, `wake`, `wap`): 1 arquivo cada
+- Raiz do repo: 1 arquivo (`DIFF_MAIN_feat-myaccountvtex.md`)
 
 ## Pontos de maior impacto (linhas alteradas)
 
 > Observacao: grande parte do volume esta em arquivos OpenAPI gerados.
 
-| Arquivo | Delta |
-| --- | ---: |
-| `vtex/utils/openapi/checkout.openapi.json` | +43725 / -0 |
-| `vtex/utils/openapi/vcs.openapi.json` | +14251 / -22819 |
-| `vtex/utils/openapi/checkout.openapi.gen.ts` | +27614 / -0 |
-| `vtex/utils/openapi/logistics.openapi.json` | +12352 / -0 |
-| `vtex/utils/openapi/vcs.openapi.gen.ts` | +243 / -7310 |
-| `vtex/utils/openapi/logistics.openapi.gen.ts` | +6088 / -0 |
-| `vtex/utils/openapi/vtexid.openapi.json` | +2088 / -0 |
-| `vtex/utils/openapi/vtexid.openapi.gen.ts` | +594 / -0 |
-| `vtex/loaders/intelligentSearch/productListingPage.ts` | +259 / -155 |
-| `vtex/manifest.gen.ts` | +216 / -182 |
+| Arquivo                                                |           Delta |
+| ------------------------------------------------------ | --------------: |
+| `vtex/utils/openapi/checkout.openapi.json`             |     +43725 / -0 |
+| `vtex/utils/openapi/vcs.openapi.json`                  | +14251 / -22819 |
+| `vtex/utils/openapi/checkout.openapi.gen.ts`           |     +27614 / -0 |
+| `vtex/utils/openapi/logistics.openapi.json`            |     +12352 / -0 |
+| `vtex/utils/openapi/vcs.openapi.gen.ts`                |    +243 / -7310 |
+| `vtex/utils/openapi/logistics.openapi.gen.ts`          |      +6088 / -0 |
+| `vtex/utils/openapi/vtexid.openapi.json`               |      +2088 / -0 |
+| `vtex/utils/openapi/vtexid.openapi.gen.ts`             |       +594 / -0 |
+| `vtex/loaders/intelligentSearch/productListingPage.ts` |     +250 / -151 |
+| `vtex/manifest.gen.ts`                                 |     +216 / -182 |
+| `vtex/utils/types.ts`                                  |       +205 / -5 |
 
 ## Mudancas relevantes fora de OpenAPI
 
-- `vtex/loaders/intelligentSearch/productListingPage.ts`: ajustes grandes na logica de PLP e parametros (pickup point, zip-code, filtros, etc.)
-- `vtex/actions/*` e `vtex/loaders/*`: varias adicoes de endpoints para address, sessions, payments, orders, profile e credentials.
-- `vtex/utils/types.ts`: expansao de tipos e contratos.
-- `website/components/Image.tsx` e `website/components/Picture.tsx`: ajustes no pipeline de imagem/render.
-- `website/components/Seo.tsx` e `website/utils/html.ts`: alteracoes em SEO e tratamento de HTML.
-- `power-reviews/*`: novo loader `productReviews` e adaptacoes em listagem/detalhe.
+- `vtex/loaders/intelligentSearch/productListingPage.ts`: ajustes grandes na
+  logica de PLP e parametros (pickup point, zip-code, filtros, etc.).
+- `vtex/actions/*` e `vtex/loaders/*`: adicao/expansao de endpoints para
+  address, sessions, payments, orders, profile e credentials.
+- `vtex/utils/types.ts`: expansao de contratos e tipos.
+- `website/components/Image.tsx` e `website/components/Picture.tsx`: ajustes no
+  pipeline de imagem/render.
+- `website/components/Seo.tsx` e `website/utils/html.ts`: alteracoes em SEO e
+  tratamento de HTML.
+- `power-reviews/*`: novo loader `productReviews` e adaptacoes em
+  listagem/detalhe.
+- `blog/*`: ajustes em `handlePosts` e `Template`.
 
 ## Arquivos alterados (name-status)
 
 ```text
+A	DIFF_MAIN_feat-myaccountvtex.md
+M	blog/core/handlePosts.ts
+M	blog/sections/Template.tsx
 M	commerce/types.ts
 M	htmx/mod.ts
 M	htmx/sections/htmx.tsx
@@ -79,7 +91,6 @@ A	vtex/loaders/address/list.ts
 M	vtex/loaders/cart.ts
 M	vtex/loaders/categories/tree.ts
 M	vtex/loaders/config.ts
-M	vtex/loaders/intelligentSearch/productList.ts
 M	vtex/loaders/intelligentSearch/productListingPage.ts
 A	vtex/loaders/intelligentSearch/searches.ts
 M	vtex/loaders/legacy/productList.ts
@@ -110,7 +121,6 @@ A	vtex/utils/openapi/vtexid.openapi.gen.ts
 A	vtex/utils/openapi/vtexid.openapi.json
 M	vtex/utils/orderForm.ts
 M	vtex/utils/segment.ts
-A	vtex/utils/simulationBehavior.ts
 M	vtex/utils/types.ts
 M	vtex/utils/vtexId.ts
 M	wake/loaders/productListingPage.ts
