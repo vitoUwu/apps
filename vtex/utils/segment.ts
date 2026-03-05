@@ -273,10 +273,14 @@ export const setSegmentBag = (
       });
     }
 
+    const hostname = (new URL(req.url)).hostname;
+    const cookieDomain = hostname.startsWith(".") ? hostname : `.${hostname}`;
+
     if (vtex_segment !== token) {
       setCookie(ctx.response.headers, {
         value: token,
         name: SEGMENT_COOKIE_NAME,
+        domain: hostname === "localhost" ? "localhost" : cookieDomain,
         path: "/",
         secure: true,
         httpOnly: true,

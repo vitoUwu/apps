@@ -124,6 +124,7 @@ export const filterPostsBySlugs = (posts: BlogPost[], postSlugs: string[]) =>
 export const filterPostsByTerm = (posts: BlogPost[], term: string) =>
   posts.filter(({ content, excerpt, title }) =>
     [content, excerpt, title].some((field) =>
+      field &&
       field.toLowerCase().includes(term.toLowerCase())
     )
   );
