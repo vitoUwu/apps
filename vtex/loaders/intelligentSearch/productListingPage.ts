@@ -24,7 +24,6 @@ import {
   withSegmentCookie,
 } from "../../utils/segment.ts";
 import { withIsSimilarTo } from "../../utils/similars.ts";
-import { getSkipSimulationBehaviorFromBag } from "../../utils/simulationBehavior.ts";
 import { slugify } from "../../utils/slugify.ts";
 import {
   filtersFromURL,
@@ -165,17 +164,15 @@ export interface Props {
   simulationBehavior?: SimulationBehavior;
 }
 
-const searchArgsOf = (props: Props, url: URL, ctx: AppContext) => {
+const searchArgsOf = (props: Props, url: URL) => {
   const hideUnavailableItems = url.searchParams.has("hideUnavailableItems")
     ? url.searchParams.get("hideUnavailableItems") === "true"
     : props.hideUnavailableItems;
-  const simulationBehavior = getSkipSimulationBehaviorFromBag(ctx)
-    ? "skip" as const
-    : (url.searchParams.get("simulationBehavior") as
-      | "skip"
-      | "default"
-      | "only1P") ||
-      props.simulationBehavior || "default";
+  const simulationBehavior = (url.searchParams.get("simulationBehavior") as
+    | "skip"
+    | "default"
+    | "only1P") ||
+    props.simulationBehavior || "default";
   const countFromSearchParams = url.searchParams.get("PS");
   const count = Number(countFromSearchParams ?? props.count ?? 12);
   const query = props.query ?? url.searchParams.get("q") ?? "";
@@ -303,7 +300,6 @@ const loader = async (
     const { selectedFacets: baseSelectedFacets, page, ...args } = searchArgsOf(
       props,
       url,
-      ctx,
     );
     let pathToUse = url.href.replace(url.origin, "");
 
@@ -561,9 +557,8 @@ export const cacheKey = (props: Props, req: Request, ctx: AppContext) => {
     ["segment", segment ?? ""],
     [
       "simulationBehavior",
-      getSkipSimulationBehaviorFromBag(ctx)
-        ? "skip"
-        : props.simulationBehavior || "default",
+      url.searchParams.get("simulationBehavior") || props.simulationBehavior ||
+      "default",
     ],
     [
       "zipcode",

@@ -13,7 +13,6 @@ import {
   withSegmentCookie,
 } from "../../utils/segment.ts";
 import { withIsSimilarTo } from "../../utils/similars.ts";
-import { getSkipSimulationBehaviorFromBag } from "../../utils/simulationBehavior.ts";
 import { sortProducts, toProduct } from "../../utils/transform.ts";
 import type {
   Item,
@@ -214,14 +213,8 @@ const loader = async (
   req: Request,
   ctx: AppContext,
 ): Promise<Product[] | null> => {
-  const _props = expandedProps.props ??
+  const props = expandedProps.props ??
     (expandedProps as unknown as Props["props"]);
-  const props = {
-    ..._props,
-    simulationBehavior: getSkipSimulationBehaviorFromBag(ctx)
-      ? "skip"
-      : _props.simulationBehavior || "default",
-  };
   const { vcsDeprecated } = ctx;
   const { url } = req;
   const segment = getSegmentFromBag(ctx);
@@ -319,14 +312,8 @@ export const cacheKey = (
   req: Request,
   ctx: AppContext,
 ) => {
-  const _props = expandedProps.props ??
+  const props = expandedProps.props ??
     (expandedProps as unknown as Props["props"]);
-  const props = {
-    ..._props,
-    simulationBehavior: getSkipSimulationBehaviorFromBag(ctx)
-      ? "skip"
-      : _props.simulationBehavior || "default",
-  };
 
   const url = new URL(req.url);
 

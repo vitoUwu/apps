@@ -3,10 +3,8 @@ import {
   type AppContext as AC,
   type AppMiddlewareContext as AMC,
   type AppRuntime,
-  asResolved,
   type ManifestOf,
 } from "@deco/deco";
-import { Matcher } from "@deco/deco/blocks";
 import { Suggestion } from "../commerce/types.ts";
 import { Markdown } from "../decohub/components/Markdown.tsx";
 import { createGraphqlClient } from "../utils/graphql.ts";
@@ -89,10 +87,6 @@ export interface Props {
    * @hide true
    */
   platform: "vtex";
-  /**
-   * @title Skip Simulation Behavior
-   */
-  skipSimulationBehavior?: Matcher;
   advancedConfigs?: {
     doNotFetchVariantsForRelatedProducts?: boolean;
     /**
@@ -242,15 +236,5 @@ export const preview = async (props: AppRuntime) => {
       ...props,
       markdownContent,
     },
-  };
-};
-export const onBeforeResolveProps = (props: Props) => {
-  const skipSimulationBehavior = props.skipSimulationBehavior
-    ? asResolved(props.skipSimulationBehavior, false)
-    : undefined;
-
-  return {
-    ...props,
-    skipSimulationBehavior,
   };
 };
