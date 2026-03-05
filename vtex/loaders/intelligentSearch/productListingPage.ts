@@ -297,6 +297,10 @@ const loader = async (
     span?.setAttribute("url", url.href);
     const segment = getSegmentFromBag(ctx);
     const currentPageoffset = props.pageOffset ?? 1;
+
+    props.simulationBehavior = props.simulationBehavior ||
+      ctx.advancedConfigs?.simulationBehavior || "default";
+
     const { selectedFacets: baseSelectedFacets, page, ...args } = searchArgsOf(
       props,
       url,
@@ -558,6 +562,7 @@ export const cacheKey = (props: Props, req: Request, ctx: AppContext) => {
     [
       "simulationBehavior",
       url.searchParams.get("simulationBehavior") || props.simulationBehavior ||
+      ctx.advancedConfigs?.simulationBehavior ||
       "default",
     ],
     [

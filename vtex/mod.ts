@@ -21,7 +21,7 @@ import { OpenAPI as API } from "./utils/openapi/api.openapi.gen.ts";
 import { OpenAPI as MY } from "./utils/openapi/my.openapi.gen.ts";
 import { OpenAPI as VPAY } from "./utils/openapi/payments.openapi.gen.ts";
 import { OpenAPI as SUB } from "./utils/openapi/subscriptions.openapi.gen.ts";
-import { VCS } from "./utils/types.ts";
+import { SimulationBehavior, VCS } from "./utils/types.ts";
 
 import { Segment } from "./utils/types.ts";
 
@@ -94,6 +94,12 @@ export interface Props {
      * @description Remove UTM from cache key to prevent cache fragmentation.
      */
     removeUTMFromCacheKey?: boolean;
+    /**
+     * @title Simulation Behavior
+     * @description Defines the default simulation behavior value.
+     * @default default
+     */
+    simulationBehavior?: SimulationBehavior;
   };
 
   /**
