@@ -970,6 +970,15 @@ export interface SpecificationGroup {
   }>;
 }
 
+export interface CorrectionSearchResult {
+  correction: {
+    correction: boolean;
+    misspelled: boolean;
+    text?: string;
+    highlighted?: string;
+  };
+}
+
 export type FilterType = RangeFacet["type"] | BooleanFacet["type"];
 
 export interface FacetSearchResult {

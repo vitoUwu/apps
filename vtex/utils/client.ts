@@ -3,6 +3,7 @@ import {
   AuthResponse,
   Brand,
   Category,
+  CorrectionSearchResult,
   CreateNewDocument,
   FacetSearchResult,
   InstallmentOption,
@@ -168,7 +169,13 @@ export interface VTEXCommerceStable {
       "zip-code"?: string;
     };
   };
-
+  "GET /api/io/_v/api/intelligent-search/correction_search": {
+    response: CorrectionSearchResult;
+    searchParams: {
+      query: string;
+      locale?: string;
+    };
+  };
   "GET /api/checkout/changeToAnonymousUser/:orderFormId": {
     response: OrderForm;
     searchParams: { sc?: string };
