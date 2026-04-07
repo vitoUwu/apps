@@ -95,7 +95,6 @@ function Events({ deco }: {
   return (
     <Head>
       <script
-        defer
         id="deco-events"
         src={useScriptAsDataURI(snippet, {
           deco,

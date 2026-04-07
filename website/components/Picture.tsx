@@ -5,6 +5,7 @@ import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 
 import {
   FACTORS,
+  FitOptions,
   getEarlyHintFromSrcProps,
   getSrcSet,
   type QualityOptions,
@@ -31,6 +32,8 @@ type SourceProps =
     preload?: boolean;
     /** @description Improves Web Vitals (LCP). Use high for LCP image. Auto for other images */
     fetchPriority?: "high" | "low" | "auto";
+    /** @description Object-fit */
+    fit?: FitOptions;
     /** @description Quality */
     quality?: QualityOptions;
     setEarlyHint?: SetEarlyHint;
@@ -45,7 +48,7 @@ export const Source = forwardRef<HTMLSourceElement, SourceProps>(
       props.src,
       props.width,
       props.height,
-      undefined,
+      props.fit,
       shouldSetEarlyHint ? FACTORS.slice(-1) : FACTORS,
       props.quality,
     );

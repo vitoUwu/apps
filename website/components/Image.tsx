@@ -36,7 +36,7 @@ export type Props =
 
 export const FACTORS = [1, 2];
 
-type FitOptions = "contain" | "cover";
+export type FitOptions = "contain" | "cover";
 
 // By default we use the platform image optimization, with functions like:
 // optimizeVTEX, optimizeWake, optmizeShopify
@@ -49,12 +49,19 @@ const bypassPlatformImageOptimization = () =>
     ? (globalThis as any).DECO?.featureFlags?.bypassPlatformImageOptimization
     : Deno.env.get("BYPASS_PLATFORM_IMAGE_OPTIMIZATION") === "true";
 
-// Default is true
-const isAzionAssetsEnabled = () =>
-  IS_BROWSER
-    // deno-lint-ignore no-explicit-any
-    ? (globalThis as any).DECO?.featureFlags?.azionAssets
-    : Deno.env.get("ENABLE_AZION_ASSETS") !== "false";
+const isAzionAssetsEnabled = () => false;
+let warningShown = false;
+if (!warningShown) {
+  console.warn(
+    "\n\x1b[33mAzion assets are forced to be disabled until we find a better solution to handle SVGs.\x1b[0m\n",
+  );
+  warningShown = true;
+}
+// const isAzionAssetsEnabled = () =>
+//   IS_BROWSER
+//     // deno-lint-ignore no-explicit-any
+//     ? (globalThis as any).DECO?.featureFlags?.azionAssets
+//     : Deno.env.get("ENABLE_AZION_ASSETS") !== "false";
 
 // Default is false
 const bypassDecoImageOptimization = () =>
