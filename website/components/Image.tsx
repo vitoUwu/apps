@@ -1,11 +1,27 @@
 import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import type { JSX } from "preact";
 import { forwardRef } from "preact/compat";
-import { Manifest } from "../manifest.gen.ts";
 
-export const PATH: `/live/invoke/${keyof Manifest["loaders"]}` =
-  "/live/invoke/website/loaders/image.ts";
-const ASSET_URLS_TO_REPLACE = [
+const DEFAULT_CDN_HOST = "https://decoims.com";
+
+// CDN host can be overridden via DECO_CDN_HOST env var (server) or
+// window.DECO.featureFlags.cdnHost (browser, injected by Events.tsx).
+const getCdnHost = (): string => {
+  if (IS_BROWSER) {
+    // deno-lint-ignore no-explicit-any
+    return (globalThis as any).DECO?.featureFlags?.cdnHost ?? DEFAULT_CDN_HOST;
+  }
+  return Deno.env.get("DECO_CDN_HOST") ?? DEFAULT_CDN_HOST;
+};
+
+// Strip these prefixes before passing the remainder to the CDN's `?src=` so
+// the worker hits GCS directly instead of doing an absolute-URL hop. The
+// configured CDN host is included so a non-default DECO_CDN_HOST still
+// strips correctly; the GCS deco-assets bucket is kept unconditionally as a
+// well-known origin.
+const getAssetUrlPrefixesToStrip = (): readonly string[] => [
+  `${getCdnHost()}/`,
+  "https://storage.googleapis.com/deco-assets/",
   "https://assets.decocache.com/",
   "https://deco-sites-assets.s3.sa-east-1.amazonaws.com/",
   "https://data.decoassets.com/",
@@ -48,20 +64,6 @@ const bypassPlatformImageOptimization = () =>
     // deno-lint-ignore no-explicit-any
     ? (globalThis as any).DECO?.featureFlags?.bypassPlatformImageOptimization
     : Deno.env.get("BYPASS_PLATFORM_IMAGE_OPTIMIZATION") === "true";
-
-const isAzionAssetsEnabled = () => false;
-let warningShown = false;
-if (!warningShown) {
-  console.warn(
-    "\n\x1b[33mAzion assets are forced to be disabled until we find a better solution to handle SVGs.\x1b[0m\n",
-  );
-  warningShown = true;
-}
-// const isAzionAssetsEnabled = () =>
-//   IS_BROWSER
-//     // deno-lint-ignore no-explicit-any
-//     ? (globalThis as any).DECO?.featureFlags?.azionAssets
-//     : Deno.env.get("ENABLE_AZION_ASSETS") !== "false";
 
 // Default is false
 const bypassDecoImageOptimization = () =>
@@ -220,23 +222,20 @@ export const getOptimizedMediaUrl = (opts: OptimizationOptions) => {
   params.set("fit", fit);
   params.set("width", `${width}`);
   height && params.set("height", `${height}`);
+  quality && params.set("quality", quality);
 
-  if (isAzionAssetsEnabled()) {
-    // only accepted for Azion for now
-    quality && params.set("quality", quality);
+  // Strip known CDN prefixes so the worker can hit GCS directly instead of
+  // doing an absolute-URL hop. Anything left (path + any query string —
+  // signed URLs, cache busters, etc.) is preserved verbatim through
+  // URLSearchParams encoding and recovered on the worker via
+  // searchParams.get("src").
+  const src = getAssetUrlPrefixesToStrip().reduce(
+    (acc, url) => acc.replace(url, ""),
+    opts.originalSrc,
+  );
+  params.set("src", src);
 
-    const originalSrc = ASSET_URLS_TO_REPLACE.reduce(
-      (acc, url) => acc.replace(url, ""),
-      opts.originalSrc,
-    );
-    const imageSource = originalSrc.split("?")[0];
-    // src is being passed separately to avoid URL encoding issues
-    return `https://deco-assets.edgedeco.com/image?${params}&src=${imageSource}`;
-  }
-
-  params.set("src", originalSrc);
-
-  return `${PATH}?${params}`;
+  return `${getCdnHost()}/image?${params}`;
 };
 
 export const getSrcSet = (
