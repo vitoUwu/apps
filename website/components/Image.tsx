@@ -52,7 +52,7 @@ export type Props =
 
 export const FACTORS = [1, 2];
 
-type FitOptions = "contain" | "cover";
+export type FitOptions = "contain" | "cover";
 
 // By default we use the platform image optimization, with functions like:
 // optimizeVTEX, optimizeWake, optmizeShopify

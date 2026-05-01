@@ -13,6 +13,7 @@ interface User {
   document?: string;
   homePhone?: string;
   businessPhone?: string;
+  birthDate?: string;
 }
 
 /**
@@ -32,7 +33,7 @@ async function loader(
   }
 
   const query =
-    "query getUserProfile { profile { id userId email firstName lastName profilePicture gender document homePhone businessPhone }}";
+    "query getUserProfile { profile { id userId email firstName lastName profilePicture gender document homePhone businessPhone birthDate }}";
 
   try {
     const { profile: user } = await io.query<{ profile: User }, null>(
@@ -41,17 +42,16 @@ async function loader(
     );
 
     return {
-      "@id": user.userId ?? user.id,
+      "@id": user?.userId ?? user.id,
       email: user.email,
-      givenName: user.firstName,
-      familyName: user.lastName,
+      givenName: user?.firstName,
+      familyName: user?.lastName,
       taxID: user?.document?.replace(/[^\d]/g, ""),
-      gender: user.gender
-        ? user.gender === "f"
-          ? "https://schema.org/Female"
-          : "https://schema.org/Male"
-        : undefined,
-      telephone: user.homePhone ?? user.businessPhone,
+      gender: user?.gender === "female"
+        ? "https://schema.org/Female"
+        : "https://schema.org/Male",
+      telephone: user?.homePhone ?? user?.businessPhone,
+      birthDate: user?.birthDate,
     };
   } catch (_) {
     return null;
