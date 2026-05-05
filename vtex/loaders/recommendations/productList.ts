@@ -86,13 +86,7 @@ export default async function loader(
 
     const origin = getOrigin(req, ctx.account, props["x-vtex-rec-origin"]);
     const segment = getSegmentFromBag(ctx);
-    let { userId } = parseCookie(req.headers);
-
-    if (ctx.advancedConfigs?.autoStartRecommendationSession && !userId) {
-      const response = await ctx.invoke.vtex.actions.recommendation
-        .startSession();
-      userId = response.recommendationsUserId;
-    }
+    const { userId } = parseCookie(req.headers);
 
     const campaignType = campaignTypeMap[props.campaignType];
     const campaignVrn =
