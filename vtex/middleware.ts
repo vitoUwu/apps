@@ -1,5 +1,6 @@
 import { PAGE_DIRTY_KEY } from "@deco/deco/blocks";
 import { getCookies } from "std/http/cookie.ts";
+import startSession from "./actions/recommendation/startSession.ts";
 import { AppMiddlewareContext } from "./mod.ts";
 import {
   getISCookiesFromBag,
@@ -51,9 +52,12 @@ export const middleware = async (
 
   const { sessionStart } = parseRecommendationCookies(req.headers);
   if (ctx.advancedConfigs?.autoStartRecommendationSession && !sessionStart) {
-    const response = await ctx.invoke.vtex.actions.recommendation
-      .startSession();
-    ctx.bag.set(RECOMMENDATIONS_USER_ID_KEY, response.recommendationsUserId);
+    try {
+      const response = await startSession({}, req, ctx);
+      ctx.bag.set(RECOMMENDATIONS_USER_ID_KEY, response.recommendationsUserId);
+    } catch (_) {
+      //
+    }
   }
 
   return ctx.next!();
