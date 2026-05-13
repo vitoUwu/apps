@@ -1,3 +1,4 @@
+import { Context } from "@deco/deco";
 import { PAGE_DIRTY_KEY } from "@deco/deco/blocks";
 import { getCookies } from "std/http/cookie.ts";
 import startSession from "./actions/recommendation/startSession.ts";
@@ -51,12 +52,20 @@ export const middleware = async (
   }
 
   const { sessionStart } = parseRecommendationCookies(req.headers);
-  if (ctx.advancedConfigs?.autoStartRecommendationSession && !sessionStart) {
+  // This "isReady" check prevents session creation attempt while the runtime is still instantiating
+  // installed apps and resolving props as this middleware runs before every vtex block resolution
+  const isReady = !!Context?.active()?.instance?.readyAt;
+  if (
+    ctx.advancedConfigs?.autoStartRecommendationSession && !sessionStart &&
+    isReady
+  ) {
     try {
       const response = await startSession({}, req, ctx);
       ctx.bag.set(RECOMMENDATIONS_USER_ID_KEY, response.recommendationsUserId);
-    } catch (_) {
-      //
+    } catch (error) {
+      if (!(error instanceof Error) || error.name !== "AbortError") {
+        console.error(error);
+      }
     }
   }
 
