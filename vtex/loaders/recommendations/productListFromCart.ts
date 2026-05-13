@@ -1,8 +1,8 @@
 import type { AppContext } from "../../mod.ts";
 import type { ProductListToId } from "../../utils/types.ts";
 
-function isUnique<T>(item: T, index: number, array: T[]): boolean {
-  return array.indexOf(item) === index;
+function makeUnique<T extends unknown>(array: T[]): T[] {
+  return [...new Set<T>(array)];
 }
 
 /**
@@ -19,5 +19,5 @@ export default async function loader(
     return [];
   }
 
-  return cart.items.map(({ productId }) => productId).filter(isUnique);
+  return makeUnique(cart.items.map(({ productId }) => productId));
 }
