@@ -20,10 +20,10 @@ import { fetchSafe } from "./utils/fetchVTEX.ts";
 import { OpenAPI as API } from "./utils/openapi/api.openapi.gen.ts";
 import { OpenAPI as MY } from "./utils/openapi/my.openapi.gen.ts";
 import { OpenAPI as VPAY } from "./utils/openapi/payments.openapi.gen.ts";
+import { OpenAPI as BFF } from "./utils/openapi/recommendations-bff.openapi.gen.ts";
 import { OpenAPI as SUB } from "./utils/openapi/subscriptions.openapi.gen.ts";
-import { SimulationBehavior, VCS } from "./utils/types.ts";
-
-import { Segment } from "./utils/types.ts";
+import { OpenAPI as VCS } from "./utils/openapi/vcs.openapi.gen.ts";
+import { Segment, SimulationBehavior } from "./utils/types.ts";
 
 export type App = ReturnType<typeof VTEX>;
 export type AppContext = AC<App>;
@@ -100,6 +100,12 @@ export interface Props {
      * @default default
      */
     simulationBehavior?: SimulationBehavior;
+    /*
+     * @title Auto Start Recommendation Session
+     * @description This automatically starts the recommendation session if the recommendation ID is not present in the product recommendations loader, this might lead to a performance impact for the very first request when the user doesn't have a session yet.
+     * @default false
+     */
+    autoStartRecommendationSession?: boolean;
   };
 
   /**
@@ -198,6 +204,11 @@ export default function VTEX(
     fetcher: fetchSafe,
     headers: headers,
   });
+  const bff = createHttpClient<BFF>({
+    base: `https://api.vtexcommercestable.com.br`,
+    processHeaders: removeDirtyCookies,
+    fetcher: fetchSafe,
+  });
 
   const cachedSearchTerms = [
     ...(props.cachedSearchTerms?.terms?.searches ?? []).map((search) =>
@@ -220,6 +231,7 @@ export default function VTEX(
     secure,
     vpay,
     sub,
+    bff,
     cachedSearchTerms,
   };
   const app: A<Manifest, typeof state, [
