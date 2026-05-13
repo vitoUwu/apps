@@ -13,14 +13,15 @@ export function getOrigin(req: Request, account: string, fallback?: string) {
   return origin || fallback || `${account}/storefront/deco.recommendations@1.x`;
 }
 
-export const VTEX_RECOMMENDATIONS_USER_ID_COOKIE = "vtex-rec-user-id";
-export const VTEX_RECOMMENDATIONS_START_SESSION_COOKIE = "vtex-rec-user-id";
+export const RECOMMENDATIONS_USER_ID_COOKIE = "vtex-rec-user-id";
+export const RECOMMENDATIONS_START_SESSION_COOKIE =
+  "vtex-rec-user-start-session";
 
 export function parseCookie(headers: Headers) {
   const cookies = getCookies(headers);
 
-  const userId = cookies[VTEX_RECOMMENDATIONS_USER_ID_COOKIE] || undefined;
-  const sessionStart = cookies[VTEX_RECOMMENDATIONS_START_SESSION_COOKIE] ||
+  const userId = cookies[RECOMMENDATIONS_USER_ID_COOKIE] || undefined;
+  const sessionStart = cookies[RECOMMENDATIONS_START_SESSION_COOKIE] ||
     undefined;
 
   return { userId, sessionStart };

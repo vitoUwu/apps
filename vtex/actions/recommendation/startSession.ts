@@ -1,5 +1,5 @@
 import type { AppContext } from "../../mod.ts";
-import { proxySetCookie } from "../../utils/cookies.ts";
+import { getVtexRCMacIdCookie, proxySetCookie } from "../../utils/cookies.ts";
 import { parseCookie as parseOrderformCookie } from "../../utils/orderForm.ts";
 import { parseCookie as parseRecommendationsCookie } from "../../utils/recommendations.ts";
 
@@ -8,17 +8,24 @@ export default async function action(
   req: Request,
   ctx: AppContext,
 ) {
+  const { userId, sessionStart } = parseRecommendationsCookie(req.headers);
+  if (userId && sessionStart) {
+    return { recommendationsUserId: userId };
+  }
+
   const { bff } = ctx;
   const { orderFormId } = parseOrderformCookie(req.headers);
-  const { userId } = parseRecommendationsCookie(req.headers);
-  if (userId) {
-    return { recommendationsUserId: userId };
+  if (!orderFormId) {
+    throw new Error('Missing "orderformId" cookie');
+  }
+  if (!getVtexRCMacIdCookie(req)) {
+    throw new Error('Missing "VtexRCMacIdv7" cookie');
   }
 
   const url = new URL(req.url);
   const host = url.host;
-
   const headers = new Headers();
+
   headers.set(
     "x-vtex-rec-origin",
     `${ctx.account}/storefront/deco.recommendations@1.x`,
